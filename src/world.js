@@ -2,6 +2,7 @@ import * as THREE from '../vendor/three.module.js';
 import { hash, rng, dist } from './layout.js';
 
 const DAY = 86400000;
+const MOVE_KEYS = new Set(['w', 'a', 's', 'd', 'shift', 'arrowup', 'arrowdown', 'arrowleft', 'arrowright']);
 const EYE = 1.7;
 const HOUSE = { w: 7, h: 5, d: 6 };
 // Window slots, in house-local space: ground floor either side of the door,
@@ -400,8 +401,17 @@ export class World {
       if (this.view.mode === 'aerial') this.aerialZoom = clamp((this.aerialZoom || 1) * (1 + e.deltaY * 0.001), 0.45, 1.6);
     }, { passive: true });
     addEventListener('keydown', (e) => {
-      if (e.target.closest && e.target.closest('input, textarea, select, button, a')) return;
-      this.keys.add(e.key.toLowerCase());
+      // Typing in a field or using a dialog never moves you. A focused button
+      // or link (after clicking Above, Lane and so on) only keeps Enter and Space.
+      if (document.querySelector('dialog[open]')) return;
+      const t = e.target.closest ? e.target : null;
+      if (t && t.closest('input, textarea, select, [contenteditable]')) return;
+      if (e.metaKey || e.ctrlKey || e.altKey) return;
+      const k = e.key.toLowerCase();
+      if (!MOVE_KEYS.has(k)) return;
+      if (k.startsWith('arrow') && t && t.closest('.card, .time')) return;   // arrows still scroll the card and move the slider
+      this.keys.add(k);
+      if (k.startsWith('arrow')) e.preventDefault();
     });
     addEventListener('keyup', (e) => this.keys.delete(e.key.toLowerCase()));
     addEventListener('blur', () => this.keys.clear());
