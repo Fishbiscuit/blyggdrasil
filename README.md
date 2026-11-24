@@ -2,7 +2,7 @@
 
 **One tree for everywhere you post.** Your [blyg](https://blygger.org/) is the trunk. Your accounts on X, Bluesky, Mastodon and GitHub are branches, each proven by one line you post there. A key you hold lets the whole tree move with you if a platform drops you.
 
-**[See a tree](https://fishbiscuit.me/blyggdrasil/)** · **[Plant yours](https://fishbiscuit.me/blyggdrasil/new/)** · **[Spec](SPEC.md)**
+**[See a tree](https://fishbiscuit.me/blyggdrasil/)** · **[Plant yours](https://fishbiscuit.me/blyggdrasil/new/)** · **[Spec](SPEC.md)** · **[A live tree: fishbiscuit.me/blyg](https://fishbiscuit.me/blyggdrasil/#blyg=fishbiscuit.me/blyg)**
 
 Blygger was first called Ygg, after Yggdrasil ([the original concept](https://github.com/blygger/blygger-spec/blob/main/docs/ygg-initial-spec.md)). Blyggdrasil gives the tree back its name.
 
@@ -23,6 +23,18 @@ Blygger keeps identity out of its protocol (decision #11), and Blyggdrasil keeps
 - **A signature over `content_hash`.** Every post on [fishbiscuit.me/blyg](https://fishbiscuit.me/blyg/) carries `author.sig`, and the viewer checks it.
 
 #35 becomes a technical note "once one client emits a proof and a second client verifies it". This project is both halves. It also uses TN-6's `author.ids`, §5.10 `syndication`, §10.6 `stub_of` and §16.13's move rule. There are no counts, scores or rankings, and readers must show a claim as a claim.
+
+## A live tree
+
+[fishbiscuit.me/blyg](https://fishbiscuit.me/blyg/) is a static blyg published by this site's own small publisher. Its [tree post](https://fishbiscuit.me/blyg/t/493a5689hjzha73vv1da4ptqd6/) is signed by `did:key:z6MkfzGgts9zCcX3pbij5yLqbEMnCDbHMdz3EDfaimSrMnjf` and names two branches:
+- [an X post](https://x.com/not_qz/status/2125283333731205162) carrying the proof line;
+- [a GitHub gist](https://gist.github.com/Fishbiscuit/ec466b072668659154ab57956359b13f) carrying the proof line.
+
+Every post on that blyg carries `author.sig`, a signature over its `content_hash`. Check it yourself in the [viewer](https://fishbiscuit.me/blyggdrasil/#blyg=fishbiscuit.me/blyg) or with `node bin/blyggdrasil.mjs verify fishbiscuit.me/blyg`.
+
+## Night Walk
+
+[`night-walk/`](night-walk/) is the other half of this hackathon entry. It walks the live Blygger thicket as a village at night: every blyg is a house, and every quote between blygs is a string of lights. It's live at [fishbiscuit.github.io/night-walk](https://fishbiscuit.github.io/night-walk/). Its history, from 24 November, is kept intact here, so both parts of the entry share one repository.
 
 ## Command line
 
@@ -55,6 +67,7 @@ Publish `tree.md` as a post on your blyg. Then point your blyg at it: Blygger St
 | [`assets/world.js`](assets/world.js) | The world tree at night: a procedural 3D tree whose branches light up as each account is verified |
 | [`test/`](test/) | Test vectors and the conformance run: `node --test test/run.mjs` |
 | [`AGENTS.md`](AGENTS.md) | Optional instructions for a coding agent that drives the command line |
+| [`night-walk/`](night-walk/) | Night Walk, the thicket as a village at night |
 
 ## Tests
 
