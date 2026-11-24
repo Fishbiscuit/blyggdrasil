@@ -1,0 +1,277 @@
+{
+  "note": "TEST KEYS ONLY. Never use these keys for anything real.",
+  "rfc8032_test1": {
+    "seed_hex": "9d61b19deffd5a60ba844af492ec2cc44449c5697b326919703bac031cae7f60",
+    "public_hex": "d75a980182b10ab7d54bfed3c964073a0ee172f3daa62325af021a68f707511a",
+    "did": "did:key:z6MktwupdmLXVVqTzCw4i46r4uGyosGXRnR3XjN4Zq7oMMsw",
+    "message_hex": "",
+    "signature_b64url": "5VZDAMNgrHKQhuLMgG6CioSHfx645dl02HPgZSJJAVVfuIIVkKM7rMYeOXAc-bRr0lv18FlbviRlUUFDjnoQCw"
+  },
+  "keys": {
+    "main": {
+      "blyggdrasil_key": 1,
+      "label": "test-main",
+      "did": "did:key:z6MkhZev5NUBbrDxrHAdKLXcSxyyQ6ZBsD5uTEgKehTp4WhB",
+      "jwk": {
+        "kty": "OKP",
+        "crv": "Ed25519",
+        "x": "LjZnwm00hrbp-D8C24_46GRVb7aLehRucjFBeG7LV1Y",
+        "d": "luoknHJhLA3WNpgBUyB2i2he_ZaxW1vTXUDNfR5A6lc"
+      }
+    },
+    "next": {
+      "blyggdrasil_key": 1,
+      "label": "test-next",
+      "did": "did:key:z6MkwBfmzscV9wVwnCACwvmkCAFXXUnq2QYsk8NnSEqYSutE",
+      "jwk": {
+        "kty": "OKP",
+        "crv": "Ed25519",
+        "x": "-Jg3vAIdmQyell_KPvSml289sYhOgaLyi17I_zIqAoM",
+        "d": "42g7I_iRNl-QEDHU-TgwhICTWpE55l4opu1kBuMkKX4"
+      }
+    },
+    "recovery": {
+      "blyggdrasil_key": 1,
+      "label": "test-recovery",
+      "did": "did:key:z6MksmCQ39imYEqQNSjVcQna46wgxpjBPTUJwqZUjBQjVNiy",
+      "jwk": {
+        "kty": "OKP",
+        "crv": "Ed25519",
+        "x": "xcBCqVXoM5lk6d6rQFuCuFITnczVb-HKnDgCi4HLAlY",
+        "d": "w8LInMGrBP0MytyMEnUYHx4uvk6JY9yXMB5xQEfL1es"
+      }
+    },
+    "stranger": {
+      "blyggdrasil_key": 1,
+      "label": "test-stranger",
+      "did": "did:key:z6Mkw3oQkeiT6fgCaT91mtXDTU8axKnsnEHYqXfHn6Hi4gkg",
+      "jwk": {
+        "kty": "OKP",
+        "crv": "Ed25519",
+        "x": "9pQz490qAUqRHNUWbHPJYyT-zEB_ucmVQXn4RPs2Vik",
+        "d": "K81qz9pZwas5jIhXV_6HyrakL3vr0W34zCNBmq1qp5o"
+      }
+    }
+  },
+  "trunk": "https://blyg.example/blyg/",
+  "proof_line": "Blyggdrasil: did:key:z6MkhZev5NUBbrDxrHAdKLXcSxyyQ6ZBsD5uTEgKehTp4WhB https://blyg.example/blyg/",
+  "stranger_proof_line": "Blyggdrasil: did:key:z6Mkw3oQkeiT6fgCaT91mtXDTU8axKnsnEHYqXfHn6Hi4gkg https://other.example/",
+  "trees": {
+    "valid": {
+      "origin": "https://blyg.example/blyg/",
+      "body": "blyggdrasil 1\ntrunk https://blyg.example/blyg/\nkey did:key:z6MkhZev5NUBbrDxrHAdKLXcSxyyQ6ZBsD5uTEgKehTp4WhB\nbranch https://github.com/treeholder\nbranch https://bsky.app/profile/treeholder.example\nbranch https://bsky.app/profile/blyg.example\nbranch https://bsky.app/profile/treeholder.example/post/3lproofpost\nbranch https://social.example/@treeholder\nbranch https://social.example/@treeholder/1099\nbranch https://x.com/treeholder/status/1990000000000000001\nbranch https://x.com/treeholder\nbranch https://www.linkedin.com/in/treeholder\nbranch https://video.example/@treeholder\nrecovery did:key:z6MksmCQ39imYEqQNSjVcQna46wgxpjBPTUJwqZUjBQjVNiy",
+      "content_md": "These accounts are mine.\n\n```blyggdrasil\nblyggdrasil 1\ntrunk https://blyg.example/blyg/\nkey did:key:z6MkhZev5NUBbrDxrHAdKLXcSxyyQ6ZBsD5uTEgKehTp4WhB\nbranch https://github.com/treeholder\nbranch https://bsky.app/profile/treeholder.example\nbranch https://bsky.app/profile/blyg.example\nbranch https://bsky.app/profile/treeholder.example/post/3lproofpost\nbranch https://social.example/@treeholder\nbranch https://social.example/@treeholder/1099\nbranch https://x.com/treeholder/status/1990000000000000001\nbranch https://x.com/treeholder\nbranch https://www.linkedin.com/in/treeholder\nbranch https://video.example/@treeholder\nrecovery did:key:z6MksmCQ39imYEqQNSjVcQna46wgxpjBPTUJwqZUjBQjVNiy\n```\n\n```blyggdrasil-signature\nkey did:key:z6MkhZev5NUBbrDxrHAdKLXcSxyyQ6ZBsD5uTEgKehTp4WhB\nsig xJNRKx4xRtFvjgiqn5IpZoZAKqbvvMFcQSHEZ8GDVvM7-l89HXN07saJGs0Ov0nFp8xCxRFiFsFezkAZezx2Cw\n```"
+    },
+    "rotated": {
+      "origin": "https://blyg.example/blyg/",
+      "body": "blyggdrasil 1\ntrunk https://blyg.example/blyg/\nkey did:key:z6MkwBfmzscV9wVwnCACwvmkCAFXXUnq2QYsk8NnSEqYSutE\nbranch https://github.com/treeholder\nbranch https://bsky.app/profile/treeholder.example\nbranch https://bsky.app/profile/blyg.example\nbranch https://bsky.app/profile/treeholder.example/post/3lproofpost\nbranch https://social.example/@treeholder\nbranch https://social.example/@treeholder/1099\nbranch https://x.com/treeholder/status/1990000000000000001\nbranch https://x.com/treeholder\nbranch https://www.linkedin.com/in/treeholder\nbranch https://video.example/@treeholder\nprevious did:key:z6MkhZev5NUBbrDxrHAdKLXcSxyyQ6ZBsD5uTEgKehTp4WhB",
+      "content_md": "```blyggdrasil\nblyggdrasil 1\ntrunk https://blyg.example/blyg/\nkey did:key:z6MkwBfmzscV9wVwnCACwvmkCAFXXUnq2QYsk8NnSEqYSutE\nbranch https://github.com/treeholder\nbranch https://bsky.app/profile/treeholder.example\nbranch https://bsky.app/profile/blyg.example\nbranch https://bsky.app/profile/treeholder.example/post/3lproofpost\nbranch https://social.example/@treeholder\nbranch https://social.example/@treeholder/1099\nbranch https://x.com/treeholder/status/1990000000000000001\nbranch https://x.com/treeholder\nbranch https://www.linkedin.com/in/treeholder\nbranch https://video.example/@treeholder\nprevious did:key:z6MkhZev5NUBbrDxrHAdKLXcSxyyQ6ZBsD5uTEgKehTp4WhB\n```\n\n```blyggdrasil-signature\nkey did:key:z6MkwBfmzscV9wVwnCACwvmkCAFXXUnq2QYsk8NnSEqYSutE\nsig SiXMejfjI_xjE8FlTz2gt_6HrL_Vd2R-8RrG8sdihovotAHoN2XLMeJLg5tRDC2S7MZ-B3iY-LoouNwi6DMVAg\n```\n\n```blyggdrasil-signature\nkey did:key:z6MkhZev5NUBbrDxrHAdKLXcSxyyQ6ZBsD5uTEgKehTp4WhB\nsig IxZirdVFz4q639msx7PUI0Ew8qvzupKNLxqASC2VDF0ENLpxMJlFq__3jpCxDje2rcCkPBsm7Y_e-fDaVTkaBQ\n```"
+    },
+    "rotated_unsigned_by_previous": {
+      "origin": "https://blyg.example/blyg/",
+      "body": "blyggdrasil 1\ntrunk https://blyg.example/blyg/\nkey did:key:z6MkwBfmzscV9wVwnCACwvmkCAFXXUnq2QYsk8NnSEqYSutE\nbranch https://github.com/treeholder\nbranch https://bsky.app/profile/treeholder.example\nbranch https://bsky.app/profile/blyg.example\nbranch https://bsky.app/profile/treeholder.example/post/3lproofpost\nbranch https://social.example/@treeholder\nbranch https://social.example/@treeholder/1099\nbranch https://x.com/treeholder/status/1990000000000000001\nbranch https://x.com/treeholder\nbranch https://www.linkedin.com/in/treeholder\nbranch https://video.example/@treeholder\nprevious did:key:z6MkhZev5NUBbrDxrHAdKLXcSxyyQ6ZBsD5uTEgKehTp4WhB",
+      "content_md": "```blyggdrasil\nblyggdrasil 1\ntrunk https://blyg.example/blyg/\nkey did:key:z6MkwBfmzscV9wVwnCACwvmkCAFXXUnq2QYsk8NnSEqYSutE\nbranch https://github.com/treeholder\nbranch https://bsky.app/profile/treeholder.example\nbranch https://bsky.app/profile/blyg.example\nbranch https://bsky.app/profile/treeholder.example/post/3lproofpost\nbranch https://social.example/@treeholder\nbranch https://social.example/@treeholder/1099\nbranch https://x.com/treeholder/status/1990000000000000001\nbranch https://x.com/treeholder\nbranch https://www.linkedin.com/in/treeholder\nbranch https://video.example/@treeholder\nprevious did:key:z6MkhZev5NUBbrDxrHAdKLXcSxyyQ6ZBsD5uTEgKehTp4WhB\n```\n\n```blyggdrasil-signature\nkey did:key:z6MkwBfmzscV9wVwnCACwvmkCAFXXUnq2QYsk8NnSEqYSutE\nsig SiXMejfjI_xjE8FlTz2gt_6HrL_Vd2R-8RrG8sdihovotAHoN2XLMeJLg5tRDC2S7MZ-B3iY-LoouNwi6DMVAg\n```"
+    },
+    "recovered": {
+      "origin": "https://blyg.example/blyg/",
+      "body": "blyggdrasil 1\ntrunk https://blyg.example/blyg/\nkey did:key:z6MkwBfmzscV9wVwnCACwvmkCAFXXUnq2QYsk8NnSEqYSutE\nbranch https://github.com/treeholder\nbranch https://bsky.app/profile/treeholder.example\nbranch https://bsky.app/profile/blyg.example\nbranch https://bsky.app/profile/treeholder.example/post/3lproofpost\nbranch https://social.example/@treeholder\nbranch https://social.example/@treeholder/1099\nbranch https://x.com/treeholder/status/1990000000000000001\nbranch https://x.com/treeholder\nbranch https://www.linkedin.com/in/treeholder\nbranch https://video.example/@treeholder\nprevious did:key:z6MkhZev5NUBbrDxrHAdKLXcSxyyQ6ZBsD5uTEgKehTp4WhB\nrecovered-from v1",
+      "content_md": "```blyggdrasil\nblyggdrasil 1\ntrunk https://blyg.example/blyg/\nkey did:key:z6MkwBfmzscV9wVwnCACwvmkCAFXXUnq2QYsk8NnSEqYSutE\nbranch https://github.com/treeholder\nbranch https://bsky.app/profile/treeholder.example\nbranch https://bsky.app/profile/blyg.example\nbranch https://bsky.app/profile/treeholder.example/post/3lproofpost\nbranch https://social.example/@treeholder\nbranch https://social.example/@treeholder/1099\nbranch https://x.com/treeholder/status/1990000000000000001\nbranch https://x.com/treeholder\nbranch https://www.linkedin.com/in/treeholder\nbranch https://video.example/@treeholder\nprevious did:key:z6MkhZev5NUBbrDxrHAdKLXcSxyyQ6ZBsD5uTEgKehTp4WhB\nrecovered-from v1\n```\n\n```blyggdrasil-signature\nkey did:key:z6MkwBfmzscV9wVwnCACwvmkCAFXXUnq2QYsk8NnSEqYSutE\nsig 8rKJDEVol3XiaZkH03R2wjwmO5KXXeWjZsdt_kKDMX14Qnt4LCcOE1Xer7G_tyWeAT8WDEACrN3CQ6uHUy8mDQ\n```\n\n```blyggdrasil-signature\nkey did:key:z6MksmCQ39imYEqQNSjVcQna46wgxpjBPTUJwqZUjBQjVNiy\nsig k-DXTfPiaWieKdxwARMsdpHQptYWOQHtKI91wuYhlhgBNI5UQWJT2l9syFlD4tHbiPfKLdJPuykNQmabgoupBQ\n```"
+    },
+    "recovered_by_stranger": {
+      "origin": "https://blyg.example/blyg/",
+      "body": "blyggdrasil 1\ntrunk https://blyg.example/blyg/\nkey did:key:z6MkwBfmzscV9wVwnCACwvmkCAFXXUnq2QYsk8NnSEqYSutE\nbranch https://github.com/treeholder\nbranch https://bsky.app/profile/treeholder.example\nbranch https://bsky.app/profile/blyg.example\nbranch https://bsky.app/profile/treeholder.example/post/3lproofpost\nbranch https://social.example/@treeholder\nbranch https://social.example/@treeholder/1099\nbranch https://x.com/treeholder/status/1990000000000000001\nbranch https://x.com/treeholder\nbranch https://www.linkedin.com/in/treeholder\nbranch https://video.example/@treeholder\nprevious did:key:z6MkhZev5NUBbrDxrHAdKLXcSxyyQ6ZBsD5uTEgKehTp4WhB\nrecovered-from v1",
+      "content_md": "```blyggdrasil\nblyggdrasil 1\ntrunk https://blyg.example/blyg/\nkey did:key:z6MkwBfmzscV9wVwnCACwvmkCAFXXUnq2QYsk8NnSEqYSutE\nbranch https://github.com/treeholder\nbranch https://bsky.app/profile/treeholder.example\nbranch https://bsky.app/profile/blyg.example\nbranch https://bsky.app/profile/treeholder.example/post/3lproofpost\nbranch https://social.example/@treeholder\nbranch https://social.example/@treeholder/1099\nbranch https://x.com/treeholder/status/1990000000000000001\nbranch https://x.com/treeholder\nbranch https://www.linkedin.com/in/treeholder\nbranch https://video.example/@treeholder\nprevious did:key:z6MkhZev5NUBbrDxrHAdKLXcSxyyQ6ZBsD5uTEgKehTp4WhB\nrecovered-from v1\n```\n\n```blyggdrasil-signature\nkey did:key:z6MkwBfmzscV9wVwnCACwvmkCAFXXUnq2QYsk8NnSEqYSutE\nsig 8rKJDEVol3XiaZkH03R2wjwmO5KXXeWjZsdt_kKDMX14Qnt4LCcOE1Xer7G_tyWeAT8WDEACrN3CQ6uHUy8mDQ\n```\n\n```blyggdrasil-signature\nkey did:key:z6Mkw3oQkeiT6fgCaT91mtXDTU8axKnsnEHYqXfHn6Hi4gkg\nsig L8zjd6FrY7ys9MdttHpYSl5Q4i-LVRAqP-b8dj3slv6-W2dfn2lnW_1TzJGf0FwZ7N_0dsHhp-VMYbj7qA6vCQ\n```"
+    },
+    "wrong_trunk": {
+      "origin": "https://elsewhere.example/blyg/",
+      "body": "blyggdrasil 1\ntrunk https://blyg.example/blyg/\nkey did:key:z6MkhZev5NUBbrDxrHAdKLXcSxyyQ6ZBsD5uTEgKehTp4WhB\nbranch https://github.com/treeholder\nbranch https://bsky.app/profile/treeholder.example\nbranch https://bsky.app/profile/blyg.example\nbranch https://bsky.app/profile/treeholder.example/post/3lproofpost\nbranch https://social.example/@treeholder\nbranch https://social.example/@treeholder/1099\nbranch https://x.com/treeholder/status/1990000000000000001\nbranch https://x.com/treeholder\nbranch https://www.linkedin.com/in/treeholder\nbranch https://video.example/@treeholder\nrecovery did:key:z6MksmCQ39imYEqQNSjVcQna46wgxpjBPTUJwqZUjBQjVNiy",
+      "content_md": "These accounts are mine.\n\n```blyggdrasil\nblyggdrasil 1\ntrunk https://blyg.example/blyg/\nkey did:key:z6MkhZev5NUBbrDxrHAdKLXcSxyyQ6ZBsD5uTEgKehTp4WhB\nbranch https://github.com/treeholder\nbranch https://bsky.app/profile/treeholder.example\nbranch https://bsky.app/profile/blyg.example\nbranch https://bsky.app/profile/treeholder.example/post/3lproofpost\nbranch https://social.example/@treeholder\nbranch https://social.example/@treeholder/1099\nbranch https://x.com/treeholder/status/1990000000000000001\nbranch https://x.com/treeholder\nbranch https://www.linkedin.com/in/treeholder\nbranch https://video.example/@treeholder\nrecovery did:key:z6MksmCQ39imYEqQNSjVcQna46wgxpjBPTUJwqZUjBQjVNiy\n```\n\n```blyggdrasil-signature\nkey did:key:z6MkhZev5NUBbrDxrHAdKLXcSxyyQ6ZBsD5uTEgKehTp4WhB\nsig xJNRKx4xRtFvjgiqn5IpZoZAKqbvvMFcQSHEZ8GDVvM7-l89HXN07saJGs0Ov0nFp8xCxRFiFsFezkAZezx2Cw\n```"
+    },
+    "tampered": {
+      "origin": "https://blyg.example/blyg/",
+      "body": "blyggdrasil 1\ntrunk https://blyg.example/blyg/\nkey did:key:z6MkhZev5NUBbrDxrHAdKLXcSxyyQ6ZBsD5uTEgKehTp4WhB\nbranch https://github.com/treeholder\nbranch https://bsky.app/profile/treeholder.example\nbranch https://bsky.app/profile/blyg.example\nbranch https://bsky.app/profile/treeholder.example/post/3lproofpost\nbranch https://social.example/@treeholder\nbranch https://social.example/@treeholder/1099\nbranch https://x.com/treeholder/status/1990000000000000001\nbranch https://x.com/treeholder\nbranch https://www.linkedin.com/in/treeholder\nbranch https://video.example/@treeholder\nrecovery did:key:z6MksmCQ39imYEqQNSjVcQna46wgxpjBPTUJwqZUjBQjVNiy",
+      "content_md": "These accounts are mine.\n\n```blyggdrasil\nblyggdrasil 1\ntrunk https://blyg.example/blyg/\nkey did:key:z6MkhZev5NUBbrDxrHAdKLXcSxyyQ6ZBsD5uTEgKehTp4WhB\nbranch https://github.com/impostor\nbranch https://bsky.app/profile/treeholder.example\nbranch https://bsky.app/profile/blyg.example\nbranch https://bsky.app/profile/treeholder.example/post/3lproofpost\nbranch https://social.example/@treeholder\nbranch https://social.example/@treeholder/1099\nbranch https://x.com/treeholder/status/1990000000000000001\nbranch https://x.com/treeholder\nbranch https://www.linkedin.com/in/treeholder\nbranch https://video.example/@treeholder\nrecovery did:key:z6MksmCQ39imYEqQNSjVcQna46wgxpjBPTUJwqZUjBQjVNiy\n```\n\n```blyggdrasil-signature\nkey did:key:z6MkhZev5NUBbrDxrHAdKLXcSxyyQ6ZBsD5uTEgKehTp4WhB\nsig xJNRKx4xRtFvjgiqn5IpZoZAKqbvvMFcQSHEZ8GDVvM7-l89HXN07saJGs0Ov0nFp8xCxRFiFsFezkAZezx2Cw\n```"
+    }
+  },
+  "expected_trees": {
+    "valid": {
+      "valid": true,
+      "keys": [
+        "did:key:z6MkhZev5NUBbrDxrHAdKLXcSxyyQ6ZBsD5uTEgKehTp4WhB"
+      ]
+    },
+    "rotated": {
+      "valid": true,
+      "keys": [
+        "did:key:z6MkwBfmzscV9wVwnCACwvmkCAFXXUnq2QYsk8NnSEqYSutE",
+        "did:key:z6MkhZev5NUBbrDxrHAdKLXcSxyyQ6ZBsD5uTEgKehTp4WhB"
+      ]
+    },
+    "rotated_unsigned_by_previous": {
+      "valid": false
+    },
+    "recovered": {
+      "valid": true,
+      "keys": [
+        "did:key:z6MkwBfmzscV9wVwnCACwvmkCAFXXUnq2QYsk8NnSEqYSutE",
+        "did:key:z6MkhZev5NUBbrDxrHAdKLXcSxyyQ6ZBsD5uTEgKehTp4WhB"
+      ],
+      "pinned": {
+        "1": "valid"
+      }
+    },
+    "recovered_by_stranger": {
+      "valid": false,
+      "pinned": {
+        "1": "valid"
+      }
+    },
+    "wrong_trunk": {
+      "valid": false
+    },
+    "tampered": {
+      "valid": false
+    }
+  },
+  "network": {
+    "https://api.github.com/users/treeholder": {
+      "status": 200,
+      "json": {
+        "login": "treeholder",
+        "bio": "I make things. Blyggdrasil: did:key:z6MkhZev5NUBbrDxrHAdKLXcSxyyQ6ZBsD5uTEgKehTp4WhB https://blyg.example/blyg/",
+        "blog": ""
+      }
+    },
+    "https://public.api.bsky.app/xrpc/app.bsky.actor.getProfile?actor=treeholder.example": {
+      "status": 200,
+      "json": {
+        "did": "did:plc:treeholder",
+        "handle": "treeholder.example",
+        "description": "No proof here, just vibes."
+      }
+    },
+    "https://public.api.bsky.app/xrpc/app.bsky.actor.getProfile?actor=blyg.example": {
+      "status": 200,
+      "json": {
+        "did": "did:plc:domainholder",
+        "handle": "blyg.example",
+        "description": ""
+      }
+    },
+    "https://public.api.bsky.app/xrpc/app.bsky.feed.getPosts?uris=at%3A%2F%2Fdid%3Aplc%3Atreeholder%2Fapp.bsky.feed.post%2F3lproofpost": {
+      "status": 200,
+      "json": {
+        "posts": [
+          {
+            "author": {
+              "did": "did:plc:treeholder"
+            },
+            "record": {
+              "text": "My blyg: blyg.example/blyg",
+              "facets": [
+                {
+                  "features": [
+                    {
+                      "$type": "app.bsky.richtext.facet#link",
+                      "uri": "https://blyg.example/blyg/"
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "https://social.example/api/v1/accounts/lookup?acct=treeholder": {
+      "status": 200,
+      "json": {
+        "acct": "treeholder",
+        "note": "<p>Writer.</p>",
+        "fields": [
+          {
+            "name": "Blyg",
+            "value": "<a href=\"https://blyg.example/blyg/\" rel=\"nofollow noopener me\">blyg.example/blyg</a>",
+            "verified_at": "2026-11-20T00:00:00.000Z"
+          }
+        ]
+      }
+    },
+    "https://social.example/api/v1/statuses/1099": {
+      "status": 200,
+      "json": {
+        "account": {
+          "acct": "someoneelse"
+        },
+        "content": "<p>Blyggdrasil: did:key:z6MkhZev5NUBbrDxrHAdKLXcSxyyQ6ZBsD5uTEgKehTp4WhB https://blyg.example/blyg/</p>"
+      }
+    },
+    "https://publish.x.com/oembed?url=https%3A%2F%2Fx.com%2Ftreeholder%2Fstatus%2F1990000000000000001&omit_script=1&dnt=true": {
+      "status": 200,
+      "json": {
+        "author_url": "https://twitter.com/treeholder",
+        "html": "<blockquote class=\"twitter-tweet\"><p lang=\"en\" dir=\"ltr\">Blyggdrasil: did:key:z6MkhZev5NUBbrDxrHAdKLXcSxyyQ6ZBsD5uTEgKehTp4WhB <a href=\"https://t.co/abc\">blyg.example/blyg/</a></p>&mdash; Tree Holder (@treeholder)</blockquote>"
+      }
+    },
+    "https://video.example/api/v1/accounts/lookup?acct=treeholder": {
+      "status": 200,
+      "text": "<!doctype html><title>video</title>"
+    },
+    "https://video.example/@treeholder/blyg.json": {
+      "status": 404,
+      "text": "not found"
+    },
+    "https://video.example/@treeholder": {
+      "status": 200,
+      "text": "<!doctype html><a rel=\"me\" href=\"https://blyg.example/blyg/\">my blyg</a>"
+    }
+  },
+  "expected_branches": {
+    "https://github.com/treeholder": {
+      "verdict": "verified",
+      "method": "key"
+    },
+    "https://bsky.app/profile/treeholder.example": {
+      "verdict": "failed"
+    },
+    "https://bsky.app/profile/blyg.example": {
+      "verdict": "verified",
+      "method": "handle"
+    },
+    "https://bsky.app/profile/treeholder.example/post/3lproofpost": {
+      "verdict": "verified",
+      "method": "link"
+    },
+    "https://social.example/@treeholder": {
+      "verdict": "verified",
+      "method": "link"
+    },
+    "https://social.example/@treeholder/1099": {
+      "verdict": "failed"
+    },
+    "https://x.com/treeholder/status/1990000000000000001": {
+      "verdict": "verified",
+      "method": "key"
+    },
+    "https://x.com/treeholder": {
+      "verdict": "claimed"
+    },
+    "https://www.linkedin.com/in/treeholder": {
+      "verdict": "claimed"
+    },
+    "https://video.example/@treeholder": {
+      "verdict": "verified",
+      "method": "link"
+    },
+    "https://unreachable.example/": {
+      "verdict": "unreachable"
+    }
+  },
+  "byline": {
+    "content_hash": "sha256:9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08",
+    "sig": {
+      "key": "did:key:z6MkhZev5NUBbrDxrHAdKLXcSxyyQ6ZBsD5uTEgKehTp4WhB",
+      "value": "F_X-kD3cU-seupNUtOpuGw4QFXwEVwielueF4aUixZR2Ug3Bdo-kJsCa7f-tordZ39An2mN4J5P0xtvd8ZYyDg"
+    }
+  }
+}
