@@ -1,0 +1,11 @@
+{
+  "name": "blyggdrasil",
+  "version": "0.1.0",
+  "description": "One tree for everywhere you post: connect a Blygger blyg with your accounts elsewhere, prove each link, and keep it through a move.",
+  "type": "module",
+  "license": "MIT",
+  "bin": { "blyggdrasil": "bin/blyggdrasil.mjs" },
+  "exports": { ".": "./lib/blyggdrasil.js", "./resolvers": "./lib/resolvers.js" },
+  "engines": { "node": ">=20" },
+  "scripts": { "test": "node --test test/run.mjs" }
+}
