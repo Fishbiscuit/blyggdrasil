@@ -4,6 +4,10 @@
 
 **[See a tree](https://fishbiscuit.me/blyggdrasil/)** · **[Plant yours](https://fishbiscuit.me/blyggdrasil/new/)** · **[Spec](SPEC.md)** · **[A live tree: fishbiscuit.me/blyg](https://fishbiscuit.me/blyggdrasil/#blyg=fishbiscuit.me/blyg)**
 
+![The world tree at night: fishbiscuit.me/blyg with its GitHub and X branches verified](media/tree.jpg)
+
+[Watch the one-minute demo](https://fishbiscuit.me/blyggdrasil/media/blyggdrasil.mp4), recorded from the live site on 25 November 2026.
+
 Blygger was first called Ygg, after Yggdrasil ([the original concept](https://github.com/blygger/blygger-spec/blob/main/docs/ygg-initial-spec.md)). Blyggdrasil gives the tree back its name.
 
 ## What it does
