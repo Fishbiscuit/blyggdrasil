@@ -2,75 +2,83 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Plant your tree · Blyggdrasil</title>
-<meta name="description" content="Make a key, list your accounts, and publish one signed post on your blyg. Your key is made in this browser and never leaves it.">
-<meta name="theme-color" content="#2f7a4f">
+<meta name="description" content="Make a key, list your accounts and sign one post for your blyg. The key is made in this browser and never leaves it.">
+<meta name="theme-color" content="#0a0e0c">
 <link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="../assets/app.css">
 </head>
 <body>
-<div class="wrap">
-  <header class="top">
-    <a class="mark" href="../"><img src="../assets/mark.svg" alt="" width="30" height="30">Blyggdrasil</a>
-    <nav aria-label="Main"><a href="../">See a tree</a><a href="./" aria-current="page">Plant yours</a><a href="https://github.com/Fishbiscuit/blyggdrasil/blob/main/SPEC.md">Spec</a><a href="https://github.com/Fishbiscuit/blyggdrasil">Source</a></nav>
-  </header>
+<header class="bar">
+  <a class="mark" href="../"><i aria-hidden="true"></i>Blyggdrasil</a>
+  <nav aria-label="Main"><a href="../">See a tree</a><a href="./" aria-current="page">Plant yours</a><a href="https://github.com/Fishbiscuit/blyggdrasil/blob/main/SPEC.md">Spec</a></nav>
+</header>
 
-  <main>
-    <section class="hero">
-      <h1>Plant your tree.</h1>
-      <p>Four steps, about five minutes. Your keys are made in this browser and never leave it: this page sends nothing anywhere except one read of your blyg’s public profile.</p>
+<main class="setup">
+  <div class="steps">
+    <header>
+      <p class="label"><span class="accent">●</span>&nbsp; About five minutes · nothing leaves this browser</p>
+      <h1>Plant your <em>tree.</em></h1>
+      <p>Your key is made here and never sent anywhere. The only thing this page fetches is your blyg’s public profile, and, when you ask, the public pages of the accounts you list.</p>
+    </header>
+
+    <section class="step" id="s1">
+      <span class="n">01</span>
+      <h2>Your blyg</h2>
+      <p>The trunk. No blyg yet? <a href="https://blygger.org/start/">Start one</a> first.</p>
+      <form class="grow" id="f1"><input id="trunk" aria-label="Your blyg address" placeholder="yourname.com/blyg" inputmode="url" spellcheck="false"><button class="btn" type="submit">Find it</button></form>
+      <p class="note" id="trunk-out" role="status"></p>
     </section>
 
-    <ol class="steps panel">
-      <li id="s1">
-        <h3>Your blyg</h3>
-        <p>The trunk of your tree. Don’t have one? <a href="https://blygger.org/start/">Start a blyg</a> first.</p>
-        <form class="row" id="f1"><input class="field" id="trunk" style="flex:1 1 260px" aria-label="Your blyg address" placeholder="yourname.com/blyg" inputmode="url" spellcheck="false"><button class="btn" type="submit">Find it</button></form>
-        <p class="note" id="trunk-out" role="status"></p>
-      </li>
+    <section class="step locked" id="s2">
+      <span class="n">02</span>
+      <h2>Your keys</h2>
+      <p>A <b>main key</b> signs your tree. A <b>recovery key</b>, kept offline, can take over if the main key is ever lost. Anyone holding these files can sign as you, so save them somewhere private.</p>
+      <div class="row"><button class="btn" id="make-keys" type="button">Make my keys</button><label class="btn ghost" for="load-key">Use a key file I have<input id="load-key" type="file" accept="application/json,.json" hidden></label></div>
+      <div id="keys-out" hidden style="margin-top:16px">
+        <pre class="out" id="key-did"></pre>
+        <div class="row"><button class="btn ghost" id="save-main" type="button">Save main key</button><button class="btn ghost" id="save-recovery" type="button">Save recovery key</button></div>
+        <p style="margin-top:14px"><label class="check"><input type="checkbox" id="saved"> I’ve saved my key files</label></p>
+      </div>
+    </section>
 
-      <li id="s2" class="locked">
-        <h3>Your keys</h3>
-        <p>A main key signs your tree. A recovery key, kept offline, can take over if the main key is lost. Save both files somewhere safe: anyone with them can sign as you.</p>
-        <div class="row"><button class="btn" id="make-keys" type="button">Make my keys</button><label class="btn ghost" for="load-key">Use a key file I have<input id="load-key" type="file" accept="application/json,.json" hidden></label></div>
-        <div id="keys-out" hidden>
-          <pre class="out" id="key-did"></pre>
-          <div class="row"><button class="btn ghost" id="save-main" type="button">Save main key</button><button class="btn ghost" id="save-recovery" type="button">Save recovery key</button></div>
-          <p class="note"><label><input type="checkbox" id="saved"> I’ve saved my key files.</label></p>
-        </div>
-      </li>
+    <section class="step locked" id="s3">
+      <span class="n">03</span>
+      <h2>Your branches</h2>
+      <p>Put this line on each account, in your bio or in a post:</p>
+      <pre class="out" id="proof-line"></pre>
+      <div class="row" style="margin-bottom:18px"><button class="btn ghost" id="copy-proof" type="button">Copy the line</button></div>
+      <p>Then list the accounts, one per line. <b>GitHub, Bluesky, Mastodon:</b> your profile address, if the line is in your bio. <b>X:</b> the address of the post with the line, because X profiles can’t be read publicly. A GitHub gist named <code>blyggdrasil.txt</code> works too.</p>
+      <textarea class="field" id="branches" aria-label="Your accounts, one per line" placeholder="https://github.com/you&#10;https://bsky.app/profile/you.bsky.social&#10;https://x.com/you/status/1234567890"></textarea>
+      <div class="row" style="margin-top:14px"><button class="btn ghost" id="check" type="button">Check my proof lines</button></div>
+      <p class="note" id="branches-out" role="status"></p>
+    </section>
 
-      <li id="s3" class="locked">
-        <h3>Your accounts</h3>
-        <p>Put this line on each account, in your bio or in a post:</p>
-        <pre class="out" id="proof-line"></pre>
-        <div class="row" style="margin-bottom:10px"><button class="btn ghost" id="copy-proof" type="button">Copy the line</button></div>
-        <p>Then list the accounts, one per line. For <b>GitHub</b>, <b>Bluesky</b> and <b>Mastodon</b>, use your profile address if the line is in your bio. For <b>X</b>, post the line and paste <em>that post’s</em> address, because X profiles can’t be read publicly. A GitHub gist named <code>blyggdrasil.txt</code> also works.</p>
-        <textarea class="field" id="branches" aria-label="Your accounts, one per line" placeholder="https://github.com/you&#10;https://bsky.app/profile/you.bsky.social&#10;https://x.com/you/status/1234567890"></textarea>
-        <p class="note" id="branches-out" role="status"></p>
-      </li>
+    <section class="step locked" id="s4">
+      <span class="n">04</span>
+      <h2>Your tree post</h2>
+      <p>Sign it, then publish it as a new post on your blyg. Nothing in it is secret.</p>
+      <div class="row"><button class="btn" id="sign" type="button">Sign my tree</button></div>
+      <div id="tree-out" hidden style="margin-top:18px">
+        <textarea class="field" id="tree-md" readonly aria-label="Your signed tree post" style="min-height:220px"></textarea>
+        <div class="row" style="margin:12px 0 22px"><button class="btn ghost" id="copy-tree" type="button">Copy the post</button><button class="btn ghost" id="save-tree" type="button">Save as .md</button></div>
+        <p><b>Blygger Studio:</b> paste it as a new post and publish. Then add a profile link labelled <code>Blyggdrasil</code> that points at the post.</p>
+        <p><b>A static blyg:</b> publish it like any post, and add <code>"blyggdrasil": "&lt;the post’s address&gt;"</code> to your <code>blyg.json</code>, or use the <a href="https://github.com/Fishbiscuit/blyggdrasil#command-line">command line</a>.</p>
+        <a class="btn" id="check-link" href="../">See your tree</a>
+      </div>
+    </section>
+  </div>
 
-      <li id="s4" class="locked">
-        <h3>Your tree post</h3>
-        <p>Sign it, then publish it as a new post on your blyg. Nothing in it is secret.</p>
-        <div class="row" style="margin-bottom:10px"><button class="btn" id="sign" type="button">Sign my tree</button></div>
-        <div id="tree-out" hidden>
-          <textarea class="field" id="tree-md" readonly aria-label="Your signed tree post" style="min-height:220px"></textarea>
-          <div class="row" style="margin:10px 0"><button class="btn ghost" id="copy-tree" type="button">Copy the post</button><button class="btn ghost" id="save-tree" type="button">Save as .md</button></div>
-          <p><b>Blygger Studio:</b> paste it as a new post and publish. Then, in your profile’s links, add one with the label <code>Blyggdrasil</code> pointing at that post’s address.</p>
-          <p><b>A static blyg:</b> publish it like any post, and add <code>"blyggdrasil": "&lt;the post’s address&gt;"</code> to your <code>blyg.json</code>, or use the <a href="https://github.com/Fishbiscuit/blyggdrasil#command-line">command line</a>.</p>
-          <p><a class="btn" id="check-link" href="../">Check your tree</a></p>
-        </div>
-      </li>
-    </ol>
-  </main>
-
-  <footer class="bottom">
-    <span>Keys are Ed25519, written as <code>did:key</code>. The <a href="https://github.com/Fishbiscuit/blyggdrasil/blob/main/SPEC.md">spec</a> says exactly what each step makes.</span>
-    <span><a href="https://github.com/Fishbiscuit/blyggdrasil">source</a></span>
-  </footer>
-</div>
+  <aside class="view" aria-label="Your tree as you build it">
+    <canvas id="world" role="img" aria-label="Your tree, with one branch per account you list"></canvas>
+    <div class="tags" id="tags"></div>
+    <div class="hud left" id="hud-key">Key · none yet</div>
+  </aside>
+</main>
 <script type="module" src="../assets/setup.js"></script>
 </body>
 </html>

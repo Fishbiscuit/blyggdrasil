@@ -52,6 +52,7 @@ Publish `tree.md` as a post on your blyg. Then point your blyg at it: Blygger St
 | [`lib/ingest.js`](lib/ingest.js) | Bluesky and X archive importers (Node) |
 | [`bin/blyggdrasil.mjs`](bin/blyggdrasil.mjs) | The command line |
 | [`index.html`](index.html), [`new/`](new/) | The viewer and the setup page |
+| [`assets/world.js`](assets/world.js) | The world tree at night: a procedural 3D tree whose branches light up as each account is verified |
 | [`test/`](test/) | Test vectors and the conformance run: `node --test test/run.mjs` |
 | [`AGENTS.md`](AGENTS.md) | Optional instructions for a coding agent that drives the command line |
 
@@ -65,4 +66,4 @@ The vectors pin RFC 8032's test key, a `did:key` encoding, signed trees (includi
 
 ## Status
 
-Draft 0.1, built for the [Blygger hackathon](https://protocol-institute.org/events/blygger-hackathon-2026/) in November 2026. MIT licensed. The viewer runs every check in the reader's browser. GitHub, Bluesky, Mastodon and X's embed service all allow it, as of 25 November 2026.
+Three.js r180 is included under its [MIT license](vendor/three.LICENSE.txt). Draft 0.1, built for the [Blygger hackathon](https://protocol-institute.org/events/blygger-hackathon-2026/) in November 2026. MIT licensed. The viewer runs every check in the reader's browser. GitHub, Bluesky, Mastodon and X's embed service all allow it, as of 25 November 2026.
