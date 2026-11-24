@@ -25,8 +25,14 @@ const settleTimer = setTimeout(() => settleVillage(), 24000);
 let refreshQueued = false;
 function onData(kind) {
   const p = thicket.progress;
+  if (noGraphics) return;
   if (kind === 'sites') {
-    world = new World($('#world'), { onPick, onMode, onFrame, onArrive });
+    try {
+      world = new World($('#world'), { onPick, onMode, onFrame, onArrive });
+    } catch (e) {
+      showNoGraphics();
+      return;
+    }
     world.setSites(thicket.sites, ringLayout(thicket.sites.keys()));
     world.setData(thicket);
     world.setExtent();
@@ -43,6 +49,20 @@ function onData(kind) {
     refreshQueued = true;
     requestAnimationFrame(() => { refreshQueued = false; world.refresh(); });
   }
+}
+
+// Without WebGL the village can't be drawn. Say so plainly and offer the recording.
+let noGraphics = false;
+function showNoGraphics() {
+  noGraphics = true;
+  clearTimeout(settleTimer);
+  $('#startBtn').hidden = true;
+  const p = $('#progress');
+  p.textContent = 'This browser couldn’t start 3D graphics (WebGL), so the village can’t be drawn here. ';
+  const a = document.createElement('a');
+  a.href = 'media/night-walk.mp4';
+  a.textContent = 'Watch the one-minute walkthrough instead.';
+  p.append(a);
 }
 
 function settleVillage() {
