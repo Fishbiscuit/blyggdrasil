@@ -1,0 +1,8 @@
+# Never commit private keys or personal archives.
+keys/
+*.key.json
+blyggdrasil-main-key.json
+blyggdrasil-recovery-key.json
+archive/
+.DS_Store
+node_modules/
