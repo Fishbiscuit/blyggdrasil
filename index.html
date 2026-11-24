@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Night Walk</title>
+<meta name="description" content="Walk through the Blygger thicket at night: every listed blyg is a house, every quote between blygs is a string of lights. Read live from each publisher.">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<canvas id="world" aria-label="A night-time village. Each house is a blyg; strings of lights between houses are quotes." role="img"></canvas>
+
+<header class="bar" hidden>
+  <span class="mark">Night Walk</span>
+  <nav aria-label="Views">
+    <button id="viewToggle" type="button">Above</button>
+    <button id="laneBtn" type="button" aria-haspopup="dialog">Lane</button>
+    <button id="findBtn" type="button" aria-haspopup="dialog">Find</button>
+    <button id="keyBtn" type="button" aria-haspopup="dialog">Key</button>
+  </nav>
+</header>
+
+<section id="intro" class="intro" aria-live="polite">
+  <p class="kicker">Blygger, read live</p>
+  <h1>Night Walk</h1>
+  <p class="lede">The thicket as a lane at night. Every listed blyg is a house. Every quote between two blygs is a light strung between their houses. Walk close and you overhear them.</p>
+  <p id="progress" class="progress">Finding the lane…</p>
+  <div class="intro-actions">
+    <button id="startBtn" type="button" class="primary" disabled>Start walking</button>
+    <button id="aboutBtn" type="button" class="quiet">What you're seeing</button>
+  </div>
+</section>
+
+<section id="overheard" class="overheard" aria-live="polite" hidden></section>
+
+<aside id="card" class="card" hidden aria-label="Selected post">
+  <button type="button" class="close" aria-label="Close">×</button>
+  <div class="card-body"></div>
+</aside>
+
+<footer class="time" hidden>
+  <button id="playBtn" type="button" aria-label="Replay the thicket from September">▶</button>
+  <input id="scrub" type="range" aria-label="Date">
+  <output id="when" for="scrub"></output>
+</footer>
+
+<p class="hint" id="hint" hidden>Drag to look · click the ground to walk · W A S D or arrows · click a light or a window</p>
+
+<dialog id="lane" class="sheet" aria-labelledby="laneTitle">
+  <form method="dialog"><button class="close" aria-label="Close">×</button></form>
+  <h2 id="laneTitle">The lane</h2>
+  <p class="sub">Every listed blyg, in the order they joined. Choose one to walk to its door.</p>
+  <ol id="laneList" class="lane-list"></ol>
+</dialog>
+
+<dialog id="find" class="sheet" aria-labelledby="findTitle">
+  <form method="dialog"><button class="close" aria-label="Close">×</button></form>
+  <h2 id="findTitle">Find a conversation</h2>
+  <p class="sub">Searches the quotes and replies strung between houses. Walk to one, or walk them all in order.</p>
+  <input id="findInput" type="search" placeholder="payments, Burrow, pins, TK…" autocomplete="off">
+  <div class="find-actions"><button id="tourBtn" type="button" class="primary" disabled>Walk them in order</button></div>
+  <ol id="findList" class="find-list"></ol>
+</dialog>
+
+<dialog id="key" class="sheet" aria-labelledby="keyTitle">
+  <form method="dialog"><button class="close" aria-label="Close">×</button></form>
+  <h2 id="keyTitle">What you're seeing</h2>
+  <ul class="key">
+    <li><span class="sw warm"></span><b>A lit window</b> is one of a blyg's ten most recent posts. It is brightest on the day it was published and dims over the following weeks.</li>
+    <li><span class="sw cool"></span><b>A blue window</b> is a post that includes AI-generated passages. The post names the model.</li>
+    <li><span class="sw flick"></span><b>A flickering window</b> is a post that was revised after it was published.</li>
+    <li><span class="sw shut"></span><b>Shutters</b> mark a withdrawn post. The publisher asked readers to stop showing it.</li>
+    <li><span class="sw lant"></span><b>Lanterns by the door</b> mark a burst: a thread and its fragments published as one act.</li>
+    <li><span class="sw bulb"></span><b>A string of lights</b> joins two blygs that have quoted each other. Each bulb is one quote, in the order they were published.</li>
+    <li><span class="sw dark"></span><b>A dark house</b> is a blyg that doesn't let browsers read it. Quotes from its neighbours still reach its door.</li>
+  </ul>
+  <p>Neighbours are the blygs that quote each other. Nothing here counts followers, likes or posts, and houses aren't sized by activity.</p>
+  <p>Your browser reads the <a href="https://blygger.com/" target="_blank" rel="noopener">public directory</a> and then each blyg's own manifest, index and recent items, following the <a href="https://blygger.org/spec/0.4/" target="_blank" rel="noopener">Blygger v0.4</a> layout. Nothing is copied to a server. Text appears as plain text with a link back to the exact post.</p>
+  <p id="sourceNote" class="sub"></p>
+</dialog>
+
+<noscript><p class="noscript">Night Walk needs JavaScript and WebGL.</p></noscript>
+<script type="module" src="src/main.js"></script>
+</body>
+</html>
