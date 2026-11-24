@@ -224,6 +224,10 @@
     "https://video.example/@treeholder": {
       "status": 200,
       "text": "<!doctype html><a rel=\"me\" href=\"https://blyg.example/blyg/\">my blyg</a>"
+    },
+    "https://medium.com/feed/@treeholder": {
+      "status": 200,
+      "text": "<?xml version=\"1.0\"?><rss><channel><item><title>Hello</title><content:encoded><![CDATA[<p>Hi there.</p>]]></content:encoded></item><item><title>Proof</title><content:encoded><![CDATA[<p>Blyggdrasil: did:key:z6MkhZev5NUBbrDxrHAdKLXcSxyyQ6ZBsD5uTEgKehTp4WhB https://blyg.example/blyg/</p>]]></content:encoded></item></channel></rss>"
     }
   },
   "expected_branches": {
@@ -264,6 +268,13 @@
       "method": "link"
     },
     "https://unreachable.example/": {
+      "verdict": "unreachable"
+    },
+    "https://medium.com/@treeholder": {
+      "verdict": "verified",
+      "method": "key"
+    },
+    "https://medium.com/@nobody": {
       "verdict": "unreachable"
     }
   },

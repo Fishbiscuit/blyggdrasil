@@ -61,6 +61,7 @@ const network = {
   "https://video.example/api/v1/accounts/lookup?acct=treeholder": { status: 200, text: "<!doctype html><title>video</title>" },
   "https://video.example/@treeholder/blyg.json": { status: 404, text: "not found" },
   "https://video.example/@treeholder": { status: 200, text: `<!doctype html><a rel="me" href="https://blyg.example/blyg/">my blyg</a>` },
+  "https://medium.com/feed/@treeholder": { status: 200, text: `<?xml version="1.0"?><rss><channel><item><title>Hello</title><content:encoded><![CDATA[<p>Hi there.</p>]]></content:encoded></item><item><title>Proof</title><content:encoded><![CDATA[<p>${proof}</p>]]></content:encoded></item></channel></rss>` },
 };
 
 const vectors = {
@@ -99,6 +100,8 @@ const vectors = {
     "https://www.linkedin.com/in/treeholder": { verdict: "claimed" },
     "https://video.example/@treeholder": { verdict: "verified", method: "link" },
     "https://unreachable.example/": { verdict: "unreachable" },
+    "https://medium.com/@treeholder": { verdict: "verified", method: "key" },
+    "https://medium.com/@nobody": { verdict: "unreachable" },
   },
   byline: { content_hash: hash, sig: await signByline(k.main, hash) },
 };

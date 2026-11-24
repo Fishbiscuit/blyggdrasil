@@ -49,12 +49,20 @@
     <section class="step locked" id="s3">
       <span class="n">03</span>
       <h2>Your branches</h2>
-      <p>Put this line on each account, in your bio or in a post:</p>
+      <p>Each account gets this one line, in its bio or in a post:</p>
       <pre class="out" id="proof-line"></pre>
-      <div class="row" style="margin-bottom:18px"><button class="btn ghost" id="copy-proof" type="button">Copy the line</button></div>
-      <p>Then list the accounts, one per line. <b>GitHub, Bluesky, Mastodon:</b> your profile address, if the line is in your bio. <b>X:</b> the address of the post with the line, because X profiles can’t be read publicly. A GitHub gist named <code>blyggdrasil.txt</code> works too.</p>
-      <textarea class="field" id="branches" aria-label="Your accounts, one per line" placeholder="https://github.com/you&#10;https://bsky.app/profile/you.bsky.social&#10;https://x.com/you/status/1234567890"></textarea>
-      <div class="row" style="margin-top:14px"><button class="btn ghost" id="check" type="button">Check my proof lines</button></div>
+      <div class="row" style="margin-bottom:22px"><button class="btn ghost" id="copy-proof" type="button">Copy the line</button></div>
+      <p>Add your accounts. Each button opens the right place with the line ready to post.</p>
+      <div class="adders" role="group" aria-label="Add an account">
+        <button type="button" class="chip" data-add="x">+ X</button>
+        <button type="button" class="chip" data-add="bluesky">+ Bluesky</button>
+        <button type="button" class="chip" data-add="github">+ GitHub</button>
+        <button type="button" class="chip" data-add="mastodon">+ Mastodon</button>
+        <button type="button" class="chip" data-add="medium">+ Medium</button>
+        <button type="button" class="chip" data-add="web">+ Website</button>
+      </div>
+      <ul class="accts" id="accts"></ul>
+      <div class="row" style="margin-top:16px"><button class="btn ghost" id="check" type="button">Check my proof lines</button></div>
       <p class="note" id="branches-out" role="status"></p>
     </section>
 

@@ -133,6 +133,7 @@ Each branch URL is matched against these patterns in order. A reader makes at mo
 | `https://bsky.app/profile/{actor}` | `public.api.bsky.app/xrpc/app.bsky.actor.getProfile?actor={actor}` | `description`, handle | `did` |
 | `https://bsky.app/profile/{actor}/post/{rkey}` | getProfile as above; then `app.bsky.feed.getPosts?uris=at://{did}/app.bsky.feed.post/{rkey}` | the post's `record.text` and every facet link `uri` | `did` |
 | `https://x.com/{user}/status/{id}` (or `twitter.com`) | `publish.x.com/oembed?url=https://x.com/{user}/status/{id}&omit_script=1&dnt=true` | the text of `html`. `author_url` must be `https://x.com/{user}`, compared without case | the user |
+| `https://medium.com/@{user}` (a profile or any story URL), or `https://{user}.medium.com/` | `medium.com/feed/@{user}` | the `content:encoded` text and links of each feed item | the user |
 | `https://x.com/{user}`, LinkedIn, Instagram, Threads, Facebook, TikTok | none | — | — |
 | `https://{host}/@{user}` (Mastodon-family) | `https://{host}/api/v1/accounts/lookup?acct={user}` | `note` and each `fields[].value`, as text and as `href`s | `acct` |
 | `https://{host}/@{user}/{id}` | `https://{host}/api/v1/statuses/{id}` | `content`. `account.acct` must equal `{user}` | `acct` |
@@ -142,6 +143,7 @@ Each branch URL is matched against these patterns in order. A reader makes at mo
 Notes on the table:
 - The X-profile row gets the verdict `claimed`: these networks offer no public read, so a reader can't check them. To prove an X account, use a proof post (the X status row).
 - A branch equal to the trunk itself is `verified` by link.
+- Medium sends no cross-origin header (checked 25 November 2026), so in a browser the Medium row is `unreachable`. A reader outside the browser, such as the command line, can read the feed. The proof is a Medium story containing the proof line.
 - When a `/@{user}` host does not answer as a Mastodon server (a JSON object with `acct`), the reader moves on to the remaining rows. YouTube and Medium use the same path shape.
 
 HTML fields are read as text by removing tags and decoding character references. Their `href` values are collected for link matching.
