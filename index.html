@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Blyggdrasil</title>
+<meta name="description" content="One tree for everywhere you post. Your blyg is the trunk, your accounts are branches, and a key lets the tree survive a move.">
+<meta property="og:title" content="Blyggdrasil · one tree for everywhere you post">
+<meta property="og:description" content="Connect your blyg with your accounts on X, Bluesky, Mastodon and GitHub, prove each link, and keep it when a platform drops you. Built on Blygger.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#2f7a4f">
+<link rel="icon" href="assets/mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/app.css">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="mark" href="./"><img src="assets/mark.svg" alt="" width="30" height="30">Blyggdrasil</a>
+    <nav aria-label="Main"><a href="./" aria-current="page">See a tree</a><a href="new/">Plant yours</a><a href="https://github.com/Fishbiscuit/blyggdrasil/blob/main/SPEC.md">Spec</a><a href="https://github.com/Fishbiscuit/blyggdrasil">Source</a></nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h1>One tree for everywhere you post.</h1>
+      <p>Your <a href="https://blygger.org/">blyg</a> is the trunk. Your accounts on X, Bluesky, Mastodon and GitHub are branches, each one proven by a line you post there. A key you hold lets the whole tree move with you if a platform drops you.</p>
+      <form class="lookup" id="lookup">
+        <input id="blyg-input" name="blyg" aria-label="Blyg address" placeholder="A blyg address, like fishbiscuit.me/blyg" autocomplete="url" inputmode="url" spellcheck="false">
+        <button class="btn" type="submit">See the tree</button>
+      </form>
+      <div class="examples">Try <button type="button" data-example="fishbiscuit.me/blyg">fishbiscuit.me/blyg</button> or any blyg from <a href="https://blygger.com/">the directory</a>, such as <button type="button" data-example="venkateshrao.com/blyg">venkateshrao.com/blyg</button>.</div>
+    </section>
+
+    <p class="status" id="status" role="status" aria-live="polite"></p>
+
+    <section class="panel" id="result" hidden>
+      <div class="trunk-head">
+        <div><h2 id="trunk-title"></h2><div class="who" id="trunk-who"></div></div>
+        <span class="pill" id="tree-pill"></span>
+      </div>
+      <svg class="tree-view" id="tree-svg" role="img" aria-label="The blyg as a tree, with one branch per account"></svg>
+      <div class="legend" aria-hidden="true"><span class="lv">verified</span><span class="lf">failed</span><span>can’t check here, or claimed</span></div>
+      <div id="key-box" style="margin-top:14px"></div>
+      <ul class="branches" id="branch-list"></ul>
+      <section id="posts" hidden>
+        <h3 style="font-family:var(--serif);font-weight:500;margin:24px 0 0">Recent posts</h3>
+        <p class="note" style="margin:4px 0 0">Signed posts carry a signature by this tree’s key over their exact text, so they stay attributable wherever they’re copied.</p>
+        <ul class="branches"></ul>
+      </section>
+    </section>
+
+    <section class="explain" aria-label="How it works">
+      <div><h3>Connect</h3><p>Make a key, list your accounts in one signed post on your blyg, and put one line with your key on each account. Anyone can check every link, in their own browser.</p></div>
+      <div><h3>Reinstate</h3><p>Lose an account, a domain or even the key? A new account proves itself with the same key, a new blyg keeps your proofs, and a recovery key you set aside takes over.</p></div>
+      <div><h3>Reconstitute</h3><p>Bring your public posts from X and Bluesky back to your own blyg with their original dates, linked to where they first appeared. Private messages and likes stay on your machine.</p></div>
+    </section>
+    <p class="note">Verdicts mean exactly what they say: a verified branch names this tree’s key or links back to the blyg. Blyggdrasil never counts, scores or ranks anyone, and adds nothing to Blygger’s protocol. It builds Blygger’s own <a href="https://github.com/blygger/blygger-spec/blob/main/docs/proposals/identity-practice-proposal.md">identity practice</a>.</p>
+  </main>
+
+  <footer class="bottom">
+    <span>Blygger began as Ygg, named for Yggdrasil. This gives the tree back its name.</span>
+    <span>A <a href="https://fishbiscuit.me/">fishbiscuit.me</a> experiment · <a href="https://github.com/Fishbiscuit/blyggdrasil">source</a></span>
+  </footer>
+</div>
+<script type="module" src="assets/viewer.js"></script>
+</body>
+</html>
