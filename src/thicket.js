@@ -5,7 +5,7 @@
 
 const DIRECTORY = 'https://blygger.com/blygs.json';
 const SINCE = '2026-09-01T00:00:00Z';   // Blygger's public launch month
-const ITEMS_PER_SITE = 24;              // most recent items read per blyg
+export const ITEMS_PER_SITE = 24;              // most recent items read per blyg
 const BURST_MS = 15 * 60 * 1000;        // spec §13.7 burst window
 const CACHE_KEY = 'night-walk-items-v1';
 

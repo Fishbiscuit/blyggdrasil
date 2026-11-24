@@ -1,4 +1,4 @@
-import { Thicket, hostOf } from './thicket.js';
+import { Thicket, hostOf, ITEMS_PER_SITE } from './thicket.js';
 import { World } from './world.js';
 import { ringLayout, neighbourLayout, lanes, segDist } from './layout.js';
 
@@ -59,7 +59,7 @@ function settleVillage() {
     world.refresh();
     $('#startBtn').disabled = false;
     $('#startBtn').focus({ preventScroll: true });
-    $('#sourceNote').textContent = `Read ${fmtDay.format(NOW)}: ${thicket.progress.answered} of ${thicket.progress.sites} listed blygs answered; up to 40 recent posts each since September.`;
+    $('#sourceNote').textContent = `Read ${fmtDay.format(NOW)}: ${thicket.progress.answered} of ${thicket.progress.sites} listed blygs answered; up to ${ITEMS_PER_SITE} recent posts each since September.`;
   };
 }
 
