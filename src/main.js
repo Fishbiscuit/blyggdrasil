@@ -43,8 +43,9 @@ function onData(kind) {
   if (p.phase === 'items') $('#progress').textContent = `${p.answered} of ${p.sites} blygs open their doors to a browser. Reading their recent posts… ${p.itemsDone} of ${p.items}`;
   if (kind === 'done') {
     $('#progress').textContent = `${p.answered} of ${p.sites} blygs read live · ${thicket.docs.size} recent posts · ${thicket.exchanges.length} quotes between blygs`;
-    settleVillage();
+    finishLoading();
   }
+  if (kind === 'items' && !settled && readyEnough()) settleVillage();
   if (world && !refreshQueued) {
     refreshQueued = true;
     requestAnimationFrame(() => { refreshQueued = false; world.refresh(); });
@@ -65,10 +66,25 @@ function showNoGraphics() {
   p.append(a);
 }
 
+// Start walking opens once the newest few posts from every open blyg are in.
+// The rest keep arriving while you walk; their strings light up as they land.
+const EARLY_ROUNDS = 3;
+let earlyLayout = false;
+
+function readyEnough() {
+  const p = thicket.progress;
+  return p.phase === 'items' && p.itemsDone >= Math.min(p.items, p.answered * EARLY_ROUNDS) && thicket.exchanges.length > 0;
+}
+
 function settleVillage() {
   if (settled || !world) return;
   settled = true;
   clearTimeout(settleTimer);
+  earlyLayout = thicket.progress.phase !== 'done';
+  layoutVillage();
+}
+
+function layoutVillage() {
   const start = new Map([...world.houses].map(([o, h]) => [o, { ...h.pos }]));
   const pos = neighbourLayout(thicket.sites.keys(), thicket.pairs, start);
   world.settle(pos);
@@ -77,10 +93,22 @@ function settleVillage() {
     world.setLanes(lanes(new Map([...world.houses].map(([o, h]) => [o, h.pos])), thicket.pairs));
     world.plantThicket();
     world.refresh();
-    $('#startBtn').disabled = false;
-    $('#startBtn').focus({ preventScroll: true });
+    if ($('#startBtn').disabled) {
+      $('#startBtn').disabled = false;
+      $('#startBtn').focus({ preventScroll: true });
+    }
     $('#sourceNote').textContent = `Read ${fmtDay.format(NOW)}: ${thicket.progress.answered} of ${thicket.progress.sites} listed blygs answered; up to ${ITEMS_PER_SITE} recent posts each since September.`;
   };
+}
+
+// Every post is in. Before anyone has started walking, let the houses find their
+// final neighbours; once someone is walking, leave the houses where they stand.
+function finishLoading() {
+  if (!settled) return settleVillage();
+  if (!earlyLayout) return;
+  earlyLayout = false;
+  if (!started) layoutVillage();
+  else world.setLanes(lanes(new Map([...world.houses].map(([o, h]) => [o, h.pos])), thicket.pairs));
 }
 
 // ---------- start ----------
@@ -90,6 +118,7 @@ $('#aboutBtn').addEventListener('click', () => $('#key').showModal());
 function start() {
   if (started) return;
   started = true;
+  world.finishSettle();   // houses stop moving before you step out among them
   $('#intro').classList.add('leaving');
   setTimeout(() => $('#intro').hidden = true, 900);
   for (const el of ['.bar', '.time', '#overheard', '#hint']) $(el).hidden = false;

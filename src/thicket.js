@@ -36,7 +36,7 @@ export class Thicket {
     this.progress.phase = 'doors';
     this.emit('sites');
 
-    const queue = new Pool(12);
+    const queue = new Pool(24);
     await Promise.all([...this.sites.values()].map(site => queue.run(() => this.loadSite(site))));
     this.progress.phase = 'items';
     this.emit('indexes');
@@ -59,7 +59,7 @@ export class Thicket {
     await Promise.all(jobs.map(([site, it]) => items.run(async () => {
       await this.loadItem(site, it);
       this.progress.itemsDone++;
-      if (++pending % 25 === 0) this.emit('items');
+      if (++pending % 10 === 0) this.emit('items');
     })));
     saveCache(this.cache);
     this.progress.phase = 'done';

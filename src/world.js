@@ -232,6 +232,15 @@ export class World {
     this.settling = { start: performance.now(), ms: this.reduced ? 1 : ms };
   }
 
+  // Put every house at its destination now and run the settled hook.
+  finishSettle() {
+    if (!this.settling) return;
+    for (const h of this.houses.values()) if (h.target) { h.pos.x = h.target.x; h.pos.z = h.target.z; this.placeHouse(h); }
+    this.settling = null;
+    this.refresh();
+    this.hooks.onSettled && this.hooks.onSettled();
+  }
+
   // ---------- what is lit at time t ----------
   setData(thicket) { this.thicket = thicket; this.refresh(); }
   setTime(t) { this.time = t; this.refresh(); }
