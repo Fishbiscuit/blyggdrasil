@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Blyggdrasil</title>
+  <link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/tree.css">
+</head>
+<body>
+  <main class="profile">
+    <header class="profile-header">
+      <a class="brand" href="../">Blyggdrasil</a>
+      <h1 id="title">Blyg</h1>
+      <a id="origin" hidden></a>
+    </header>
+    <p id="loading" role="status">Reading posts and accounts…</p>
+    <div class="columns" id="profile" hidden>
+      <aside aria-labelledby="accounts-title">
+        <h2 id="accounts-title">Accounts</h2>
+        <p id="account-note" hidden></p>
+        <ul id="accounts" class="accounts"></ul>
+      </aside>
+      <section aria-labelledby="posts-title">
+        <header class="feed-header">
+          <h2 id="posts-title">Posts</h2>
+          <div class="filters" id="filters" role="group" aria-label="Filter posts" hidden>
+            <button type="button" data-filter="all" aria-pressed="true">All posts</button>
+            <button type="button" data-filter="x" aria-pressed="false">X posts</button>
+          </div>
+        </header>
+        <p id="post-note" role="status"></p>
+        <ol class="posts" id="posts"></ol>
+        <button type="button" class="more" id="more" hidden>Load more</button>
+        <button type="button" class="more" id="retry" hidden>Retry missing posts</button>
+      </section>
+    </div>
+    <noscript>Enable JavaScript to read this tree.</noscript>
+  </main>
+  <script type="module" src="../assets/tree.js"></script>
+</body>
+</html>
