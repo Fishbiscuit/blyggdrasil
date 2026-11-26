@@ -30,6 +30,7 @@ h2 { margin: 0; font-size: 15px; font-weight: 650; }
 .account-evidence p { margin: 5px 0; }
 .account-retry { min-height: 32px; padding: 0; color: var(--accent); text-decoration: underline; }
 .account-source + .account-retry { margin-left: 12px; }
+.account-permalink { display: block; margin-top: 5px; }
 .accounts a { width: fit-content; text-decoration-color: var(--rule); }
 .account-status, .post-meta, #loading, #post-note, #account-note { color: var(--muted); font-size: 13px; }
 .account-status.verified, .signed { color: var(--accent); }

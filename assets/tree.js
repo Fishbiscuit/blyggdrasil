@@ -19,6 +19,17 @@ async function inBatches(rows, count, action, onBatch = () => {}) {
   }
 }
 
+function openLinkedAccount() {
+  const fragment = location.hash.slice(1);
+  if (!fragment.startsWith("account-")) return;
+  let id;
+  try { id = decodeURIComponent(fragment); } catch { return; }
+  const evidence = document.getElementById(id)?.closest("#accounts .account-evidence");
+  if (!evidence) return;
+  evidence.open = true;
+  evidence.scrollIntoView({ block: "nearest" });
+}
+
 function showAccounts(tree, keys) {
   const branches = readAccounts(tree);
   const note = $("#account-note");
@@ -28,6 +39,7 @@ function showAccounts(tree, keys) {
   }
   const accounts = $("#accounts");
   accounts.innerHTML = branches.map((branch) => renderAccount(branch, verdictLabels.pending)).join("");
+  openLinkedAccount();
   const rows = [...accounts.children];
   return inBatches(branches, 4, async (branch, index) => {
     const row = rows[index];
@@ -196,6 +208,8 @@ async function showTree() {
   await Promise.all([showAccounts(tree, keys), showPosts(tree, keys)]);
 }
 
+openLinkedAccount();
+window.addEventListener("hashchange", openLinkedAccount);
 showTree().catch(() => {
   const message = $("#profile").hidden ? $("#loading") : $("#post-note");
   message.textContent = "Some of this blyg couldn’t be loaded.";
