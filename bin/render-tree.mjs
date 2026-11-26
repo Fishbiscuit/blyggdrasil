@@ -7,7 +7,7 @@ import { allowLocalDevelopment, isHttpsUrl, itemUrl, loadTree } from "../lib/bly
 import { makeFetcher } from "../lib/resolvers.js";
 import {
   archiveEntries, archiveUrl, escape, readAccounts, readPost, renderAccount,
-  renderPost, renderSources, safeUrl, signedByTree,
+  renderDiscoveryLinks, renderPost, renderSources, safeUrl, signedByTree,
 } from "../lib/tree-page.js";
 
 const help = "node bin/render-tree.mjs <blyg URL> --out <index.html> [--mirror <public blyg folder>] [--site-root ../../]";
@@ -72,7 +72,7 @@ function publicPage(template, { tree, siteRoot, posts, accounts }) {
   const displayOrigin = new URL(tree.origin).host + new URL(tree.origin).pathname.replace(/\/$/, "");
   const title = escape(tree.manifest.title || displayOrigin);
   const changes = [
-    ["<title>Blyggdrasil</title>", `<title>${title} · Blyggdrasil</title>`],
+    ["<title>Blyggdrasil</title>", `<title>${title} · Blyggdrasil</title>\n  ${renderDiscoveryLinks(tree)}`],
     ['<body data-tree-address="" data-site-root="../">', `<body data-tree-address="${escape(tree.origin)}" data-site-root="${siteRoot}">`],
     ['<h1 id="title">Blyg</h1>', `<h1 id="title">${title}</h1>`],
     ['<a id="origin" hidden></a>', `<a id="origin" href="${escape(tree.origin)}">${escape(displayOrigin)}</a>`],

@@ -22,7 +22,7 @@ test("renderer creates a script-independent public tree without private or withd
     write("blyg.json", {
       blyg: "0.4",
       title: 'Publisher <site>',
-      items: "items/index.json",
+      items: "items/index.json?scope=public&format=json",
       author: { links: [
         { url: "https://github.com/publisher", label: "GitHub" },
         { url: "javascript:alert(1)", label: "Invalid" },
@@ -50,8 +50,8 @@ test("renderer creates a script-independent public tree without private or withd
     assert.match(html, /id="profile">/);
     assert.match(html, /<article>/);
     assert.match(html, /<time datetime="2026-11-26">/);
-    assert.match(html, /https:\/\/publisher\.example\/blyg\/blyg\.json/);
-    assert.match(html, /https:\/\/publisher\.example\/blyg\/items\/index\.json/);
+    assert.match(html, /<link rel="blyg" href="https:\/\/publisher\.example\/blyg\/blyg\.json" type="application\/json">/);
+    assert.match(html, /<link rel="archives" href="https:\/\/publisher\.example\/blyg\/items\/index\.json\?scope=public&amp;format=json" type="application\/json">/);
     assert.match(html, new RegExp(`items/${id}\\.json`));
     assert.match(html, /View on X/);
     assert.match(html, /A public post\.\nNext line\./);
