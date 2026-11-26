@@ -36,6 +36,8 @@ Blygger keeps identity out of its protocol (decision #11), and Blyggdrasil keeps
 
 Every post on that blyg carries `author.sig`, a signature over its `content_hash`. Check it yourself in the [viewer](https://fishbiscuit.me/blyggdrasil/#blyg=fishbiscuit.me/blyg) or with `node bin/blyggdrasil.mjs verify fishbiscuit.me/blyg`.
 
+This repository includes a [script-free reader](tree/fishbiscuit/index.html), a [post verifier](verify/) with signed and edited examples, and a [continuity rehearsal](demo/continuity/) with disposable keys. See the [reader guide](READING.md) for direct data links and JSON verification.
+
 ## Night Walk
 
 [`night-walk/`](night-walk/) is the other half of this hackathon entry. It walks the live Blygger thicket as a village at night: every blyg is a house, and every quote between blygs is a string of lights. It's live at [fishbiscuit.github.io/night-walk](https://fishbiscuit.github.io/night-walk/). Its history, from 24 November, is kept intact here, so both parts of the entry share one repository.
@@ -52,11 +54,16 @@ node bin/blyggdrasil.mjs tree --trunk https://you.example/blyg/ --key ~/.blyggdr
   --recovery ~/.blyggdrasil/recovery.json \
   --branch https://github.com/you --branch https://x.com/you/status/123 --out tree.md
 node bin/blyggdrasil.mjs verify you.example/blyg
+node bin/blyggdrasil.mjs verify-post https://you.example/blyg/t/YOUR_POST_ID/ --json
+node bin/blyggdrasil.mjs ingest bluesky you.bsky.social --preview
+node bin/blyggdrasil.mjs ingest x ~/Downloads/twitter-archive --preview --json
 node bin/blyggdrasil.mjs ingest bluesky you.bsky.social --out archive
 node bin/blyggdrasil.mjs ingest x ~/Downloads/twitter-archive --out archive
 ```
 
 Publish `tree.md` as a post on your blyg. Then point your blyg at it: Blygger Studio users add a profile link labelled `Blyggdrasil`, and static blygs add `"blyggdrasil": "<post URL>"` to `blyg.json`.
+
+Archive preview prints original dates and links for public posts, flags duplicates in the input, and shows a count for private entries. Add `--out archive` to compare with an existing archive. Preview leaves the archive untouched. A signature you add after importing covers your copy of the post on your blyg.
 
 ## Files
 
@@ -69,14 +76,14 @@ Publish `tree.md` as a post on your blyg. Then point your blyg at it: Blygger St
 | [`bin/blyggdrasil.mjs`](bin/blyggdrasil.mjs) | The command line |
 | [`index.html`](index.html), [`new/`](new/) | The viewer and the setup page |
 | [`assets/world.js`](assets/world.js) | The world tree at night: a procedural 3D tree whose branches light up as each account is verified |
-| [`test/`](test/) | Test vectors and the conformance run: `node --test test/run.mjs` |
+| [`test/`](test/) | Test vectors and the conformance run with `npm test` |
 | [`AGENTS.md`](AGENTS.md) | Optional instructions for a coding agent that drives the command line |
 | [`night-walk/`](night-walk/) | Night Walk, the thicket as a village at night |
 
 ## Tests
 
 ```sh
-node --test test/run.mjs
+npm test
 ```
 
 The vectors pin RFC 8032's test key, a `did:key` encoding, signed trees (including rotation and recovery), recorded responses from every network with their expected verdicts, signed bylines and the X archive importer. Ed25519 is deterministic, so any implementation can reproduce them exactly. The keys in `test/vectors.json` are test keys, published on purpose.

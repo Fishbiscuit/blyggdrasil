@@ -7,5 +7,7 @@
   "bin": { "blyggdrasil": "bin/blyggdrasil.mjs" },
   "exports": { ".": "./lib/blyggdrasil.js", "./resolvers": "./lib/resolvers.js" },
   "engines": { "node": ">=20" },
-  "scripts": { "test": "node --test test/run.mjs" }
+  "scripts": {
+    "test": "node --test test/run.mjs test/post-proof.mjs test/tree-render.mjs test/branch-evidence.mjs test/published-tree.mjs test/archive-preview.mjs test/proof-examples.mjs test/continuity.mjs"
+  }
 }
