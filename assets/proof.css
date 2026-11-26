@@ -89,7 +89,15 @@
 }
 
 #proof-examples {
-  margin-top: 12px;
+  margin-top: 22px;
+}
+
+#proof-examples h2 { font-size: 24px; }
+#proof-examples p, #proof-examples ul { margin-block: 6px; }
+#proof-example-text {
+  margin: 8px 0 16px;
+  padding-left: 14px;
+  border-left: 2px solid var(--rule);
 }
 
 #proof-result {
@@ -138,6 +146,7 @@
 .proof-evidence-list { margin: 0; }
 .proof-evidence-list > div { grid-template-columns: minmax(95px, 1fr) minmax(0, 3fr); }
 .proof-evidence-list dt { color: var(--muted); }
+.proof-evidence-list ul { margin: 0; padding-left: 18px; }
 #copy-link-fallback { margin-block: 10px; }
 
 @media (max-width: 460px) {

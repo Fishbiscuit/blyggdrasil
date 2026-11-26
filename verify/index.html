@@ -40,9 +40,19 @@
       </details>
     </form>
 
-    <section id="proof-examples" aria-label="Verification examples" hidden></section>
+    <section id="proof-examples" aria-labelledby="examples-heading">
+      <h2 id="examples-heading">Try the proof check</h2>
+      <p>Two examples use the same test signature. One retains the signed text and one changes it.</p>
+      <ul>
+        <li><a href="?example=original">Check the signed original</a></li>
+        <li><a href="?example=edited">Check the edited copy</a></li>
+      </ul>
+      <p class="proof-hint"><a href="../demo/proof/examples.json">Download example evidence (JSON)</a></p>
+    </section>
     <p class="proof-status" id="proof-status" role="status"></p>
     <section id="proof-result" aria-labelledby="proof-heading" hidden>
+      <p class="proof-version" id="proof-example-label" hidden></p>
+      <blockquote id="proof-example-text" hidden></blockquote>
       <p class="proof-version" id="proof-version" hidden></p>
       <h2 id="proof-heading" tabindex="-1"></h2>
       <p id="proof-summary"></p>
@@ -81,7 +91,12 @@
         <dl class="proof-evidence-list">
           <div id="proof-origin-row" hidden><dt>Blyg</dt><dd><a id="proof-origin" rel="noopener noreferrer"></a></dd></div>
           <div id="proof-item-row" hidden><dt>Item data</dt><dd><a id="proof-item" rel="noopener noreferrer"></a></dd></div>
+          <div id="proof-manifest-row" hidden><dt>Blygger manifest</dt><dd><a id="proof-manifest" rel="noopener noreferrer"></a></dd></div>
+          <div id="proof-tree-row" hidden><dt>Signed tree data</dt><dd><a id="proof-tree" rel="noopener noreferrer"></a></dd></div>
           <div id="proof-key-row" hidden><dt>Public signing key</dt><dd><code id="proof-key"></code></dd></div>
+          <div id="proof-current-key-row" hidden><dt>Current tree key</dt><dd><code id="proof-current-key"></code></dd></div>
+          <div id="proof-history-row" hidden><dt>Key changes</dt><dd><ul id="proof-history"></ul></dd></div>
+          <div id="proof-former-row" hidden><dt>Former blyg addresses named in the signed tree</dt><dd><ul id="proof-former"></ul></dd></div>
           <div id="proof-source-row" hidden><dt>Source linked by the blyg</dt><dd><a id="proof-source" rel="noopener noreferrer"></a></dd></div>
         </dl>
         <p class="proof-hint" id="proof-source-note" hidden>The signature covers the copy published on this blyg.</p>

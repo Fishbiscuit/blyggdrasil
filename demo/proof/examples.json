@@ -1,0 +1,64 @@
+{
+  "description": "Synthetic Blyggdrasil verification examples signed with a published test key. No public blyg or author is asserted.",
+  "postUrl": "https://proof-demo.example/blyg/items/01jpcyy4qaaaek03ptm4c5g1c2/v1.json",
+  "shared": {
+    "https://proof-demo.example/blyg/blyg.json": {
+      "blyg": "0.4",
+      "blyggdrasil": "https://proof-demo.example/blyg/t/01jpcyy4qaaaek03ptm4c5g1c3/"
+    },
+    "https://proof-demo.example/blyg/items/01jpcyy4qaaaek03ptm4c5g1c3.json": {
+      "id": "01jpcyy4qaaaek03ptm4c5g1c3",
+      "origin": "https://proof-demo.example/blyg/",
+      "kind": "thread",
+      "version": 1,
+      "content_md": "```blyggdrasil\nblyggdrasil 1\ntrunk https://proof-demo.example/blyg/\nkey did:key:z6MkhZev5NUBbrDxrHAdKLXcSxyyQ6ZBsD5uTEgKehTp4WhB\n```\n\n```blyggdrasil-signature\nkey did:key:z6MkhZev5NUBbrDxrHAdKLXcSxyyQ6ZBsD5uTEgKehTp4WhB\nsig s0zoqMKuT1jrazLGvyKnW9dwWmNVFhJYwfeQsgfykFplRpAJKc59zoGD1N4MEQ-Rl4uo5mgA2lx5nQCFtknBDw\n```"
+    },
+    "https://proof-demo.example/blyg/items/01jpcyy4qaaaek03ptm4c5g1c2.json": {
+      "id": "01jpcyy4qaaaek03ptm4c5g1c2",
+      "origin": "https://proof-demo.example/blyg/",
+      "kind": "thread",
+      "version": 1,
+      "pinned": false,
+      "content_md": "The reading room closes at five.\n",
+      "content_hash": "sha256:eee41a4f381679851daf7063e2fe94fb890336a18d6f7347ab2ea266fc3c358e",
+      "author": {
+        "sig": {
+          "key": "did:key:z6MkhZev5NUBbrDxrHAdKLXcSxyyQ6ZBsD5uTEgKehTp4WhB",
+          "value": "na9ScMrheIWLbJUiS41O6PG_W-qZmyXYceA4qZUkoXsx9VKvonOWklDiaUZqJaFap3zUoFzEL1HSENqlRSz6CQ"
+        }
+      }
+    }
+  },
+  "examples": {
+    "original": {
+      "id": "01jpcyy4qaaaek03ptm4c5g1c2",
+      "origin": "https://proof-demo.example/blyg/",
+      "kind": "thread",
+      "version": 1,
+      "pinned": true,
+      "content_md": "The reading room closes at five.\n",
+      "content_hash": "sha256:eee41a4f381679851daf7063e2fe94fb890336a18d6f7347ab2ea266fc3c358e",
+      "author": {
+        "sig": {
+          "key": "did:key:z6MkhZev5NUBbrDxrHAdKLXcSxyyQ6ZBsD5uTEgKehTp4WhB",
+          "value": "na9ScMrheIWLbJUiS41O6PG_W-qZmyXYceA4qZUkoXsx9VKvonOWklDiaUZqJaFap3zUoFzEL1HSENqlRSz6CQ"
+        }
+      }
+    },
+    "edited": {
+      "id": "01jpcyy4qaaaek03ptm4c5g1c2",
+      "origin": "https://proof-demo.example/blyg/",
+      "kind": "thread",
+      "version": 1,
+      "pinned": true,
+      "content_md": "The reading room closes at nine.\n",
+      "content_hash": "sha256:eee41a4f381679851daf7063e2fe94fb890336a18d6f7347ab2ea266fc3c358e",
+      "author": {
+        "sig": {
+          "key": "did:key:z6MkhZev5NUBbrDxrHAdKLXcSxyyQ6ZBsD5uTEgKehTp4WhB",
+          "value": "na9ScMrheIWLbJUiS41O6PG_W-qZmyXYceA4qZUkoXsx9VKvonOWklDiaUZqJaFap3zUoFzEL1HSENqlRSz6CQ"
+        }
+      }
+    }
+  }
+}
