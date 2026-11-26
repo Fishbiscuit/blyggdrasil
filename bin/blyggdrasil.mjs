@@ -6,6 +6,7 @@
 //                    [--previous file] [--recovered-from N --sign file] [--moved-from URL]...
 //                    [--intro text] [--out file]          write a signed tree post (Markdown)
 //   blyggdrasil proof --trunk URL --key file             print the proof line for your accounts
+//   blyggdrasil proof-link <URL> [--version N]           print the verified edition's share link
 //   blyggdrasil verify <blyg or tree URL> [--json]       check a tree and every branch
 //   blyggdrasil verify-post <URL> [--version N] [--expect-key DID] [--json]
 //                                                      check the content, signature, and tree signer
@@ -29,6 +30,7 @@ import { checkBranch, makeFetcher } from "../lib/resolvers.js";
 import { ingestBluesky, ingestXArchive, previewBluesky, previewXArchive } from "../lib/ingest.js";
 import { verifyPost } from "../lib/post-proof.js";
 import { verifyQuote } from "../lib/quote-proof.js";
+import { proofLink } from "../lib/proof-link.js";
 
 if (process.env.BLYGGDRASIL_DEV === "1") allowLocalDevelopment();
 const fail = (m) => { console.error(`blyggdrasil: ${m}`); process.exit(2); };
@@ -188,6 +190,26 @@ async function verifyQuoteCmd(o) {
   process.exitCode = result.match.status === "matched" ? 0 : 1;
 }
 
+async function proofLinkCmd(o) {
+  if (one(o, "help")) {
+    console.log("Usage: blyggdrasil proof-link <URL> [--version N]");
+    return;
+  }
+  const [, target] = o._;
+  const raw = one(o, "version");
+  const version = raw === undefined ? undefined : Number(raw);
+  if (!target || o._.length !== 2) fail("proof-link needs one public Blygger post URL");
+  if (raw !== undefined && (!/^[1-9]\d*$/.test(raw) || !Number.isSafeInteger(version))) fail("--version must be a positive whole number");
+  const get = makeFetcher((url, options) => fetch(url, { ...options, signal: AbortSignal.timeout(10_000) }));
+  const report = await verifyPost(target, get, { version });
+  if (report.status !== "verified") {
+    console.error(report.error || `Edition proof is ${report.status}.`);
+    process.exitCode = 1;
+    return;
+  }
+  console.log(proofLink({ origin: report.origin, id: report.itemId, version: report.version }).href);
+}
+
 async function ingest(o) {
   if (o.help) {
     console.log("Usage: blyggdrasil ingest bluesky <handle> --out dir");
@@ -231,7 +253,7 @@ async function ingest(o) {
 }
 
 const o = args(process.argv.slice(2));
-const commands = { keygen, tree, proof, verify, "verify-post": verifyPostCmd, "verify-quote": verifyQuoteCmd, "sign-byline": signBylineCmd, ingest };
+const commands = { keygen, tree, proof, "proof-link": proofLinkCmd, verify, "verify-post": verifyPostCmd, "verify-quote": verifyQuoteCmd, "sign-byline": signBylineCmd, ingest };
 const cmd = commands[o._[0]];
 if (!cmd) {
   console.log(readFileSync(fileURLToPath(import.meta.url), "utf8").split("\n\n")[0].split("\n").slice(1).map((l) => l.replace(/^\/\/ ?/, "")).join("\n"));
