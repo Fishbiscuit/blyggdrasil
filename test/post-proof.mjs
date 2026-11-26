@@ -59,11 +59,14 @@ test("verified bytes, signature, and canonical signer are distinct checks", asyn
   assert.equal(good.manifestUrl, f.manifestUrl);
   assert.equal(good.treeUrl, f.treeUrl);
   assert.equal(good.pinned, false);
+  assert.equal(good.contentMarkdown, undefined);
+  assert.equal((await verifyPost(f.current, f.get, { includeText: true })).contentMarkdown, f.post.content_md);
 
   f.post.content_md = f.post.content_md.trimEnd();
-  const staleHash = await verifyPost(f.current, f.get);
+  const staleHash = await verifyPost(f.current, f.get, { includeText: true });
   assert.equal(staleHash.status, "failed");
   assert.deepEqual(staleHash.checks, { content: "invalid", signature: "valid", signer: "valid" });
+  assert.equal(staleHash.contentMarkdown, undefined);
 
   f.post.content_hash = hash(f.post.content_md);
   const edited = await verifyPost(f.current, f.get);
