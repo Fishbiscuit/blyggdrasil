@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Verify a post · Blyggdrasil</title>
+  <meta name="description" content="Check the text, signature and signing key of a public Blygger post.">
+  <link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/tree.css">
+  <link rel="stylesheet" href="../assets/proof.css">
+</head>
+<body>
+  <main class="proof-page">
+    <header class="proof-header">
+      <a class="brand" href="../">Blyggdrasil</a>
+      <h1>Verify a post</h1>
+      <p>Check what was signed and which blyg recognizes the key.</p>
+    </header>
+
+    <form id="proof-form" method="get" action="./">
+      <label for="post-url">Public Blygger post URL</label>
+      <div class="proof-form-row">
+        <input id="post-url" name="post" inputmode="url" autocomplete="url" autocapitalize="off" spellcheck="false" required>
+        <button class="proof-submit" type="submit">Check post</button>
+      </div>
+      <details class="proof-options" id="proof-options">
+        <summary>Version and trusted key</summary>
+        <div class="proof-optional-fields">
+          <div>
+            <label for="post-version">Version</label>
+            <input id="post-version" name="version" type="number" min="1" max="9007199254740991" step="1" aria-describedby="version-hint">
+            <p class="proof-hint" id="version-hint">Leave blank to check the current version.</p>
+          </div>
+          <div>
+            <label for="expected-key">Trusted public key</label>
+            <input id="expected-key" name="key" autocomplete="off" autocapitalize="off" spellcheck="false" aria-describedby="key-hint">
+            <p class="proof-hint" id="key-hint">Optional. Use a public <code>did:key</code> you know.</p>
+          </div>
+        </div>
+      </details>
+    </form>
+
+    <section id="proof-examples" aria-label="Verification examples" hidden></section>
+    <p class="proof-status" id="proof-status" role="status"></p>
+    <section id="proof-result" aria-labelledby="proof-heading" hidden>
+      <p class="proof-version" id="proof-version" hidden></p>
+      <h2 id="proof-heading" tabindex="-1"></h2>
+      <p id="proof-summary"></p>
+
+      <dl class="proof-checks">
+        <div>
+          <dt>Post text matches the recorded hash</dt>
+          <dd id="content-verdict"></dd>
+        </div>
+        <div>
+          <dt>Signature verifies against the hash</dt>
+          <dd id="signature-verdict"></dd>
+        </div>
+        <div>
+          <dt>Signing key belongs to this tree</dt>
+          <dd id="signer-verdict"></dd>
+        </div>
+        <div id="expected-signer-row" hidden>
+          <dt>Signing key matches the trusted key</dt>
+          <dd id="expected-signer-verdict"></dd>
+        </div>
+      </dl>
+
+      <div class="proof-actions">
+        <button class="proof-link-button" id="copy-proof-link" type="button" hidden>Copy verification link</button>
+        <a id="read-post" rel="noopener noreferrer" hidden>Read the post</a>
+      </div>
+      <p class="proof-status" id="copy-proof-status" role="status"></p>
+      <div id="copy-link-fallback" hidden>
+        <label for="proof-share-url">Verification link</label>
+        <input id="proof-share-url" type="url" readonly>
+      </div>
+
+      <details id="proof-evidence" hidden>
+        <summary>View evidence</summary>
+        <dl class="proof-evidence-list">
+          <div id="proof-origin-row" hidden><dt>Blyg</dt><dd><a id="proof-origin" rel="noopener noreferrer"></a></dd></div>
+          <div id="proof-item-row" hidden><dt>Item data</dt><dd><a id="proof-item" rel="noopener noreferrer"></a></dd></div>
+          <div id="proof-key-row" hidden><dt>Public signing key</dt><dd><code id="proof-key"></code></dd></div>
+          <div id="proof-source-row" hidden><dt>Source linked by the blyg</dt><dd><a id="proof-source" rel="noopener noreferrer"></a></dd></div>
+        </dl>
+        <p class="proof-hint" id="proof-source-note" hidden>The signature covers the copy published on this blyg.</p>
+      </details>
+    </section>
+    <noscript>Enable JavaScript to check a post in this browser.</noscript>
+  </main>
+  <script type="module" src="../assets/proof.js"></script>
+</body>
+</html>
