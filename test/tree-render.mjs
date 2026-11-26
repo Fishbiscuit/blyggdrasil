@@ -34,7 +34,7 @@ test("renderer creates a script-independent public tree without private or withd
     write(`items/${id}.json`, {
       id, origin, kind: "thread", version: 2, created: "2026-11-26T13:00:00Z",
       page: `t/${id}/`,
-      content_md: "A <title>\n\nA public post.\n\n[Original post by @publisher](https://x.com/publisher/status/12345).",
+      content_md: "A <title>\n\nA public post. \nNext line.\n\n[Original post by @publisher](https://x.com/publisher/status/12345).",
     });
     write(`items/${privateId}.json`, {
       id: privateId, origin, kind: "thread", visibility: "private", content_md: "Private marker",
@@ -54,6 +54,7 @@ test("renderer creates a script-independent public tree without private or withd
     assert.match(html, /https:\/\/publisher\.example\/blyg\/items\/index\.json/);
     assert.match(html, new RegExp(`items/${id}\\.json`));
     assert.match(html, /View on X/);
+    assert.match(html, /A public post\.\nNext line\./);
     assert.match(html, /github\.com\/publisher/);
     assert.match(html, /src="\.\.\/\.\.\/assets\/tree\.js"/);
     assert.doesNotMatch(html, /Private marker|Withdrawn marker|javascript:|class="signed"/);
