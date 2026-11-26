@@ -80,7 +80,21 @@
         <div class="row" style="margin:12px 0 22px"><button class="btn ghost" id="copy-tree" type="button">Copy the post</button><button class="btn ghost" id="save-tree" type="button">Save as .md</button></div>
         <p><b>Blygger Studio:</b> paste it as a new post and publish. Then add a profile link labelled <code>Blyggdrasil</code> that points at the post.</p>
         <p><b>A static blyg:</b> publish it like any post, and add <code>"blyggdrasil": "&lt;the post’s address&gt;"</code> to your <code>blyg.json</code>, or use the <a href="https://github.com/Fishbiscuit/blyggdrasil#command-line">command line</a>.</p>
-        <a class="btn" id="check-link" href="../">See your tree</a>
+      </div>
+    </section>
+
+    <section class="step" id="s5" hidden>
+      <span class="n">05</span>
+      <h2>Check your published tree</h2>
+      <form class="grow" id="check-published-form">
+        <input id="published-url" aria-label="Published tree post URL" placeholder="https://yourname.com/blyg/t/…" inputmode="url" spellcheck="false" required>
+        <button class="btn" type="submit">Check</button>
+      </form>
+      <p class="note" id="published-status" role="status"></p>
+      <ul class="accts" id="published-accounts" hidden></ul>
+      <div class="row" id="published-actions" hidden>
+        <a class="btn" id="check-link" href="../">Open my tree</a>
+        <button class="btn ghost" id="copy-tree-link" type="button">Copy my tree link</button>
       </div>
     </section>
   </div>

@@ -2,12 +2,17 @@ import { allowLocalDevelopment, resolveBlyg, generateKey, importKeyFile, seriali
 import { checkBranch, makeFetcher } from "../lib/resolvers.js";
 import { createWorld, webglAvailable } from "./world.js";
 import { branchLabel } from "./labels.js";
+import { checkPublishedTree } from "../lib/published-tree.js";
 
 if (["localhost", "127.0.0.1"].includes(location.hostname)) allowLocalDevelopment();
 const $ = (s) => document.querySelector(s);
 const get = makeFetcher();
+const getPublicTree = makeFetcher((url, options) => fetch(url, { ...options, signal: AbortSignal.timeout(12_000) }));
 const state = { trunk: null, title: "", main: null, mainFile: null, recoveryFile: null, recoveryDid: null, drawn: "", rows: [] };
 const WORDS = { verified: "verified", failed: "no proof found yet", unreachable: "can’t check from a browser", claimed: "claimed only", pending: "not checked" };
+const PUBLISHED_WORDS = { verified: "Verified", failed: "Proof failed", unreachable: "Couldn’t reach proof", claimed: "Claimed only" };
+let publishedDraft = null;
+let publicationRun = 0;
 const fingerprint = (did) => `${did.slice(8, 24).match(/.{1,4}/g).join(" ")} …${did.slice(-4)}`;
 const enc = encodeURIComponent;
 const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
@@ -106,6 +111,9 @@ function draw(force = false) {
     subtitle: state.trunk ? host(state.trunk) : "the trunk",
     branches: good.map(({ url }) => { const [label, sub] = branchLabel(url); return { label, sub, url }; }),
     verdictText: () => WORDS.pending,
+  });
+  good.forEach(({ row }, index) => {
+    if (row.verdict) world.setVerdict(index, row.verdict, WORDS[row.verdict]);
   });
 }
 draw(true);
@@ -237,10 +245,72 @@ $("#sign").addEventListener("click", async () => {
   const intro = `These accounts are mine, and this key signs for them. Each one carries the line \`${proofLine(claims)}\`. Check it at <https://fishbiscuit.me/blyggdrasil/#blyg=${host(state.trunk)}>.`;
   $("#tree-md").value = treeMarkdown(body, await signClaims(body, [state.main]), intro);
   $("#tree-out").hidden = false;
-  $("#check-link").href = `../#blyg=${host(state.trunk)}`;
+  publishedDraft = { origin: claims.trunk, key: claims.key, body };
+  publicationRun++;
+  $("#s5").hidden = false;
+  $("#published-status").textContent = "";
+  $("#published-accounts").hidden = true;
+  $("#published-actions").hidden = true;
+  $("#check-published-form button").disabled = false;
 });
 $("#copy-tree").addEventListener("click", (e) => copy($("#tree-md").value, e.target));
 $("#save-tree").addEventListener("click", () => save("blyggdrasil-tree.md", $("#tree-md").value + "\n", "text/markdown"));
+
+$("#published-url").addEventListener("input", () => {
+  publicationRun++;
+  $("#published-actions").hidden = true;
+  $("#published-accounts").hidden = true;
+  $("#published-status").textContent = "";
+  $("#check-published-form button").disabled = false;
+});
+
+$("#check-published-form").addEventListener("submit", async (event) => {
+  event.preventDefault();
+  if (!publishedDraft) return;
+  const run = ++publicationRun;
+  const button = event.currentTarget.querySelector("button");
+  const status = $("#published-status");
+  const accounts = $("#published-accounts");
+  const actions = $("#published-actions");
+  button.disabled = true;
+  status.className = "note";
+  status.textContent = "Checking the post and its account proofs…";
+  accounts.hidden = true;
+  actions.hidden = true;
+  const result = await checkPublishedTree(publishedDraft, $("#published-url").value.trim(), getPublicTree)
+    .catch(() => ({ error: "The check could not finish. Try again." }));
+  if (run !== publicationRun) return;
+  button.disabled = false;
+  if (result.error) {
+    status.className = "note warn";
+    status.textContent = result.error;
+    return;
+  }
+  const pending = result.branches.filter(({ verdict }) => verdict !== "verified").length;
+  status.textContent = pending
+    ? "Your blyg points to the signed tree. Check the account results below."
+    : "Your blyg points to the signed tree. All listed account proofs verified.";
+  accounts.replaceChildren(...result.branches.map(({ url, verdict, detail }) => {
+    const [network, account] = branchLabel(url);
+    const row = document.createElement("li");
+    row.textContent = [`${network} · ${account}`, PUBLISHED_WORDS[verdict] || "Couldn’t verify", detail].filter(Boolean).join(" — ");
+    return row;
+  }));
+  accounts.hidden = !result.branches.length;
+  const byUrl = new Map(result.branches.map((branch) => [branch.url, branch]));
+  for (const { url, row } of branches().good) {
+    const branch = byUrl.get(url);
+    if (branch) Object.assign(row, { verdict: branch.verdict, detail: branch.verdict === "verified" ? branch.detail : "" });
+  }
+  renderRows();
+  draw(true);
+  const tree = new URL("../tree/", location.href);
+  tree.searchParams.set("blyg", result.origin);
+  $("#check-link").href = tree.href;
+  actions.hidden = false;
+});
+
+$("#copy-tree-link").addEventListener("click", (event) => copy($("#check-link").href, event.currentTarget));
 
 const pre = new URLSearchParams(location.hash.slice(1)).get("blyg");
 if (pre) { $("#trunk").value = pre; $("#f1").requestSubmit(); }
