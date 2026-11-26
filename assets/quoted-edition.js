@@ -1,5 +1,6 @@
 import { loadQuotedEdition } from "../lib/quoted-edition.js";
 import { makeFetcher } from "../lib/resolvers.js";
+import { citationFor } from "./quote-citation.js";
 
 const get = makeFetcher((url, options) => fetch(url, { ...options, signal: AbortSignal.timeout(8_000) }));
 const status = document.querySelector("#quote-edition-status");
@@ -14,6 +15,14 @@ function showText(element, text) {
 try {
   const { quote, source, error } = await loadQuotedEdition(get);
   if (quote) showText(original, quote);
+  if (source) {
+    const citation = citationFor(source, new URL("../../verify/", location.href), new URL("../../quote/", location.href));
+    if (citation) {
+      const link = document.querySelector("#recheck-published-quote");
+      link.href = citation.quoteHref;
+      link.hidden = false;
+    }
+  }
   if (source?.comparison === "changed" || source?.comparison === "same") {
     showText(current, source.current.contentMarkdown);
   }

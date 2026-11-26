@@ -1,7 +1,7 @@
 import { allowLocalDevelopment, isHttpsUrl } from "../lib/blyggdrasil.js";
 import { verifyQuote } from "../lib/quote-proof.js";
 import { makeFetcher } from "../lib/resolvers.js";
-import { citationFor } from "./quote-citation.js";
+import { citationFor, readQuoteLink } from "./quote-citation.js";
 
 if (["localhost", "127.0.0.1"].includes(location.hostname)) allowLocalDevelopment();
 
@@ -89,7 +89,7 @@ function showReport(report, requestedVersion) {
       : "Comparison unavailable.";
   }
 
-  citation = citationFor(report, proofPage);
+  citation = citationFor(report, proofPage, new URL("./", location.href));
   $("quote-proof-actions").hidden = !citation;
   const link = $("quote-proof-link");
   if (citation) link.href = citation.href;
@@ -158,7 +158,22 @@ $("quote-copy").addEventListener("click", async () => {
 
 $("quote-submit").disabled = false;
 
-if (new URLSearchParams(location.search).get("example") === "pinned") {
+function restoreSharedQuote() {
+  const shared = readQuoteLink(location.hash);
+  if (!shared) return false;
+  form.reset();
+  post.setCustomValidity("");
+  excerpt.setCustomValidity("");
+  clearResult();
+  post.value = shared.post;
+  version.value = shared.version;
+  excerpt.value = shared.quote;
+  state.textContent = "Review the linked excerpt, then select Check quote to verify it.";
+  return true;
+}
+
+window.addEventListener("hashchange", restoreSharedQuote);
+if (!restoreSharedQuote() && new URLSearchParams(location.search).get("example") === "pinned") {
   post.value = "https://fishbiscuit.me/blyggdrasil/demo/edit-and-pin/blyg/items/1hk3fv43xwpgckk19k4wf3v9ts/v1.json";
   version.value = "1";
   excerpt.value = "The reading room closes at five.";

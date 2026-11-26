@@ -5,6 +5,7 @@ import { test } from "node:test";
 import { importKeyFile, signByline } from "../lib/blyggdrasil.js";
 import { matchQuote } from "../lib/quote-match.js";
 import { verifyQuote } from "../lib/quote-proof.js";
+import { citationFor, readQuoteLink } from "../assets/quote-citation.js";
 
 const id = "1hk3fv43xwpgckk19k4wf3v9ts";
 const demo = new URL("../demo/edit-and-pin/blyg/", import.meta.url);
@@ -60,6 +61,40 @@ test("finds the verified quote in the actual demo's pinned edition after an edit
   assert.equal(report.current.contentMarkdown, "The reading room closes at six.");
   assert.equal(report.currentMatch.status, "absent");
   assert.equal(report.comparison, "changed");
+});
+
+test("a copied citation rechecks its exact pinned edition and retains the post proof", async () => {
+  const report = await verifyQuote(input, getPublishedDemo, { version: 1, quote: "at five" });
+  const base = "https://fishbiscuit.me/blyggdrasil/";
+  const citation = citationFor(report, base + "verify/", base + "quote/?example=pinned");
+  const comparison = new URL(citation.quoteHref);
+  const proof = new URL(citation.href);
+  const linked = readQuoteLink(comparison.hash);
+
+  assert.equal(comparison.search, "");
+  assert.deepEqual(linked, { post: pinned, version: 1, quote: "at five" });
+  assert.equal(proof.searchParams.get("post"), pinned);
+  assert.equal(proof.searchParams.get("version"), "1");
+  assert.ok(citation.text.includes(`Recheck quote: ${comparison.href}\nPost proof: ${proof.href}`));
+
+  const reopened = await verifyQuote(linked.post, getPublishedDemo, linked);
+  assert.equal(reopened.edition.pinned, true);
+  assert.equal(reopened.match.status, "matched");
+  assert.equal(reopened.comparison, "changed");
+  const unavailable = await verifyQuote(input, getPublishedDemo, { version: 3, quote: linked.quote });
+  assert.equal(citationFor(unavailable, proof, comparison), null);
+});
+
+test("reading a quote link keeps the literal excerpt and rejects invalid references", () => {
+  const hash = (post, version, quote) => "#" + new URLSearchParams({ post, version, quote });
+  const text = "**Café** & room #2 🍃\nSecond line + symbols";
+  assert.deepEqual(readQuoteLink(hash(input, 2, text)), { post: input, version: 2, quote: text });
+  assert.equal(readQuoteLink(hash("javascript:alert(1)", 2, text)), null);
+  assert.equal(readQuoteLink(hash("https://name:password@example.com/item", 2, text)), null);
+  assert.equal(readQuoteLink(hash(input, "1e2", text)), null);
+  assert.equal(readQuoteLink(hash(input, "9007199254740992", text)), null);
+  assert.equal(readQuoteLink(hash(input, 2, " ")), null);
+  assert.equal(readQuoteLink(""), null);
 });
 
 test("compares an explicit pin with the current item and distinguishes verbatim text", async () => {
