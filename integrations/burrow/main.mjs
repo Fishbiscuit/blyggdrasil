@@ -1,9 +1,11 @@
 import { createInterface } from "node:readline";
 import { copyEditionLink, readEdition } from "./edition.mjs";
+import { inspectEdition, networkUnavailable } from "./inspect.mjs";
 
 const lines = createInterface({ input: process.stdin, crlfDelay: Infinity });
 const write = (message) => process.stdout.write(JSON.stringify({ jsonrpc: "2.0", ...message }) + "\n");
 const error = (id, code, message) => write({ id, error: { code, message } });
+let networkAllowed = false;
 
 for await (const line of lines) {
   let request;
@@ -26,19 +28,28 @@ for await (const line of lines) {
       error(id, -32602, "Burrow Extension Protocol version 1 is required.");
       continue;
     }
+    networkAllowed = Array.isArray(params.granted) && params.granted.includes("net");
     write({ id, result: { protocolVersion: 1, name: "blyggdrasil-proof", version: "0.1.0" } });
   } else if (method === "shutdown") {
     write({ id, result: null });
     lines.close();
     process.stdin.pause();
     break;
-  } else if (method === "extension/entry.action" && params?.action === "copy-proof-link") {
+  } else if (method === "extension/entry.action" &&
+      (params?.action === "copy-proof-link" || params?.action === "verify-edition")) {
     const edition = readEdition(params.entry);
     if (!edition) {
       error(id, -32602, "This entry has no valid public Blygger origin, item ID, and edition.");
       continue;
     }
-    write({ id, result: copyEditionLink(edition) });
+    try {
+      const result = params.action === "copy-proof-link" ? copyEditionLink(edition)
+        : networkAllowed ? await inspectEdition(edition, { shownMarkdown: params.entry.contentMd })
+        : networkUnavailable(edition);
+      write({ id, result });
+    } catch {
+      error(id, -32603, "The edition check could not be completed.");
+    }
   } else {
     error(id, -32601, "Unknown extension method or action.");
   }

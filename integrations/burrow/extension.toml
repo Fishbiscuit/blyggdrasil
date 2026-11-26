@@ -1,11 +1,16 @@
 name = "blyggdrasil-proof"
 version = "0.1.0"
 protocol = 1
-description = "Copy exact-edition Blyggdrasil proof links from the reader."
+description = "Copy and check exact-edition Blyggdrasil proofs from the reader."
 command = ["node", "main.mjs"]
-capabilities = ["reading.read"]
+capabilities = ["reading.read", "net"]
 
 [[entry-actions]]
 id = "copy-proof-link"
 title = "Copy edition proof link"
 detail = "Open this exact edition in Blyggdrasil"
+
+[[entry-actions]]
+id = "verify-edition"
+title = "Verify this edition"
+detail = "Check the text, signature, and publishing key"
