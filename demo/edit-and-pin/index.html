@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>One post, two signed editions · Blyggdrasil</title>
+  <meta name="description" content="Compare a pinned Blygger post with its edited edition and verify both signatures.">
+  <link rel="canonical" href="https://fishbiscuit.me/blyggdrasil/demo/edit-and-pin/">
+  <link rel="icon" href="../../assets/mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../../assets/tree.css">
+  <link rel="stylesheet" href="../../assets/edit-and-pin.css">
+</head>
+<body>
+  <main class="editions-page">
+    <header class="editions-header">
+      <a class="brand" href="../../">Blyggdrasil</a>
+      <h1>One post, two signed editions</h1>
+      <p>A demo publisher changed one sentence. Its pinned original is still available at its own address.</p>
+    </header>
+    <div class="editions-grid">
+      <article class="edition" id="pinned-edition" aria-labelledby="pinned-heading">
+        <header>
+          <h2 id="pinned-heading">Pinned original</h2>
+          <span class="edition-version"></span>
+        </header>
+        <blockquote hidden></blockquote>
+        <p class="edition-result">Checking the original…</p>
+        <p class="edition-error" hidden></p>
+        <dl hidden>
+          <div><dt>Text matches the hash</dt><dd data-check="content"></dd></div>
+          <div><dt>Signature verifies</dt><dd data-check="signature"></dd></div>
+          <div><dt>Key belongs to the tree</dt><dd data-check="signer"></dd></div>
+        </dl>
+        <nav aria-label="Pinned original evidence">
+          <a class="edition-data" href="blyg/items/1hk3fv43xwpgckk19k4wf3v9ts/v1.json">Pinned item data</a>
+          <a class="edition-proof" hidden>Full proof</a>
+        </nav>
+      </article>
+      <article class="edition" id="current-edition" aria-labelledby="current-heading">
+        <header>
+          <h2 id="current-heading">Edited edition</h2>
+          <span class="edition-version"></span>
+        </header>
+        <blockquote hidden></blockquote>
+        <p class="edition-result">Checking the current edition…</p>
+        <p class="edition-error" hidden></p>
+        <dl hidden>
+          <div><dt>Text matches the hash</dt><dd data-check="content"></dd></div>
+          <div><dt>Signature verifies</dt><dd data-check="signature"></dd></div>
+          <div><dt>Key belongs to the tree</dt><dd data-check="signer"></dd></div>
+        </dl>
+        <nav aria-label="Edited edition evidence">
+          <a class="edition-data" href="blyg/items/1hk3fv43xwpgckk19k4wf3v9ts.json">Current item data</a>
+          <a class="edition-proof" hidden>Full proof</a>
+        </nav>
+      </article>
+    </div>
+    <p class="comparison-status" id="comparison-status" role="status"></p>
+    <noscript>Open either item link to read its text and signature. The browser checks require JavaScript.</noscript>
+  </main>
+  <script type="module" src="../../assets/edit-and-pin.js"></script>
+</body>
+</html>

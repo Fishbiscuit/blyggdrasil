@@ -18,6 +18,8 @@ The source linked by an archive item is attribution. Signing an imported copy au
 
 ## Try the examples
 
+[Compare the pinned original and edited edition](https://fishbiscuit.me/blyggdrasil/demo/edit-and-pin/). The demo publisher signed both versions of one post. The page fetches its actual pinned item and current item, then displays the text checked by the verifier. Each side links to its item JSON and full post proof.
+
 Check the [signed original](verify/?example=original) and the [edited copy](verify/?example=edited) in a served checkout, or run:
 
 ```sh
