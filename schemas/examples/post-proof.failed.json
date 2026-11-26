@@ -1,0 +1,24 @@
+{
+  "input": "https://proof-demo.example/blyg/items/01jpcyy4qaaaek03ptm4c5g1c2/v1.json",
+  "origin": "https://proof-demo.example/blyg/",
+  "itemUrl": "https://proof-demo.example/blyg/items/01jpcyy4qaaaek03ptm4c5g1c2/v1.json",
+  "pageUrl": null,
+  "itemId": "01jpcyy4qaaaek03ptm4c5g1c2",
+  "version": 1,
+  "signingKey": "did:key:z6MkhZev5NUBbrDxrHAdKLXcSxyyQ6ZBsD5uTEgKehTp4WhB",
+  "sourceUrl": null,
+  "pinned": true,
+  "checks": {
+    "content": "invalid",
+    "signature": "valid",
+    "signer": "valid"
+  },
+  "manifestUrl": "https://proof-demo.example/blyg/blyg.json",
+  "treeUrl": "https://proof-demo.example/blyg/items/01jpcyy4qaaaek03ptm4c5g1c3.json",
+  "treeIdentity": {
+    "currentKey": "did:key:z6MkhZev5NUBbrDxrHAdKLXcSxyyQ6ZBsD5uTEgKehTp4WhB",
+    "keyHistory": [],
+    "formerOrigins": []
+  },
+  "status": "failed"
+}

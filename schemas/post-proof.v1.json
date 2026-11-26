@@ -1,0 +1,96 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/Fishbiscuit/blyggdrasil/main/schemas/post-proof.v1.json",
+  "title": "Blyggdrasil post proof v1",
+  "description": "One verify-post --json response, also found under proof in each archive audit line. Readers may ignore additional properties.",
+  "type": "object",
+  "required": ["status", "origin", "itemUrl", "pageUrl", "itemId", "version", "signingKey", "sourceUrl", "pinned", "checks"],
+  "properties": {
+    "status": {
+      "enum": ["verified", "failed", "unsigned", "unavailable"],
+      "description": "Overall verdict. Inspect checks to distinguish a bad signature, a hash mismatch, and missing evidence."
+    },
+    "input": { "type": ["string", "null"], "description": "The supplied address, if the caller supplied one." },
+    "origin": { "$ref": "#/$defs/optionalUrl" },
+    "itemUrl": { "$ref": "#/$defs/optionalUrl" },
+    "pageUrl": { "$ref": "#/$defs/optionalUrl" },
+    "itemId": { "oneOf": [{ "$ref": "#/$defs/itemId" }, { "type": "null" }] },
+    "version": { "oneOf": [{ "$ref": "#/$defs/editionVersion" }, { "type": "null" }] },
+    "signingKey": { "oneOf": [{ "$ref": "#/$defs/publicKey" }, { "type": "null" }] },
+    "sourceUrl": { "$ref": "#/$defs/optionalUrl", "description": "A source attributed by the publisher's post." },
+    "sourceKind": { "enum": ["syndication", "archive-footer"] },
+    "pinned": { "type": "boolean", "description": "The result addresses a pinned copy. Check the verdict before relying on it." },
+    "checks": {
+      "type": "object",
+      "required": ["content", "signature", "signer"],
+      "properties": {
+        "content": { "$ref": "#/$defs/check", "description": "The content matches the recorded hash." },
+        "signature": { "$ref": "#/$defs/check", "description": "The signature verifies against the recorded hash." },
+        "signer": { "$ref": "#/$defs/check", "description": "The publisher's signed tree authorizes the key." }
+      }
+    },
+    "expectedKey": { "$ref": "#/$defs/publicKey" },
+    "expectedSigner": { "$ref": "#/$defs/check" },
+    "manifestUrl": { "$ref": "#/$defs/url" },
+    "treeUrl": { "$ref": "#/$defs/url" },
+    "treeIdentity": {
+      "type": "object",
+      "required": ["currentKey", "keyHistory", "formerOrigins"],
+      "properties": {
+        "currentKey": { "$ref": "#/$defs/publicKey" },
+        "keyHistory": { "type": "array", "items": { "$ref": "#/$defs/keyChange" } },
+        "formerOrigins": { "type": "array", "items": { "$ref": "#/$defs/url" } }
+      }
+    },
+    "error": { "type": "string", "description": "Human-readable detail. Consumers should use status and checks for decisions." },
+    "reason": { "type": "string", "pattern": "^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$", "description": "Machine-readable reason, when available. Readers should allow new values." },
+    "contentMarkdown": { "type": "string", "description": "Verified text, present only when a reader asked for the content." }
+  },
+  "dependentRequired": {
+    "expectedKey": ["expectedSigner"],
+    "expectedSigner": ["expectedKey"]
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "status": { "const": "verified" } } },
+      "then": {
+        "properties": {
+          "origin": { "$ref": "#/$defs/url" },
+          "itemUrl": { "$ref": "#/$defs/url" },
+          "itemId": { "$ref": "#/$defs/itemId" },
+          "version": { "$ref": "#/$defs/editionVersion" },
+          "signingKey": { "$ref": "#/$defs/publicKey" },
+          "checks": {
+            "properties": {
+              "content": { "const": "valid" },
+              "signature": { "const": "valid" },
+              "signer": { "const": "valid" }
+            }
+          },
+          "expectedSigner": { "const": "valid" }
+        }
+      },
+      "else": { "not": { "required": ["contentMarkdown"] } }
+    }
+  ],
+  "$defs": {
+    "check": { "enum": ["valid", "invalid", "unsigned", "unavailable"] },
+    "editionVersion": { "type": "integer", "minimum": 1, "maximum": 9007199254740991 },
+    "itemId": { "type": "string", "pattern": "^[0-7][0-9abcdefghjkmnpqrstvwxyz]{25}$" },
+    "publicKey": { "type": "string", "pattern": "^did:key:z6Mk[1-9A-HJ-NP-Za-km-z]+$" },
+    "url": { "type": "string", "format": "uri", "pattern": "^https?://" },
+    "optionalUrl": { "oneOf": [{ "$ref": "#/$defs/url" }, { "type": "null" }] },
+    "keyChange": {
+      "type": "object",
+      "required": ["how", "key"],
+      "properties": {
+        "how": { "enum": ["rotated", "recovered"] },
+        "key": { "$ref": "#/$defs/publicKey" },
+        "by": { "$ref": "#/$defs/publicKey" },
+        "from": { "type": "string", "pattern": "^v[1-9][0-9]*$" }
+      },
+      "if": { "properties": { "how": { "const": "recovered" } } },
+      "then": { "required": ["by", "from"] }
+    }
+  }
+}
