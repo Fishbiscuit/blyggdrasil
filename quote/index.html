@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Check a quote · Blyggdrasil</title>
+  <meta name="description" content="Check a quote against a signed edition of a public Blygger post.">
+  <link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/tree.css">
+  <link rel="stylesheet" href="../assets/proof.css">
+  <link rel="stylesheet" href="../assets/quote.css">
+</head>
+<body>
+  <main class="proof-page quote-page">
+    <header class="proof-header">
+      <a class="brand" href="../">Blyggdrasil</a>
+      <h1>Check a quote</h1>
+      <p>Find an exact passage in a signed edition and see how it compares with the current post.</p>
+    </header>
+
+    <form id="quote-form">
+      <div class="quote-source-fields">
+        <div>
+          <label for="quote-post">Public Blygger post URL</label>
+          <input id="quote-post" type="url" inputmode="url" autocomplete="url" autocapitalize="off" spellcheck="false" required>
+        </div>
+        <div>
+          <label for="quote-version">Cited version</label>
+          <input id="quote-version" type="number" min="1" max="9007199254740991" step="1" placeholder="Optional" aria-describedby="quote-version-hint">
+        </div>
+      </div>
+      <p class="proof-hint" id="quote-version-hint">Leave the version blank to use the pasted link. A current post link checks the latest edition.</p>
+      <label for="quote-excerpt">Exact excerpt</label>
+      <textarea id="quote-excerpt" rows="3" aria-describedby="quote-excerpt-hint" required></textarea>
+      <p class="proof-hint" id="quote-excerpt-hint">Paste the passage as it appears in the post’s signed Markdown.</p>
+      <div class="quote-form-actions">
+        <button id="quote-submit" class="proof-submit" type="submit" disabled>Check quote</button>
+        <a href="?example=pinned">Try the pinned demo quote</a>
+      </div>
+    </form>
+    <p class="proof-status" id="quote-status" role="status"></p>
+
+    <section class="quote-result" id="quote-result" aria-labelledby="quote-result-title" hidden>
+      <h2 id="quote-result-title" tabindex="-1"></h2>
+      <p id="quote-result-note"></p>
+      <div class="quote-editions">
+        <section>
+          <h3 id="quote-cited-title">Cited edition</h3>
+          <blockquote id="quote-context" hidden></blockquote>
+          <p class="proof-hint" id="quote-cited-note" hidden></p>
+        </section>
+        <section>
+          <h3 id="quote-current-title">Current edition</h3>
+          <p id="quote-current-note"></p>
+          <blockquote id="quote-current-context" hidden></blockquote>
+        </section>
+      </div>
+      <div class="proof-actions" id="quote-proof-actions" hidden>
+        <button class="proof-link-button" type="button" id="quote-copy">Copy verified citation</button>
+        <a id="quote-proof-link" rel="noopener noreferrer">Verify the exact edition</a>
+      </div>
+      <p class="proof-status" id="quote-copy-status" role="status"></p>
+      <div id="quote-copy-fallback" hidden>
+        <label for="quote-citation">Verified citation</label>
+        <textarea id="quote-citation" rows="4" readonly></textarea>
+      </div>
+    </section>
+
+    <noscript><p>JavaScript is needed to check a quote. You can still <a href="../demo/edit-and-pin/">open the published demo editions</a>.</p></noscript>
+  </main>
+  <script type="module" src="../assets/quote.js"></script>
+</body>
+</html>
