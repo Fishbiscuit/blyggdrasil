@@ -26,6 +26,8 @@ node --test test/proof-examples.mjs
 
 Both use the same public [test evidence](demo/proof/examples.json). The edited text fails the hash comparison while the recorded signature and signing key still check. The [continuity rehearsal](demo/continuity/) uses throwaway keys and simulated origins for a move, rotation, recovery, and missing evidence cases.
 
+To exercise the move and recovery through a real HTTP redirect and version endpoints, run `node --test test/continuity-http.mjs` in an environment that allows loopback listeners. The test starts and closes two temporary local servers.
+
 ## Refresh the public HTML
 
 ```sh
