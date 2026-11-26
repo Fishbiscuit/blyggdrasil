@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:blyg="https://blygger.org/ns/0.1" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Blyggdrasil edit-and-pin demo</title>
+    <link>https://fishbiscuit.me/blyggdrasil/demo/edit-and-pin/blyg/</link>
+    <description>Example posts for the Blyggdrasil verifier.</description>
+    <atom:link href="https://fishbiscuit.me/blyggdrasil/demo/edit-and-pin/blyg/feed.xml" rel="self" type="application/rss+xml"/>
+    <lastBuildDate>Thu, 26 Nov 2026 18:07:53 GMT</lastBuildDate>
+    <blyg:level>2</blyg:level>
+    <blyg:manifest>https://fishbiscuit.me/blyggdrasil/demo/edit-and-pin/blyg/blyg.json</blyg:manifest>
+    <item>
+      <guid isPermaLink="false">blyg:1hk3fv43xwpgckk19k4wf3v9ts:v2</guid>
+      <link>https://fishbiscuit.me/blyggdrasil/demo/edit-and-pin/blyg/f/1hk3fv43xwpgckk19k4wf3v9ts/</link>
+      <title>Changed the closing time — The reading room closes at six.</title>
+      <description><![CDATA[<p>The reading room closes at six.</p>]]></description>
+      <pubDate>Thu, 26 Nov 2026 18:07:53 GMT</pubDate>
+      <dc:creator>Blyggdrasil demo</dc:creator>
+      <blyg:id>1hk3fv43xwpgckk19k4wf3v9ts</blyg:id>
+      <blyg:kind>fragment</blyg:kind>
+      <blyg:version>2</blyg:version>
+      <blyg:created>2026-11-26T18:07:52Z</blyg:created>
+      <blyg:item>https://fishbiscuit.me/blyggdrasil/demo/edit-and-pin/blyg/items/1hk3fv43xwpgckk19k4wf3v9ts.json</blyg:item>
+    </item>
+    <item>
+      <guid isPermaLink="false">blyg:1hk3fv43xwpgckk19k4wf3v9ts:v1</guid>
+      <link>https://fishbiscuit.me/blyggdrasil/demo/edit-and-pin/blyg/f/1hk3fv43xwpgckk19k4wf3v9ts/</link>
+      <title>Published the original — The reading room closes at six.</title>
+      <description><![CDATA[<p>The reading room closes at six.</p>]]></description>
+      <pubDate>Thu, 26 Nov 2026 18:07:52 GMT</pubDate>
+      <dc:creator>Blyggdrasil demo</dc:creator>
+      <blyg:id>1hk3fv43xwpgckk19k4wf3v9ts</blyg:id>
+      <blyg:kind>fragment</blyg:kind>
+      <blyg:version>1</blyg:version>
+      <blyg:created>2026-11-26T18:07:52Z</blyg:created>
+      <blyg:item>https://fishbiscuit.me/blyggdrasil/demo/edit-and-pin/blyg/items/1hk3fv43xwpgckk19k4wf3v9ts.json</blyg:item>
+    </item>
+    <item>
+      <guid isPermaLink="false">blyg:7p4qap9qgjkaa0yxv1dcae6rx3:v1</guid>
+      <link>https://fishbiscuit.me/blyggdrasil/demo/edit-and-pin/blyg/t/7p4qap9qgjkaa0yxv1dcae6rx3/</link>
+      <title>Published the demo signing tree — Signing key for the Blyggdrasil edit-and-pin demo. blyggdrasil 1 trunk https://f…</title>
+      <description><![CDATA[<p>Signing key for the Blyggdrasil edit-and-pin demo.</p>
+<pre><code>blyggdrasil 1
+trunk https://fishbiscuit.me/blyggdrasil/demo/edit-and-pin/blyg/
+key did:key:z6MkghmaYVEtVFUbbn7ZbugRi6yK3gxN5pQPDnocfhXa8YwY</code></pre>
+<pre><code>key did:key:z6MkghmaYVEtVFUbbn7ZbugRi6yK3gxN5pQPDnocfhXa8YwY
+sig GBTp9h619KHHt2RmHlsciGOnn0y3BWs176d9OSdZjeI23HmwspXgZT1i_UMSEvixSg7kuvhNqR_A4rHWTq9vBg</code></pre>]]></description>
+      <pubDate>Thu, 26 Nov 2026 18:07:52 GMT</pubDate>
+      <dc:creator>Blyggdrasil demo</dc:creator>
+      <blyg:id>7p4qap9qgjkaa0yxv1dcae6rx3</blyg:id>
+      <blyg:kind>thread</blyg:kind>
+      <blyg:version>1</blyg:version>
+      <blyg:created>2026-11-26T18:07:52Z</blyg:created>
+      <blyg:item>https://fishbiscuit.me/blyggdrasil/demo/edit-and-pin/blyg/items/7p4qap9qgjkaa0yxv1dcae6rx3.json</blyg:item>
+    </item>
+  </channel>
+</rss>

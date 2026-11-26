@@ -1,0 +1,30 @@
+{
+  "blyg": "0.4",
+  "id": "7p4qap9qgjkaa0yxv1dcae6rx3",
+  "kind": "thread",
+  "origin": "https://fishbiscuit.me/blyggdrasil/demo/edit-and-pin/blyg/",
+  "page": "t/7p4qap9qgjkaa0yxv1dcae6rx3/",
+  "author": {
+    "name": "Blyggdrasil demo",
+    "url": "https://fishbiscuit.me/blyggdrasil/demo/edit-and-pin/blyg/",
+    "sig": {
+      "key": "did:key:z6MkghmaYVEtVFUbbn7ZbugRi6yK3gxN5pQPDnocfhXa8YwY",
+      "value": "bswcJcFQVmJk2x0T3P86NLa5vchMFR4y4TOUtz3EuHCVIEPO6WVSBKHRUaif_A_pieC5g2mFGI6dhZo00oBeCw"
+    }
+  },
+  "created": "2026-11-26T18:07:52Z",
+  "updated": "2026-11-26T18:07:52Z",
+  "version": 1,
+  "content_md": "Signing key for the Blyggdrasil edit-and-pin demo.\n\n```blyggdrasil\nblyggdrasil 1\ntrunk https://fishbiscuit.me/blyggdrasil/demo/edit-and-pin/blyg/\nkey did:key:z6MkghmaYVEtVFUbbn7ZbugRi6yK3gxN5pQPDnocfhXa8YwY\n```\n\n```blyggdrasil-signature\nkey did:key:z6MkghmaYVEtVFUbbn7ZbugRi6yK3gxN5pQPDnocfhXa8YwY\nsig GBTp9h619KHHt2RmHlsciGOnn0y3BWs176d9OSdZjeI23HmwspXgZT1i_UMSEvixSg7kuvhNqR_A4rHWTq9vBg\n```",
+  "content_html": "<p>Signing key for the Blyggdrasil edit-and-pin demo.</p>\n<pre><code>blyggdrasil 1\ntrunk https://fishbiscuit.me/blyggdrasil/demo/edit-and-pin/blyg/\nkey did:key:z6MkghmaYVEtVFUbbn7ZbugRi6yK3gxN5pQPDnocfhXa8YwY</code></pre>\n<pre><code>key did:key:z6MkghmaYVEtVFUbbn7ZbugRi6yK3gxN5pQPDnocfhXa8YwY\nsig GBTp9h619KHHt2RmHlsciGOnn0y3BWs176d9OSdZjeI23HmwspXgZT1i_UMSEvixSg7kuvhNqR_A4rHWTq9vBg</code></pre>",
+  "content_hash": "sha256:720749788e4e99a31c3f34689b4fa8b223182729e7fe0a1965ae44bff5abaa95",
+  "media": [],
+  "transclusions": [],
+  "changelog": [
+    {
+      "version": 1,
+      "at": "2026-11-26T18:07:52Z",
+      "note": "Published the demo signing tree"
+    }
+  ]
+}

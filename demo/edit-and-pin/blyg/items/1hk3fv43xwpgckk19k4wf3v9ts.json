@@ -1,0 +1,35 @@
+{
+  "blyg": "0.4",
+  "id": "1hk3fv43xwpgckk19k4wf3v9ts",
+  "kind": "fragment",
+  "origin": "https://fishbiscuit.me/blyggdrasil/demo/edit-and-pin/blyg/",
+  "page": "f/1hk3fv43xwpgckk19k4wf3v9ts/",
+  "author": {
+    "name": "Blyggdrasil demo",
+    "url": "https://fishbiscuit.me/blyggdrasil/demo/edit-and-pin/blyg/",
+    "sig": {
+      "key": "did:key:z6MkghmaYVEtVFUbbn7ZbugRi6yK3gxN5pQPDnocfhXa8YwY",
+      "value": "ZNEuWU8nDtyzQzAuMSiuKA2fGfQk582Y0S_oSc5ttgZrwKy8NuMu78zM-nHcZPim7fhnXyTEeDHCX0ms9eJ-Dg"
+    }
+  },
+  "created": "2026-11-26T18:07:52Z",
+  "updated": "2026-11-26T18:07:53Z",
+  "version": 2,
+  "content_md": "The reading room closes at six.",
+  "content_html": "<p>The reading room closes at six.</p>",
+  "content_hash": "sha256:bb539bc38d844048948f67603b41190c90ea9091f4190117bf852d7439fde4f2",
+  "media": [],
+  "changelog": [
+    {
+      "version": 1,
+      "at": "2026-11-26T18:07:52Z",
+      "note": "Published the original",
+      "pinned": true
+    },
+    {
+      "version": 2,
+      "at": "2026-11-26T18:07:53Z",
+      "note": "Changed the closing time"
+    }
+  ]
+}

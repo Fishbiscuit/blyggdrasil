@@ -1,0 +1,21 @@
+{
+  "blyg": "0.4",
+  "id": "1hk3fv43xwpgckk19k4wf3v9ts",
+  "kind": "fragment",
+  "version": 1,
+  "origin": "https://fishbiscuit.me/blyggdrasil/demo/edit-and-pin/blyg/",
+  "author": {
+    "name": "Blyggdrasil demo",
+    "url": "https://fishbiscuit.me/blyggdrasil/demo/edit-and-pin/blyg/",
+    "sig": {
+      "key": "did:key:z6MkghmaYVEtVFUbbn7ZbugRi6yK3gxN5pQPDnocfhXa8YwY",
+      "value": "XF6TC7v_IkgxUOBBi3yWmQ62rjJV6SkbQTeuZEwgBLicHVxDjwvVjlkFro5-PwPXxh3UwvPeuQnoJ2TiRKsmAQ"
+    }
+  },
+  "content_md": "The reading room closes at five.",
+  "content_html": "<p>The reading room closes at five.</p>",
+  "content_hash": "sha256:465bd4724aba4ea1515ac2d8bb1793a3ba4db8a92f94534302c56c09329fbc35",
+  "at": "2026-11-26T18:07:52Z",
+  "note": "Published the original",
+  "pinned": true
+}

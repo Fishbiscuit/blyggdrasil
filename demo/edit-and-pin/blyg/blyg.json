@@ -1,0 +1,16 @@
+{
+  "blyg": "0.4",
+  "level": 2,
+  "generator": "fishbiscuit-blyg/0.1.0",
+  "site": "https://fishbiscuit.me/blyggdrasil/demo/edit-and-pin/blyg/",
+  "title": "Blyggdrasil edit-and-pin demo",
+  "author": {
+    "name": "Blyggdrasil demo",
+    "bio": "Example posts for the Blyggdrasil verifier.",
+    "links": []
+  },
+  "feed": "feed.xml",
+  "items": "items/index.json",
+  "updated": "2026-11-26T18:07:53Z",
+  "blyggdrasil": "https://fishbiscuit.me/blyggdrasil/demo/edit-and-pin/blyg/t/7p4qap9qgjkaa0yxv1dcae6rx3/"
+}
