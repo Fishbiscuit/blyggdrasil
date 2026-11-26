@@ -107,7 +107,7 @@ test("a quote absent from its cited edition cannot be rescued by a newer version
   assert.equal(report.comparison, "unavailable");
 });
 
-test("custom templates preserve identity while finding a moved literal quote", async () => {
+async function signedEdit(citedText, currentText) {
   const vector = JSON.parse(await readFile(new URL("./vectors.json", import.meta.url), "utf8"));
   const key = await importKeyFile(vector.keys.main);
   const { origin, content_md } = vector.trees.valid;
@@ -127,15 +127,53 @@ test("custom templates preserve identity while finding a moved literal quote", a
       blyg: "0.4", item: "read/{id}.json", pin: "revisions/{id}/{n}.json", blyggdrasil: `t/${treeID}/`,
     }],
     [new URL(`read/${treeID}.json`, origin).href, { id: treeID, kind: "thread", origin, version: 1, content_md }],
-    [customPin, await makePost(1, "A literal quote", true)],
-    [customItem, await makePost(2, "A paragraph\n\nA literal quote")],
+    [customPin, await makePost(1, citedText, true)],
+    [customItem, await makePost(2, currentText)],
   ]);
   const get = async (url) => ({
     ok: docs.has(url), status: docs.has(url) ? 200 : 404, url, json: docs.get(url),
   });
+  return { hint, get, customPin, customItem };
+}
+
+test("custom templates preserve identity while finding a moved literal quote", async () => {
+  const { hint, get, customPin, customItem } = await signedEdit("A literal quote", "A paragraph\n\nA literal quote");
   const report = await verifyQuote(hint, get, { version: 1, quote: "literal quote" });
   assert.equal(report.edition.itemUrl, customPin);
   assert.equal(report.current.itemUrl, customItem);
   assert.equal(report.comparison, "same");
   assert.equal(report.positionChanged, true);
+});
+
+const longPrefix = "The first section establishes the reading room policy for visitors. ".repeat(10);
+const currentParagraph = "🍃 Staff prepare to close the main reading room at six every weekday, and all visitors must exit through the west doors.";
+const citedParagraph = currentParagraph.replace("at six", "at five");
+const longVersion = (paragraph) => `${longPrefix}\r\n\r\n${paragraph}\r\n\r\nAdditional unrelated information follows.`;
+
+test("shows the changed paragraph on a long verified current edition with unique literal anchors", async () => {
+  const { hint, get } = await signedEdit(longVersion(citedParagraph), longVersion(currentParagraph));
+  const report = await verifyQuote(hint, get, { version: 1, quote: "at five" });
+  assert.equal(report.edition.status, "verified");
+  assert.equal(report.current.status, "verified");
+  assert.equal(report.comparison, "changed");
+  assert.equal(report.currentMatch.status, "absent");
+  assert.equal(report.currentExcerpt.text, "at six");
+  const { before, text, after, truncatedBefore, truncatedAfter } = report.currentExcerpt;
+  assert.equal(before + text + after, currentParagraph);
+  assert.equal(truncatedBefore, true);
+  assert.equal(truncatedAfter, true);
+});
+
+test("duplicate literal anchors or rewritten context leave the replacement passage unavailable", async () => {
+  const variants = [
+    `${currentParagraph}\n\n${currentParagraph.replace("at six", "after sunset")}`,
+    "The closing times were revised and the entrances will be posted on a new notice.",
+  ];
+  for (const variant of variants) {
+    const { hint, get } = await signedEdit(longVersion(citedParagraph), longVersion(variant));
+    const report = await verifyQuote(hint, get, { version: 1, quote: "at five" });
+    assert.equal(report.comparison, "changed");
+    assert.equal(report.currentMatch.status, "absent");
+    assert.equal(report.currentExcerpt, undefined);
+  }
 });

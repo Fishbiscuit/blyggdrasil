@@ -32,7 +32,7 @@ function clearResult() {
 
 function showContext(id, match) {
   const context = $(id);
-  context.hidden = match?.status !== "matched";
+  context.hidden = !match;
   context.replaceChildren();
   if (context.hidden) return;
 
@@ -43,7 +43,7 @@ function showContext(id, match) {
 }
 
 function showReport(report, requestedVersion) {
-  const { edition, current, match, currentMatch, comparison, positionChanged } = report;
+  const { edition, current, match, currentMatch, currentExcerpt, comparison, positionChanged } = report;
   const matched = match?.status === "matched" && edition?.status === "verified";
   const absent = match?.status === "absent" && edition?.status === "verified";
   const unavailable = edition?.status === "unavailable" || !edition;
@@ -76,7 +76,10 @@ function showReport(report, requestedVersion) {
     if (positionChanged && currentMatch) showContext("quote-current-context", currentMatch);
   } else if (comparison === "changed") {
     currentNote.textContent = "The current edition verified. This exact excerpt is absent from its signed text.";
-    if (current?.contentMarkdown?.length <= 360) {
+    if (currentExcerpt) {
+      currentNote.textContent += " The passage below shares the cited edition’s surrounding text.";
+      showContext("quote-current-context", currentExcerpt);
+    } else if (current?.contentMarkdown?.length <= 360) {
       currentContext.textContent = current.contentMarkdown;
       currentContext.hidden = false;
     }
