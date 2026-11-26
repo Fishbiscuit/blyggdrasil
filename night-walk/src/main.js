@@ -2,6 +2,7 @@ import { Thicket, hostOf, ITEMS_PER_SITE } from './thicket.js';
 import { World } from './world.js';
 import { ringLayout, neighbourLayout, lanes, segDist } from './layout.js';
 import { publisherTreeUrl } from './publisher-tree.js';
+import { quoteProofUrl } from './quote-proof.js';
 
 const $ = (s) => document.querySelector(s);
 let START = Date.parse('2026-09-01T00:00:00Z');
@@ -254,7 +255,7 @@ function say(kind, item) {
     const [fromName, toName] = names(e.from, e.to);
     const where = el('p', 'where', `${fromName} quoting ${toName} · ${fmtDay.format(Date.parse(e.at))}`);
     box.append(where);
-    box.append(line(q.author || thicket.siteName(e.to), quotedWords(q), q.url || e.to, true));
+    box.append(line(q.author || thicket.siteName(e.to), quotedWords(q), quoteProofUrl(q), true));
     if (doc && doc.text) box.append(line(doc.author || thicket.siteName(e.from), clip(doc.text, 190), doc.page, false));
   } else {
     const d = item;
@@ -266,11 +267,14 @@ function say(kind, item) {
 function line(who, words, href, quoted) {
   const p = el('p', 'line' + (quoted ? ' quoted' : ''));
   p.append(el('span', 'who', who));
-  const a = document.createElement('a');
-  a.href = href || '#'; a.target = '_blank'; a.rel = 'noopener';
   const q = document.createElement('q'); q.textContent = words;
-  a.append(q);
-  p.append(a);
+  if (href) {
+    const a = document.createElement('a');
+    a.href = href; a.target = '_blank'; a.rel = 'noopener';
+    if (quoted) a.title = 'Verify the quoted edition';
+    a.append(q);
+    p.append(a);
+  } else p.append(q);
   return p;
 }
 
@@ -306,15 +310,17 @@ function showExchange(e) {
   bq.append(text(quotedWords(q)));
   bq.append(el('cite', '', `${q.author || thicket.siteName(e.to)}${q.version ? ' · as quoted, version ' + q.version : ''}`));
   nodes.push(bq);
-  const cur = thicket.currentVersion(e.to, q.id);
-  if (cur && cur.withdrawn) nodes.push(el('p', 'changed', 'The quoted post has since been withdrawn by its publisher. The quote keeps the words as they were published.'));
+  const cur = thicket.currentVersion(q.origin, q.id);
+  if (cur && cur.withdrawn) nodes.push(el('p', 'changed', 'The quoted post has since been withdrawn by its publisher. The citing post still carries the excerpt it recorded.'));
   else if (cur && q.version && cur.version > q.version) nodes.push(el('p', 'changed', `The quoted post has been revised since: it is now version ${cur.version}. The quote keeps version ${q.version}.`));
   if (doc) {
     if (doc.text) nodes.push(el('p', 'words', clip(doc.text, 600)));
     nodes.push(tags(doc));
   }
   const links = el('div', 'links');
-  if (q.url) links.append(link(q.url, `Open the quoted post ↗`));
+  const proof = quoteEvidenceLink(q);
+  if (proof) links.append(proof);
+  if (q.url) links.append(link(q.url, 'Open the source page ↗'));
   if (doc && doc.page) links.append(link(doc.page, `Open the reply ↗`));
   nodes.push(links);
   const acts = el('div', 'actions');
@@ -333,7 +339,10 @@ function showPost(origin, id) {
     for (const q of doc.quotes.filter(q => q.excerpt)) {
       const bq = document.createElement('blockquote');
       bq.append(text(q.excerpt));
-      bq.append(el('cite', '', `${q.author || thicket.siteName(q.origin)}${q.version ? ' · version ' + q.version : ''}`));
+      const cite = el('cite', '', `${q.author || thicket.siteName(q.origin)}${q.version ? ' · version ' + q.version : ''}`);
+      const proof = quoteEvidenceLink(q);
+      if (proof) cite.append(text(' · '), proof);
+      bq.append(cite);
       nodes.push(bq);
     }
     if (doc.text) nodes.push(el('p', 'words', clip(doc.text, 700)));
@@ -476,8 +485,13 @@ function jumpToNow() { if (time !== NOW) setTime(NOW); }
 function quotedWords(q) {
   if (q.excerpt) return q.excerpt;
   const src = thicket.docs.get(q.origin + '|' + q.id);
-  if (src && src.text && (!q.version || src.version === q.version)) return clip(src.text, 160);
+  if (src && src.text && quoteProofUrl(q) && src.version === q.version) return clip(src.text, 160);
   return 'A post on ' + hostOf(q.origin);
+}
+
+function quoteEvidenceLink(q) {
+  const href = quoteProofUrl(q);
+  return href ? link(href, `Verify quoted version ${q.version} ↗`) : null;
 }
 
 // One person can keep two blygs; then name the blygs, not the person twice.
