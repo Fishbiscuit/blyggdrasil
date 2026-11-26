@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Rehearse a move or key loss · Blyggdrasil</title>
+  <meta name="description" content="Follow a signed post through a move, key rotation, or recovery with synthetic Blygger data.">
+  <link rel="icon" href="../../assets/mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../../assets/tree.css">
+  <link rel="stylesheet" href="../../assets/continuity.css">
+</head>
+<body>
+  <main class="rehearsal">
+    <header class="rehearsal-header">
+      <a class="brand" href="../../">Blyggdrasil</a>
+      <h1>Rehearse a move or key loss</h1>
+      <p>Follow one signed post from an old blyg to a new one. Try a planned key rotation or rehearse losing the original key.</p>
+      <p class="example-note">This example runs in your browser with disposable keys and simulated sites. It makes no requests to those sites.</p>
+    </header>
+
+    <div class="rehearsal-layout">
+      <nav aria-label="Rehearsal scenarios">
+        <ol class="scenarios" id="continuity-steps"></ol>
+      </nav>
+      <section aria-labelledby="continuity-heading" id="continuity-result" hidden>
+        <h2 id="continuity-heading"></h2>
+        <p id="continuity-description"></p>
+        <output id="continuity-outcome" aria-live="polite"></output>
+        <dl class="continuity-checks" id="continuity-checks"></dl>
+
+        <details class="continuity-evidence" id="continuity-evidence">
+          <summary>View evidence</summary>
+          <dl class="continuity-checks" id="continuity-facts"></dl>
+        </details>
+      </section>
+    </div>
+    <p id="continuity-status" role="status">Creating disposable demo keys…</p>
+
+    <details class="continuity-requirements">
+      <summary>What you need for a real move or recovery</summary>
+      <ul>
+        <li>Keep a recovery key offline and pin the public tree version that lists it before you need it.</li>
+        <li>For a move, copy the post and any pinned versions to the new blyg. Sign a tree there that names the old address, add the former origin to the new manifest, and set a permanent redirect on the old manifest.</li>
+        <li>For a planned rotation, sign with both keys. For emergency recovery, sign with the new key and an offline key listed in the pinned tree. A current tree accepts its current key and at most one previous key.</li>
+      </ul>
+      <a href="https://github.com/Fishbiscuit/blyggdrasil/blob/main/SPEC.md#7-reinstating-l2">Read the continuity rules</a>
+    </details>
+    <noscript>Enable JavaScript to run the rehearsal.</noscript>
+  </main>
+  <script type="module" src="../../assets/continuity.js"></script>
+</body>
+</html>
