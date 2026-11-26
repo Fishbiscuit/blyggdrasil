@@ -1,0 +1,171 @@
+{
+  "format": "blyggdrasil-edition-proof/1",
+  "origin": "https://fishbiscuit.me/blyggdrasil/demo/edit-and-pin/blyg/",
+  "demoUrl": "https://fishbiscuit.me/blyggdrasil/demo/edit-and-pin/",
+  "trustedKey": "did:key:z6MkghmaYVEtVFUbbn7ZbugRi6yK3gxN5pQPDnocfhXa8YwY",
+  "documents": {
+    "https://fishbiscuit.me/blyggdrasil/demo/edit-and-pin/blyg/blyg.json": {
+      "blyg": "0.4",
+      "level": 2,
+      "generator": "fishbiscuit-blyg/0.1.0",
+      "site": "https://fishbiscuit.me/blyggdrasil/demo/edit-and-pin/blyg/",
+      "title": "Blyggdrasil edit-and-pin demo",
+      "author": {
+        "name": "Blyggdrasil demo",
+        "bio": "Example posts for the Blyggdrasil verifier.",
+        "links": []
+      },
+      "feed": "feed.xml",
+      "items": "items/index.json",
+      "updated": "2026-11-26T18:07:53Z",
+      "blyggdrasil": "https://fishbiscuit.me/blyggdrasil/demo/edit-and-pin/blyg/t/7p4qap9qgjkaa0yxv1dcae6rx3/"
+    },
+    "https://fishbiscuit.me/blyggdrasil/demo/edit-and-pin/blyg/items/7p4qap9qgjkaa0yxv1dcae6rx3.json": {
+      "blyg": "0.4",
+      "id": "7p4qap9qgjkaa0yxv1dcae6rx3",
+      "kind": "thread",
+      "origin": "https://fishbiscuit.me/blyggdrasil/demo/edit-and-pin/blyg/",
+      "page": "t/7p4qap9qgjkaa0yxv1dcae6rx3/",
+      "author": {
+        "name": "Blyggdrasil demo",
+        "url": "https://fishbiscuit.me/blyggdrasil/demo/edit-and-pin/blyg/",
+        "sig": {
+          "key": "did:key:z6MkghmaYVEtVFUbbn7ZbugRi6yK3gxN5pQPDnocfhXa8YwY",
+          "value": "bswcJcFQVmJk2x0T3P86NLa5vchMFR4y4TOUtz3EuHCVIEPO6WVSBKHRUaif_A_pieC5g2mFGI6dhZo00oBeCw"
+        }
+      },
+      "created": "2026-11-26T18:07:52Z",
+      "updated": "2026-11-26T18:07:52Z",
+      "version": 1,
+      "content_md": "Signing key for the Blyggdrasil edit-and-pin demo.\n\n```blyggdrasil\nblyggdrasil 1\ntrunk https://fishbiscuit.me/blyggdrasil/demo/edit-and-pin/blyg/\nkey did:key:z6MkghmaYVEtVFUbbn7ZbugRi6yK3gxN5pQPDnocfhXa8YwY\n```\n\n```blyggdrasil-signature\nkey did:key:z6MkghmaYVEtVFUbbn7ZbugRi6yK3gxN5pQPDnocfhXa8YwY\nsig GBTp9h619KHHt2RmHlsciGOnn0y3BWs176d9OSdZjeI23HmwspXgZT1i_UMSEvixSg7kuvhNqR_A4rHWTq9vBg\n```",
+      "content_html": "<p>Signing key for the Blyggdrasil edit-and-pin demo.</p>\n<pre><code>blyggdrasil 1\ntrunk https://fishbiscuit.me/blyggdrasil/demo/edit-and-pin/blyg/\nkey did:key:z6MkghmaYVEtVFUbbn7ZbugRi6yK3gxN5pQPDnocfhXa8YwY</code></pre>\n<pre><code>key did:key:z6MkghmaYVEtVFUbbn7ZbugRi6yK3gxN5pQPDnocfhXa8YwY\nsig GBTp9h619KHHt2RmHlsciGOnn0y3BWs176d9OSdZjeI23HmwspXgZT1i_UMSEvixSg7kuvhNqR_A4rHWTq9vBg</code></pre>",
+      "content_hash": "sha256:720749788e4e99a31c3f34689b4fa8b223182729e7fe0a1965ae44bff5abaa95",
+      "media": [],
+      "transclusions": [],
+      "changelog": [
+        {
+          "version": 1,
+          "at": "2026-11-26T18:07:52Z",
+          "note": "Published the demo signing tree"
+        }
+      ]
+    },
+    "https://fishbiscuit.me/blyggdrasil/demo/edit-and-pin/blyg/items/1hk3fv43xwpgckk19k4wf3v9ts.json": {
+      "blyg": "0.4",
+      "id": "1hk3fv43xwpgckk19k4wf3v9ts",
+      "kind": "fragment",
+      "origin": "https://fishbiscuit.me/blyggdrasil/demo/edit-and-pin/blyg/",
+      "page": "f/1hk3fv43xwpgckk19k4wf3v9ts/",
+      "author": {
+        "name": "Blyggdrasil demo",
+        "url": "https://fishbiscuit.me/blyggdrasil/demo/edit-and-pin/blyg/",
+        "sig": {
+          "key": "did:key:z6MkghmaYVEtVFUbbn7ZbugRi6yK3gxN5pQPDnocfhXa8YwY",
+          "value": "ZNEuWU8nDtyzQzAuMSiuKA2fGfQk582Y0S_oSc5ttgZrwKy8NuMu78zM-nHcZPim7fhnXyTEeDHCX0ms9eJ-Dg"
+        }
+      },
+      "created": "2026-11-26T18:07:52Z",
+      "updated": "2026-11-26T18:07:53Z",
+      "version": 2,
+      "content_md": "The reading room closes at six.",
+      "content_html": "<p>The reading room closes at six.</p>",
+      "content_hash": "sha256:bb539bc38d844048948f67603b41190c90ea9091f4190117bf852d7439fde4f2",
+      "media": [],
+      "changelog": [
+        {
+          "version": 1,
+          "at": "2026-11-26T18:07:52Z",
+          "note": "Published the original",
+          "pinned": true
+        },
+        {
+          "version": 2,
+          "at": "2026-11-26T18:07:53Z",
+          "note": "Changed the closing time"
+        }
+      ]
+    },
+    "https://fishbiscuit.me/blyggdrasil/demo/edit-and-pin/blyg/items/1hk3fv43xwpgckk19k4wf3v9ts/v1.json": {
+      "blyg": "0.4",
+      "id": "1hk3fv43xwpgckk19k4wf3v9ts",
+      "kind": "fragment",
+      "version": 1,
+      "origin": "https://fishbiscuit.me/blyggdrasil/demo/edit-and-pin/blyg/",
+      "author": {
+        "name": "Blyggdrasil demo",
+        "url": "https://fishbiscuit.me/blyggdrasil/demo/edit-and-pin/blyg/",
+        "sig": {
+          "key": "did:key:z6MkghmaYVEtVFUbbn7ZbugRi6yK3gxN5pQPDnocfhXa8YwY",
+          "value": "XF6TC7v_IkgxUOBBi3yWmQ62rjJV6SkbQTeuZEwgBLicHVxDjwvVjlkFro5-PwPXxh3UwvPeuQnoJ2TiRKsmAQ"
+        }
+      },
+      "content_md": "The reading room closes at five.",
+      "content_html": "<p>The reading room closes at five.</p>",
+      "content_hash": "sha256:465bd4724aba4ea1515ac2d8bb1793a3ba4db8a92f94534302c56c09329fbc35",
+      "at": "2026-11-26T18:07:52Z",
+      "note": "Published the original",
+      "pinned": true
+    }
+  },
+  "cases": [
+    {
+      "name": "pinned-original",
+      "itemUrl": "https://fishbiscuit.me/blyggdrasil/demo/edit-and-pin/blyg/items/1hk3fv43xwpgckk19k4wf3v9ts/v1.json",
+      "version": 1,
+      "pinned": true,
+      "expected": {
+        "status": "verified",
+        "content": "valid",
+        "signature": "valid",
+        "expectedSigner": "valid",
+        "treeSigner": "valid"
+      }
+    },
+    {
+      "name": "edited-current",
+      "itemUrl": "https://fishbiscuit.me/blyggdrasil/demo/edit-and-pin/blyg/items/1hk3fv43xwpgckk19k4wf3v9ts.json",
+      "version": 2,
+      "pinned": false,
+      "expected": {
+        "status": "verified",
+        "content": "valid",
+        "signature": "valid",
+        "expectedSigner": "valid",
+        "treeSigner": "valid"
+      }
+    },
+    {
+      "name": "tampered-markdown",
+      "itemUrl": "https://fishbiscuit.me/blyggdrasil/demo/edit-and-pin/blyg/items/1hk3fv43xwpgckk19k4wf3v9ts/v1.json",
+      "version": 1,
+      "pinned": true,
+      "replace": {
+        "content_md": "The reading room closes at seven."
+      },
+      "expected": {
+        "status": "failed",
+        "content": "invalid",
+        "signature": "valid",
+        "expectedSigner": "valid",
+        "treeSigner": "valid"
+      }
+    },
+    {
+      "name": "tampered-rehashed",
+      "itemUrl": "https://fishbiscuit.me/blyggdrasil/demo/edit-and-pin/blyg/items/1hk3fv43xwpgckk19k4wf3v9ts/v1.json",
+      "version": 1,
+      "pinned": true,
+      "replace": {
+        "content_md": "The reading room closes at seven.",
+        "content_hash": "sha256:4a03cd9ebd15cd66541a1890fdc76aab358ee484538a8adfe8c6b1ec2ce79674"
+      },
+      "expected": {
+        "status": "failed",
+        "content": "valid",
+        "signature": "invalid",
+        "expectedSigner": "valid",
+        "treeSigner": "valid"
+      }
+    }
+  ]
+}
