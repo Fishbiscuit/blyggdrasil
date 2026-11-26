@@ -7,6 +7,8 @@
 //                    [--intro text] [--out file]          write a signed tree post (Markdown)
 //   blyggdrasil proof --trunk URL --key file             print the proof line for your accounts
 //   blyggdrasil verify <blyg or tree URL> [--json]       check a tree and every branch
+//   blyggdrasil verify-post <URL> [--version N] [--expect-key DID] [--json]
+//                                                      check the content, signature, and tree signer
 //   blyggdrasil sign-byline --key file <content_hash>    print an author.sig member (SPEC §6)
 //   blyggdrasil ingest bluesky <handle> --out dir         save public Bluesky posts as archive files (SPEC §8)
 //   blyggdrasil ingest x <archive folder> --out dir       read an X archive download into archive files
@@ -21,6 +23,7 @@ import {
 } from "../lib/blyggdrasil.js";
 import { checkBranch, makeFetcher } from "../lib/resolvers.js";
 import { ingestBluesky, ingestXArchive } from "../lib/ingest.js";
+import { verifyPost } from "../lib/post-proof.js";
 
 if (process.env.BLYGGDRASIL_DEV === "1") allowLocalDevelopment();
 const fail = (m) => { console.error(`blyggdrasil: ${m}`); process.exit(2); };
@@ -115,6 +118,37 @@ function finish(r, o, code) {
   process.exit(code);
 }
 
+async function verifyPostCmd(o) {
+  if (one(o, "help")) {
+    console.log("Usage: blyggdrasil verify-post <URL> [--version N] [--expect-key DID] [--json]");
+    console.log("Exit 0 for verified, 1 for failed, unsigned or unavailable, and 2 for invalid arguments.");
+    return;
+  }
+  const [, target] = o._;
+  if (!target || o._.length !== 2) fail("verify-post needs one Blygger post URL");
+  const rawVersion = one(o, "version");
+  const version = rawVersion === undefined ? undefined : Number(rawVersion);
+  if (rawVersion !== undefined && (!/^[1-9]\d*$/.test(rawVersion) || !Number.isSafeInteger(version))) {
+    fail("--version must be a positive whole number");
+  }
+  const expectedKey = one(o, "expect-key");
+  if (expectedKey !== undefined && !isDidKey(expectedKey)) fail("--expect-key must be an Ed25519 did:key");
+  const get = makeFetcher((url, options) => fetch(url, { ...options, signal: AbortSignal.timeout(10_000) }));
+  const report = await verifyPost(target, get, { version, expectedKey });
+  if (o.json) {
+    console.log(JSON.stringify(report, null, 2));
+  } else {
+    console.log(`${report.status.toUpperCase()} ${report.itemUrl || target}`);
+    if (report.version) console.log(`Version    ${report.version}${report.pinned ? " (pinned)" : ""}`);
+    console.log(`Content    ${report.checks.content}`);
+    console.log(`Signature  ${report.checks.signature}${report.signingKey ? "  " + report.signingKey : ""}`);
+    console.log(`Tree signer  ${report.checks.signer}`);
+    if (report.expectedSigner) console.log(`Expected key  ${report.expectedSigner}  ${report.expectedKey}`);
+    if (report.error) console.log(report.error);
+  }
+  process.exitCode = report.status === "verified" ? 0 : 1;
+}
+
 async function signBylineCmd(o) {
   const hash = o._[1];
   if (!one(o, "key") || !/^sha256:[0-9a-f]{64}$/.test(hash || "")) fail("sign-byline needs --key and a sha256:… content_hash");
@@ -132,10 +166,10 @@ async function ingest(o) {
 }
 
 const o = args(process.argv.slice(2));
-const commands = { keygen, tree, proof, verify, "sign-byline": signBylineCmd, ingest };
+const commands = { keygen, tree, proof, verify, "verify-post": verifyPostCmd, "sign-byline": signBylineCmd, ingest };
 const cmd = commands[o._[0]];
 if (!cmd) {
-  console.log(readFileSync(fileURLToPath(import.meta.url), "utf8").split("\n").slice(1, 13).map((l) => l.replace(/^\/\/ ?/, "")).join("\n"));
+  console.log(readFileSync(fileURLToPath(import.meta.url), "utf8").split("\n\n")[0].split("\n").slice(1).map((l) => l.replace(/^\/\/ ?/, "")).join("\n"));
   process.exit(o._[0] ? 2 : 0);
 }
 await cmd(o);
