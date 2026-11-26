@@ -1,0 +1,30 @@
+{
+  "blyg": "0.4",
+  "id": "01m8cmqz6ya0hpx4y6gkt1ycvy",
+  "kind": "thread",
+  "origin": "https://fishbiscuit.me/blyggdrasil/demo/quoted-edition/blyg/",
+  "page": "t/01m8cmqz6ya0hpx4y6gkt1ycvy/",
+  "author": {
+    "name": "Blyggdrasil demo reader",
+    "url": "https://fishbiscuit.me/blyggdrasil/demo/quoted-edition/blyg/",
+    "sig": {
+      "key": "did:key:z6MkteaQdpjnJYv9KH1hgnoNeYFYX68nsSnJeyKuePNRwxKr",
+      "value": "8FvLgC4LCtaoo6lnGMw4zHwuo9yHsQPKXUiU0SW6PPSqkhTCPe82z2B_Zi4txVmQf9ULBrQPCOfWT0gxqRwEAg"
+    }
+  },
+  "created": "2026-11-26T19:19:00Z",
+  "updated": "2026-11-26T19:19:00Z",
+  "version": 1,
+  "content_md": "Signing key for the quoted edition demo.\n\n```blyggdrasil\nblyggdrasil 1\ntrunk https://fishbiscuit.me/blyggdrasil/demo/quoted-edition/blyg/\nkey did:key:z6MkteaQdpjnJYv9KH1hgnoNeYFYX68nsSnJeyKuePNRwxKr\n```\n\n```blyggdrasil-signature\nkey did:key:z6MkteaQdpjnJYv9KH1hgnoNeYFYX68nsSnJeyKuePNRwxKr\nsig wVJkZXZG6WQHlNKeShl3NCnbMyUlE8dMFV7LlvibVtNJWdIIYwUmgaCi43vgssG75H-KNP6RJyt262aAQAUUAQ\n```",
+  "content_html": "<p>Signing key for the quoted edition demo.</p>\n<pre><code>blyggdrasil\nblyggdrasil 1\ntrunk https://fishbiscuit.me/blyggdrasil/demo/quoted-edition/blyg/\nkey did:key:z6MkteaQdpjnJYv9KH1hgnoNeYFYX68nsSnJeyKuePNRwxKr</code></pre>\n<pre><code>blyggdrasil-signature\nkey did:key:z6MkteaQdpjnJYv9KH1hgnoNeYFYX68nsSnJeyKuePNRwxKr\nsig wVJkZXZG6WQHlNKeShl3NCnbMyUlE8dMFV7LlvibVtNJWdIIYwUmgaCi43vgssG75H-KNP6RJyt262aAQAUUAQ</code></pre>",
+  "content_hash": "sha256:fdc798c5556528fedf91e89870dc2f1d7c72e8a88c487ffa57ca10165b6e08ca",
+  "media": [],
+  "transclusions": [],
+  "changelog": [
+    {
+      "version": 1,
+      "at": "2026-11-26T19:19:00Z",
+      "note": "Published the first edition"
+    }
+  ]
+}

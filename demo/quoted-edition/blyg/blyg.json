@@ -1,0 +1,17 @@
+{
+  "blyg": "0.4",
+  "level": 2,
+  "generator": "blyggdrasil-quote-demo/1",
+  "site": "https://fishbiscuit.me/blyggdrasil/demo/quoted-edition/blyg/",
+  "title": "Quoted edition demo",
+  "author": {
+    "name": "Blyggdrasil demo reader",
+    "url": "https://fishbiscuit.me/blyggdrasil/demo/quoted-edition/blyg/",
+    "bio": "A separate demo publisher that quotes a signed, pinned version.",
+    "links": []
+  },
+  "feed": "feed.xml",
+  "items": "items/index.json",
+  "updated": "2026-11-26T19:19:00Z",
+  "blyggdrasil": "https://fishbiscuit.me/blyggdrasil/demo/quoted-edition/blyg/t/01m8cmqz6ya0hpx4y6gkt1ycvy/"
+}

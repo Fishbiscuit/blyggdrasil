@@ -1,0 +1,39 @@
+{
+  "blyg": "0.4",
+  "id": "01m8cmqz6ysjc8rdkmwjmz0yvk",
+  "kind": "thread",
+  "origin": "https://fishbiscuit.me/blyggdrasil/demo/quoted-edition/blyg/",
+  "page": "t/01m8cmqz6ysjc8rdkmwjmz0yvk/",
+  "author": {
+    "name": "Blyggdrasil demo reader",
+    "url": "https://fishbiscuit.me/blyggdrasil/demo/quoted-edition/blyg/",
+    "sig": {
+      "key": "did:key:z6MkteaQdpjnJYv9KH1hgnoNeYFYX68nsSnJeyKuePNRwxKr",
+      "value": "e3yVMZPFTBI3dqMsxJtSQYEJMhuOwLev3QH5k9fk5Fgh-cyG6Ue0RKY3JycRYInM64HNqtWgTc3WOorCRAvOCg"
+    }
+  },
+  "created": "2026-11-26T19:19:00Z",
+  "updated": "2026-11-26T19:19:00Z",
+  "version": 1,
+  "content_md": "A reader cited the closing time from the first signed edition.\n\n![[1hk3fv43xwpgckk19k4wf3v9ts]]\n> The reading room closes at five.\n\n[Pinned source edition](https://fishbiscuit.me/blyggdrasil/demo/edit-and-pin/blyg/items/1hk3fv43xwpgckk19k4wf3v9ts/v1.json)",
+  "content_html": "<p>A reader cited the closing time from the first signed edition.</p>\n<blockquote class=\"blyg-transclusion blyg-partial\" data-blyg-id=\"1hk3fv43xwpgckk19k4wf3v9ts\" data-blyg-version=\"1\" data-blyg-origin=\"https://fishbiscuit.me/blyggdrasil/demo/edit-and-pin/blyg/\"><p>The reading room closes at five.</p></blockquote>\n<p><a href=\"https://fishbiscuit.me/blyggdrasil/demo/edit-and-pin/blyg/items/1hk3fv43xwpgckk19k4wf3v9ts/v1.json\">Pinned source edition</a></p>",
+  "content_hash": "sha256:9ac318de5dfac4590c738b65ba76529af714b9a39e886d2824590564b2473c31",
+  "media": [],
+  "transclusions": [
+    {
+      "id": "1hk3fv43xwpgckk19k4wf3v9ts",
+      "version": 1,
+      "origin": "https://fishbiscuit.me/blyggdrasil/demo/edit-and-pin/blyg/",
+      "selector": {
+        "exact": "The reading room closes at five."
+      }
+    }
+  ],
+  "changelog": [
+    {
+      "version": 1,
+      "at": "2026-11-26T19:19:00Z",
+      "note": "Published the first edition"
+    }
+  ]
+}

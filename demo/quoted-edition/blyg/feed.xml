@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:blyg="https://blygger.org/ns/0.1" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Quoted edition demo</title>
+    <link>https://fishbiscuit.me/blyggdrasil/demo/quoted-edition/blyg/</link>
+    <description>A separate demo publisher that quotes a signed, pinned version.</description>
+    <atom:link href="https://fishbiscuit.me/blyggdrasil/demo/quoted-edition/blyg/feed.xml" rel="self" type="application/rss+xml"/>
+    <lastBuildDate>Thu, 26 Nov 2026 19:19:00 GMT</lastBuildDate>
+    <blyg:level>2</blyg:level>
+    <blyg:manifest>https://fishbiscuit.me/blyggdrasil/demo/quoted-edition/blyg/blyg.json</blyg:manifest>
+    <item>
+      <guid isPermaLink="false">blyg:01m8cmqz6ysjc8rdkmwjmz0yvk:v1</guid>
+      <link>https://fishbiscuit.me/blyggdrasil/demo/quoted-edition/blyg/t/01m8cmqz6ysjc8rdkmwjmz0yvk/</link>
+      <title>The reading room’s quoted edition</title>
+      <description><![CDATA[<p>A reader cited the closing time from the first signed edition.</p>
+<blockquote class="blyg-transclusion blyg-partial" data-blyg-id="1hk3fv43xwpgckk19k4wf3v9ts" data-blyg-version="1" data-blyg-origin="https://fishbiscuit.me/blyggdrasil/demo/edit-and-pin/blyg/"><p>The reading room closes at five.</p></blockquote>
+<p><a href="https://fishbiscuit.me/blyggdrasil/demo/edit-and-pin/blyg/items/1hk3fv43xwpgckk19k4wf3v9ts/v1.json">Pinned source edition</a></p>]]></description>
+      <pubDate>Thu, 26 Nov 2026 19:19:00 GMT</pubDate>
+      <dc:creator>Blyggdrasil demo reader</dc:creator>
+      <blyg:id>01m8cmqz6ysjc8rdkmwjmz0yvk</blyg:id>
+      <blyg:kind>thread</blyg:kind>
+      <blyg:version>1</blyg:version>
+      <blyg:created>2026-11-26T19:19:00Z</blyg:created>
+      <blyg:item>https://fishbiscuit.me/blyggdrasil/demo/quoted-edition/blyg/items/01m8cmqz6ysjc8rdkmwjmz0yvk.json</blyg:item>
+    </item>
+    <item>
+      <guid isPermaLink="false">blyg:01m8cmqz6ya0hpx4y6gkt1ycvy:v1</guid>
+      <link>https://fishbiscuit.me/blyggdrasil/demo/quoted-edition/blyg/t/01m8cmqz6ya0hpx4y6gkt1ycvy/</link>
+      <title>Demo signing key</title>
+      <description><![CDATA[<p>Signing key for the quoted edition demo.</p>
+<pre><code>blyggdrasil
+blyggdrasil 1
+trunk https://fishbiscuit.me/blyggdrasil/demo/quoted-edition/blyg/
+key did:key:z6MkteaQdpjnJYv9KH1hgnoNeYFYX68nsSnJeyKuePNRwxKr</code></pre>
+<pre><code>blyggdrasil-signature
+key did:key:z6MkteaQdpjnJYv9KH1hgnoNeYFYX68nsSnJeyKuePNRwxKr
+sig wVJkZXZG6WQHlNKeShl3NCnbMyUlE8dMFV7LlvibVtNJWdIIYwUmgaCi43vgssG75H-KNP6RJyt262aAQAUUAQ</code></pre>]]></description>
+      <pubDate>Thu, 26 Nov 2026 19:19:00 GMT</pubDate>
+      <dc:creator>Blyggdrasil demo reader</dc:creator>
+      <blyg:id>01m8cmqz6ya0hpx4y6gkt1ycvy</blyg:id>
+      <blyg:kind>thread</blyg:kind>
+      <blyg:version>1</blyg:version>
+      <blyg:created>2026-11-26T19:19:00Z</blyg:created>
+      <blyg:item>https://fishbiscuit.me/blyggdrasil/demo/quoted-edition/blyg/items/01m8cmqz6ya0hpx4y6gkt1ycvy.json</blyg:item>
+    </item>
+  </channel>
+</rss>
