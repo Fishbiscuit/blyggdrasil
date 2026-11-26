@@ -1,6 +1,7 @@
 import { allowLocalDevelopment, isHttpsUrl } from "../lib/blyggdrasil.js";
 import { verifyPost } from "../lib/post-proof.js";
 import { verifyExample } from "../lib/proof-examples.js";
+import { proofLink } from "../lib/proof-link.js";
 import { makeFetcher } from "../lib/resolvers.js";
 
 if (["localhost", "127.0.0.1"].includes(location.hostname)) allowLocalDevelopment();
@@ -69,7 +70,7 @@ function showEvidenceList(id, values) {
   $(id + "-row").hidden = !values.length;
 }
 
-function showResult(report, address, key, example) {
+function showResult(report, address, key, example, edition) {
   const [title, description] = summary[report.status] || summary.unavailable;
   const foundVersion = Number.isSafeInteger(report.version) && report.version > 0;
   $("proof-heading").textContent = title;
@@ -111,14 +112,24 @@ function showResult(report, address, key, example) {
   $("proof-evidence").hidden = !(showOrigin || showItem || showManifest || showTree || showSource || publicKey);
   $("proof-evidence").open = false;
 
-  share = foundVersion && showItem ? (isExample ? location.href : verificationUrl({ post: address, version: report.version, key }).href) : "";
+  if (foundVersion && showItem) {
+    if (isExample) {
+      share = location.href;
+    } else if (edition) {
+      const url = proofLink({ ...edition, version: report.version }, new URL("./", location.href));
+      if (key) url.searchParams.set("key", key);
+      share = url.href;
+    } else {
+      share = verificationUrl({ post: address, version: report.version, key }).href;
+    }
+  }
   copyButton.hidden = !share;
   result.hidden = false;
   state.textContent = title;
   state.classList.add("visually-hidden");
 }
 
-async function check({ post: address, version: number, key, example: name }, focus = false) {
+async function check({ post: address, version: number, key, example: name, edition }, focus = false) {
   const id = ++request;
   share = "";
   copyButton.hidden = true;
@@ -126,8 +137,9 @@ async function check({ post: address, version: number, key, example: name }, foc
   $("copy-link-fallback").hidden = true;
   result.hidden = true;
   state.classList.remove("visually-hidden");
-  state.textContent = address || name ? "Checking the post and signing key…" : "";
-  if (!address && !name) return;
+  $("proof-edition-link").hidden = !edition;
+  state.textContent = address || name || edition ? "Checking the post and signing key…" : "";
+  if (!address && !name && !edition) return;
 
   let report;
   let example = name ? { name } : null;
@@ -139,13 +151,14 @@ async function check({ post: address, version: number, key, example: name }, foc
       report = await verifyExample(packet, name);
       example.text = packet.examples[name].content_md;
     } else {
-      report = await verifyPost(address, get, { version: number, expectedKey: key || undefined });
+      report = await verifyPost(address, get, { version: number, expectedKey: key || undefined, edition });
     }
   } catch {
     report = { status: "unavailable", error: "The post could not be checked in this browser." };
   }
   if (id !== request) return;
-  showResult(report, address, key, example);
+  if (edition && !post.value && report.itemUrl) post.value = report.itemUrl;
+  showResult(report, address, key, example, edition);
   if (focus && form.contains(document.activeElement)) $("proof-heading").focus();
 }
 
@@ -161,6 +174,9 @@ function fromLocation() {
   $("proof-options").open = Boolean(number || key);
   if (Object.hasOwn(exampleNames, example)) {
     void check({ example });
+  } else if (!address && (params.has("origin") || params.has("id"))) {
+    const edition = { origin: params.get("origin"), id: params.get("id") };
+    void check({ edition, version: number, key });
   } else {
     void check({ post: address, version: number ? Number(number) : undefined, key });
   }
