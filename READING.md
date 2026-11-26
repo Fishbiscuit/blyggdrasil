@@ -16,6 +16,24 @@ Exit codes are `0` for verified, `1` for failed, unsigned or unavailable, and `2
 
 The source linked by an archive item is attribution. Signing an imported copy authenticates the copy on the blyg under the blyg’s key.
 
+## Share or check an exact edition
+
+```sh
+node bin/blyggdrasil.mjs proof-link POST_URL --version 1
+node bin/blyggdrasil.mjs verify-quote POST_URL --version 1 --quote "at five" --json
+```
+
+The verifier also accepts `origin`, `id`, and `version` query parameters. This lets another client hand off what its reader actually saw. The [Burrow extension](integrations/burrow/README.md) can copy that link and show the three proof checks in its reader. Use the [quote checker](quote/?example=pinned) to compare a cited excerpt with the signed current edition. The [interoperability packet](interop/README.md) contains the same signed editions and altered copies for another implementation to verify.
+
+## Audit an archive
+
+```sh
+node bin/audit-blyg.mjs https://fishbiscuit.me/blyg/ --limit 10
+node bin/render-tree.mjs https://fishbiscuit.me/blyg/ --out tree/fishbiscuit/index.html --check
+```
+
+The audit emits one JSON line per checked public item. The [browser audit](audit/) shows the same checks, with a filter for issues. The [v1 report schema](schemas/post-proof.v1.json) describes the machine-readable single-post proof.
+
 ## Try the examples
 
 [Compare the pinned original and edited edition](https://fishbiscuit.me/blyggdrasil/demo/edit-and-pin/). The demo publisher signed both versions of one post. The page fetches its actual pinned item and current item, then displays the text checked by the verifier. Each side links to its item JSON and full post proof.
@@ -37,3 +55,12 @@ node bin/render-tree.mjs https://fishbiscuit.me/blyg/ --out tree/fishbiscuit/ind
 ```
 
 Use `--mirror <directory>` if you have a local copy of the published public Blygger documents. Keep the canonical HTTPS address as the first argument.
+
+## Prepare a publisher release
+
+- **Pins.** `bin/pin-prepare.mjs` captures the verified edition. `bin/pin-install.mjs` installs it into the local static publisher and records its changelog flag. `bin/pin-audit.mjs` compares builds to ensure existing promises still serve the same pin bytes.
+- **Continuity.** `bin/export-public-bundle.mjs` packages a public blyg with its advertised pins. `bin/verify-public-bundle.mjs` verifies them offline. `bin/plan-blyg-move.mjs` prepares a dry-run move plan. `bin/recovery-readiness.mjs` checks whether the publisher serves the tree pin that names the recovery key.
+- **Archives.** `bin/republish-archive.mjs` shows the original dates and the proposed identifiers and source links for public entries. `bin/emit-archive.mjs` writes signed items to an explicit local output directory. Run either with `--help` for its required files and options.
+- **Release checks.** `bin/release-overlay.mjs` builds a scoped public directory over an existing baseline and checks existing pins. `bin/release-smoke.mjs` checks the public tree and both editions of the edit-and-pin example over HTTP.
+
+Run `npm test` for the portable suite, `npm run test:interop` after installing the optional Python reader dependency, and `npm run test:live` to exercise the public demo URLs.
