@@ -28,12 +28,44 @@ function showAccounts(tree, keys) {
   }
   const accounts = $("#accounts");
   accounts.innerHTML = branches.map((branch) => renderAccount(branch, verdictLabels.pending)).join("");
-  const statuses = accounts.querySelectorAll(".account-status");
+  const rows = [...accounts.children];
   return inBatches(branches, 4, async (branch, index) => {
-    const node = statuses[index];
-    const result = await checkBranch(branch.url, { keys, trunk: tree.origin, get });
-    node.textContent = verdictLabels[result.verdict] || verdictLabels.unreachable;
-    node.classList.toggle("verified", result.verdict === "verified");
+    const row = rows[index];
+    const status = row.querySelector(".account-status");
+    const reason = row.querySelector(".account-reason");
+    const retry = row.querySelector(".account-retry");
+    const source = row.querySelector(".account-source");
+    const listed = safeUrl(branch.url);
+    const check = async () => {
+      status.textContent = verdictLabels.pending;
+      status.classList.remove("verified");
+      reason.textContent = "Checking the published link…";
+      retry.disabled = true;
+      if (source) {
+        source.href = listed;
+        source.textContent = "Open listed link";
+      }
+
+      const result = await checkBranch(branch.url, { keys, trunk: tree.origin, get })
+        .catch(() => ({ verdict: "unreachable", detail: "The browser couldn’t check this source." }));
+      const warning = result.verdict === "unreachable" ? "The source couldn’t be checked." : "No proof details are available.";
+      const match = { key: "Found this tree’s key", link: "Found a link back to this blyg", handle: "Domain matches the Bluesky handle" };
+      const detail = result.detail || warning;
+      status.textContent = verdictLabels[result.verdict] || verdictLabels.unreachable;
+      status.classList.toggle("verified", result.verdict === "verified");
+      reason.textContent = result.verdict === "verified" && match[result.method]
+        ? `${match[result.method]}. Evidence: ${detail}.`
+        : detail;
+      const evidence = result.verdict === "verified" && safeUrl(result.source);
+      if (source && evidence) {
+        source.href = evidence;
+        source.textContent = "Open proof source";
+      }
+      retry.hidden = false;
+      retry.disabled = false;
+    };
+    retry.addEventListener("click", check);
+    await check();
   });
 }
 

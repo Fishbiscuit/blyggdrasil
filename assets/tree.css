@@ -24,6 +24,12 @@ a:hover { color: var(--accent); }
 h2 { margin: 0; font-size: 15px; font-weight: 650; }
 .accounts, .posts { list-style: none; padding: 0; margin: 0; }
 .accounts > li { display: grid; gap: 2px; padding: 12px 0; border-bottom: 1px solid var(--rule); font-size: 14px; }
+.account-row { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px 12px; }
+.account-evidence { color: var(--muted); font-size: 13px; }
+.account-evidence summary { width: fit-content; cursor: pointer; }
+.account-evidence p { margin: 5px 0; }
+.account-retry { min-height: 32px; padding: 0; color: var(--accent); text-decoration: underline; }
+.account-source + .account-retry { margin-left: 12px; }
 .accounts a { width: fit-content; text-decoration-color: var(--rule); }
 .account-status, .post-meta, #loading, #post-note, #account-note { color: var(--muted); font-size: 13px; }
 .account-status.verified, .signed { color: var(--accent); }
@@ -47,6 +53,5 @@ button { border: 0; background: transparent; color: var(--muted); font: inherit;
 
 @media (max-width: 640px) {
   .columns { grid-template-columns: 1fr; gap: 24px; }
-  .accounts > li { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px 12px; }
   .profile-header { padding-bottom: 20px; }
 }
