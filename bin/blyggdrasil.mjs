@@ -9,6 +9,8 @@
 //   blyggdrasil verify <blyg or tree URL> [--json]       check a tree and every branch
 //   blyggdrasil verify-post <URL> [--version N] [--expect-key DID] [--json]
 //                                                      check the content, signature, and tree signer
+//   blyggdrasil verify-quote <URL> --version N --quote TEXT [--expect-key DID] [--json]
+//                                                      check an excerpt in a signed edition
 //   blyggdrasil sign-byline --key file <content_hash>    print an author.sig member (SPEC §6)
 //   blyggdrasil ingest bluesky <handle> --out dir         save public Bluesky posts as archive files (SPEC §8)
 //   blyggdrasil ingest x <archive folder> --out dir       read an X archive download into archive files
@@ -26,6 +28,7 @@ import {
 import { checkBranch, makeFetcher } from "../lib/resolvers.js";
 import { ingestBluesky, ingestXArchive, previewBluesky, previewXArchive } from "../lib/ingest.js";
 import { verifyPost } from "../lib/post-proof.js";
+import { verifyQuote } from "../lib/quote-proof.js";
 
 if (process.env.BLYGGDRASIL_DEV === "1") allowLocalDevelopment();
 const fail = (m) => { console.error(`blyggdrasil: ${m}`); process.exit(2); };
@@ -157,6 +160,34 @@ async function signBylineCmd(o) {
   console.log(JSON.stringify(await signByline(await readKey(one(o, "key")), hash)));
 }
 
+async function verifyQuoteCmd(o) {
+  if (one(o, "help")) {
+    console.log("Usage: blyggdrasil verify-quote <URL> --version N --quote TEXT [--expect-key DID] [--json]");
+    console.log("Exit 0 for a matched signed excerpt, 1 for a mismatch or unavailable proof, and 2 for invalid arguments.");
+    return;
+  }
+  const [, target] = o._;
+  const rawVersion = one(o, "version");
+  const version = Number(rawVersion);
+  const quote = one(o, "quote");
+  const expectedKey = one(o, "expect-key");
+  if (!target || o._.length !== 2) fail("verify-quote needs one public Blygger post URL");
+  if (!/^[1-9]\d*$/.test(rawVersion) || !Number.isSafeInteger(version)) fail("--version must be a positive whole number");
+  if (typeof quote !== "string" || !quote.trim()) fail("--quote needs the exact excerpt");
+  if (expectedKey !== undefined && !isDidKey(expectedKey)) fail("--expect-key must be an Ed25519 did:key");
+  const get = makeFetcher((url, options) => fetch(url, { ...options, signal: AbortSignal.timeout(10_000) }));
+  const result = await verifyQuote(target, get, { version, quote, expectedKey });
+  if (o.json) {
+    console.log(JSON.stringify(result, null, 2));
+  } else {
+    console.log(`Quote ${result.match.status} in version ${version}`);
+    console.log(`Current edition comparison: ${result.comparison}`);
+    if (result.edition?.itemUrl) console.log(result.edition.itemUrl);
+    if (result.error) console.log(result.error);
+  }
+  process.exitCode = result.match.status === "matched" ? 0 : 1;
+}
+
 async function ingest(o) {
   if (o.help) {
     console.log("Usage: blyggdrasil ingest bluesky <handle> --out dir");
@@ -200,7 +231,7 @@ async function ingest(o) {
 }
 
 const o = args(process.argv.slice(2));
-const commands = { keygen, tree, proof, verify, "verify-post": verifyPostCmd, "sign-byline": signBylineCmd, ingest };
+const commands = { keygen, tree, proof, verify, "verify-post": verifyPostCmd, "verify-quote": verifyQuoteCmd, "sign-byline": signBylineCmd, ingest };
 const cmd = commands[o._[0]];
 if (!cmd) {
   console.log(readFileSync(fileURLToPath(import.meta.url), "utf8").split("\n\n")[0].split("\n").slice(1).map((l) => l.replace(/^\/\/ ?/, "")).join("\n"));
