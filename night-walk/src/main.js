@@ -1,6 +1,7 @@
 import { Thicket, hostOf, ITEMS_PER_SITE } from './thicket.js';
 import { World } from './world.js';
 import { ringLayout, neighbourLayout, lanes, segDist } from './layout.js';
+import { publisherTreeUrl } from './publisher-tree.js';
 
 const $ = (s) => document.querySelector(s);
 let START = Date.parse('2026-09-01T00:00:00Z');
@@ -388,6 +389,8 @@ function showHouse(origin) {
   }
   const links = el('div', 'links');
   links.append(link(site.home, `Visit ${hostOf(origin)} ↗`));
+  const tree = publisherTreeUrl(site.origin);
+  if (tree) links.append(link(tree, 'Read posts and account evidence ↗'));
   nodes.push(links);
   const acts = el('div', 'actions');
   acts.append(button('Walk to the door', () => world.goToHouse(origin)));
