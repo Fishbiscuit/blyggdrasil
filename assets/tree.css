@@ -27,6 +27,8 @@ h2 { margin: 0; font-size: 15px; font-weight: 650; }
 .accounts a { width: fit-content; text-decoration-color: var(--rule); }
 .account-status, .post-meta, #loading, #post-note, #account-note { color: var(--muted); font-size: 13px; }
 .account-status.verified, .signed { color: var(--accent); }
+.item-data { color: var(--muted); }
+.sources { color: var(--muted); font-size: 13px; margin-top: 36px; }
 
 .feed-header { display: flex; justify-content: space-between; align-items: center; min-height: 30px; gap: 16px; }
 .filters { display: flex; gap: 8px; }
