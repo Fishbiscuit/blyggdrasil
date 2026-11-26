@@ -12,6 +12,8 @@
 //   blyggdrasil sign-byline --key file <content_hash>    print an author.sig member (SPEC §6)
 //   blyggdrasil ingest bluesky <handle> --out dir         save public Bluesky posts as archive files (SPEC §8)
 //   blyggdrasil ingest x <archive folder> --out dir       read an X archive download into archive files
+//   blyggdrasil ingest <network> <source> --preview [--out dir] [--json]
+//                                                      preview posts and duplicates without writing files
 
 import { chmodSync, existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { homedir } from "node:os";
@@ -22,7 +24,7 @@ import {
   loadTree, claimedLinks, signByline,
 } from "../lib/blyggdrasil.js";
 import { checkBranch, makeFetcher } from "../lib/resolvers.js";
-import { ingestBluesky, ingestXArchive } from "../lib/ingest.js";
+import { ingestBluesky, ingestXArchive, previewBluesky, previewXArchive } from "../lib/ingest.js";
 import { verifyPost } from "../lib/post-proof.js";
 
 if (process.env.BLYGGDRASIL_DEV === "1") allowLocalDevelopment();
@@ -156,12 +158,44 @@ async function signBylineCmd(o) {
 }
 
 async function ingest(o) {
+  if (o.help) {
+    console.log("Usage: blyggdrasil ingest bluesky <handle> --out dir");
+    console.log("       blyggdrasil ingest x <archive folder> --out dir");
+    console.log("       blyggdrasil ingest <network> <source> --preview [--out dir] [--json]");
+    console.log("Preview lists public post URLs, dates and types. Private entries appear only in the total.");
+    console.log("Add --out to check for posts already in that archive. Preview writes no files.");
+    return;
+  }
   const [, network, source] = o._;
   const out = one(o, "out");
-  if (!network || !source || !out) fail("ingest needs a network, a source and --out");
+  if (!network || !source) fail("ingest needs a network and a source. See ingest --help.");
+  if (network !== "bluesky" && network !== "x") fail("ingest supports bluesky and x");
+  if (out === true) fail("--out needs a directory");
+  if (o.preview) {
+    if (one(o, "preview") !== true || o._.length !== 3) fail("See ingest --help for preview options");
+    let report;
+    try {
+      const target = out ? resolve(out) : undefined;
+      report = network === "bluesky" ? await previewBluesky(source, target, makeFetcher()) : previewXArchive(resolve(source), target);
+    } catch (error) {
+      fail(error.message);
+    }
+    if (o.json) {
+      console.log(JSON.stringify(report, null, 2));
+      return;
+    }
+    console.log(`Preview: ${report.public} public, ${report.private} private, ${report.duplicates} duplicate. No files written.`);
+    for (const entry of report.entries) {
+      const flags = [];
+      if (entry.duplicateInInput) flags.push("repeated in source");
+      if (entry.alreadyArchived) flags.push("already archived");
+      console.log(`${entry.created}  ${entry.kind}  ${entry.url ?? "URL unavailable"}${flags.length ? `  (${flags.join(", ")})` : ""}`);
+    }
+    return;
+  }
+  if (!out) fail("ingest needs --out to write archive files. See ingest --help.");
   const n = network === "bluesky" ? await ingestBluesky(source, resolve(out), makeFetcher())
-    : network === "x" ? ingestXArchive(resolve(source), resolve(out))
-    : fail("ingest supports bluesky and x");
+    : ingestXArchive(resolve(source), resolve(out));
   console.log(`Wrote ${n.public} public and ${n.private} private archive files to ${out}`);
 }
 
