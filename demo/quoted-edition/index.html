@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>A quote across an edit · Blyggdrasil</title>
+  <meta name="description" content="Follow a published quote to the signed edition it cites, then compare the current wording.">
+  <link rel="canonical" href="https://fishbiscuit.me/blyggdrasil/demo/quoted-edition/">
+  <link rel="icon" href="../../assets/mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../../assets/tree.css">
+  <link rel="stylesheet" href="../../assets/edit-and-pin.css">
+</head>
+<body>
+  <main class="editions-page">
+    <header class="editions-header">
+      <a class="brand" href="../../">Blyggdrasil</a>
+      <h1>A quote across an edit</h1>
+      <p>A separate demo blyg quotes the pinned first edition. Check it against the source before and after the edit.</p>
+    </header>
+    <div class="editions-grid">
+      <article class="edition" aria-labelledby="published-quote-heading">
+        <h2 id="published-quote-heading">Published quote</h2>
+        <blockquote id="published-quote" hidden></blockquote>
+        <nav aria-label="Published quote links">
+          <a href="blyg/t/01m8cmqz6ysjc8rdkmwjmz0yvk/">Read the quoting post</a>
+          <a href="../edit-and-pin/blyg/f/1hk3fv43xwpgckk19k4wf3v9ts/v1/">Read pinned v1</a>
+        </nav>
+      </article>
+      <article class="edition" aria-labelledby="current-source-heading">
+        <h2 id="current-source-heading">Current source</h2>
+        <blockquote id="current-source" hidden></blockquote>
+        <nav aria-label="Current source links">
+          <a href="../edit-and-pin/blyg/f/1hk3fv43xwpgckk19k4wf3v9ts/">Read the current edition</a>
+          <a href="../../quote/?example=pinned">Open the quote checker</a>
+        </nav>
+      </article>
+    </div>
+    <p class="comparison-status" id="quote-edition-status" role="status">Checking the signed quote and its source…</p>
+    <noscript>The post and both source editions are available through the reading links.</noscript>
+  </main>
+  <script type="module" src="../../assets/quoted-edition.js"></script>
+</body>
+</html>
