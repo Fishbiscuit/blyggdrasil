@@ -82,6 +82,34 @@ form.grow .btn { margin: 0 0 8px 12px; }
 .hud .dot.f::before { background: var(--fail); }
 .hud.top-right { top: 74px; bottom: auto; right: var(--gutter); text-align: right; max-width: 280px; }
 .no-webgl .stage canvas, .no-webgl .tags { display: none; }
+.product.no-webgl .stage { height: auto; }
+.product.no-webgl .hero { position: relative; inset: auto; width: min(650px, 100%); padding: 110px var(--gutter) 44px; }
+.product.no-webgl .stage .hud { display: none; }
+.product .hud a { text-underline-offset: 3px; }
+
+/* ---------- live proof ---------- */
+.live-proof {
+  display: grid;
+  grid-template-columns: minmax(220px, 5fr) minmax(0, 7fr);
+  gap: clamp(24px, 6vw, 84px);
+  padding: clamp(34px, 6vw, 70px) var(--gutter);
+  border-block: 1px solid var(--hair);
+}
+.live-proof h2 { margin: 0 0 10px; font: 400 clamp(42px, 6vw, 72px)/1 var(--serif); }
+.live-proof p { margin: 0; color: var(--dim); font-size: 15px; }
+.live-proof .proof-jumps { display: flex; flex-wrap: wrap; gap: 8px 20px; margin-top: 12px; }
+.live-proof a { color: var(--bone); text-underline-offset: 4px; }
+.live-proof a:hover { color: var(--accent); }
+.demo-branches details { border-bottom: 1px solid var(--faint); padding: 0 0 12px; scroll-margin-block-start: 24px; }
+.demo-branches details + details { margin-top: 6px; }
+.demo-branches details[open] { padding-bottom: 18px; }
+.demo-branches details p { margin: 4px 0 10px; }
+.demo-branches summary { min-height: 44px; padding: 10px 0; cursor: pointer; }
+.demo-branches summary > span { overflow-wrap: anywhere; }
+.demo-branch-links { display: flex; flex-wrap: wrap; gap: 6px 16px; }
+.demo-branch-state { margin-left: 10px; font: 500 11px/1.5 var(--mono); color: var(--dim); }
+.demo-branch-state[data-verdict="verified"] { color: var(--accent); }
+.demo-branch-state[data-verdict="failed"] { color: var(--fail); }
 
 /* ---------- acts ---------- */
 .acts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(24px, 4vw, 56px); }
@@ -154,6 +182,7 @@ pre.out { white-space: pre-wrap; word-break: break-all; margin: 0 0 12px; paddin
   .mark { font-size: 12px; letter-spacing: 0.18em; }
   .hud.top-right { display: none; }
   .lineage { grid-template-columns: 1fr; }
+  .live-proof { grid-template-columns: 1fr; }
   .acts { grid-template-columns: 1fr; }
   .acct { grid-template-columns: 1fr auto; }
   .acct .net { grid-column: 1 / 3; }

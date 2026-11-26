@@ -27,7 +27,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="assets/app.css">
 </head>
-<body>
+<body class="product no-webgl">
 <header class="bar">
   <a class="mark" href="./"><i aria-hidden="true"></i>Blyggdrasil</a>
   <nav aria-label="Main"><a href="./" aria-current="page">See a tree</a><a href="new/">Plant yours</a><a href="https://github.com/Fishbiscuit/blyggdrasil/blob/main/SPEC.md">Spec</a></nav>
@@ -35,7 +35,7 @@
 
 <main>
   <section class="stage" aria-label="The tree">
-    <canvas id="world" role="img" aria-label="An example blyg drawn as a tree, with a lit branch for each verified account."></canvas>
+    <canvas id="world" role="img" aria-label="The Fishbiscuit tree. A branch lights up when its account proof is verified."></canvas>
     <div class="tags" id="tags"></div>
     <div class="hero">
       <p class="label"><span class="accent">●</span>&nbsp; Identity for <a href="https://blygger.org/">Blygger</a>, by link and by key</p>
@@ -45,16 +45,26 @@
         <input name="blyg" aria-label="A blyg address" placeholder="fishbiscuit.me/blyg" autocomplete="url" inputmode="url" spellcheck="false" required>
         <button class="btn" type="submit">Open tree</button>
       </form>
-      <div class="examples">Try <a href="tree/?blyg=fishbiscuit.me/blyg">fishbiscuit.me/blyg</a> · <a href="tree/?blyg=venkateshrao.com/blyg">venkateshrao.com/blyg</a></div>
+      <div class="examples">Try <a href="tree/fishbiscuit/">fishbiscuit.me/blyg</a> · <a href="tree/?blyg=venkateshrao.com/blyg">venkateshrao.com/blyg</a></div>
     </div>
-    <div class="hud top-right" id="hud-mode">Example tree<br>Open a blyg to browse it</div>
-    <div class="hud left" id="hud-key">Key · none yet</div>
+    <div class="hud top-right" id="hud-mode">Fishbiscuit · live tree<br><a href="#live-tree-proof">Inspect account proofs</a></div>
+    <div class="hud left" id="hud-key" hidden></div>
     <div class="hud right" aria-hidden="true"><span class="dot v">Verified</span><span class="dot f">Failed</span><span class="dot">Unchecked</span></div>
+  </section>
+
+  <section class="section live-proof" id="live-tree-proof" aria-labelledby="live-proof-heading">
+    <header>
+      <h2 id="live-proof-heading">Follow the proof.</h2>
+      <p id="demo-status" role="status"></p>
+      <noscript>Enable JavaScript to check account proofs in this browser.</noscript>
+      <p class="proof-jumps"><a href="tree/fishbiscuit/">Read the live tree</a><a href="verify/?post=https%3A%2F%2Ffishbiscuit.me%2Fblyg%2Ft%2F7phxkgdpcecwvxa8xwbfwtq3pm%2F">Verify a signed post</a></p>
+    </header>
+    <div id="demo-branches" class="demo-branches" hidden></div>
   </section>
 
   <section class="section acts" aria-label="What it does">
     <div><span class="n">01</span><h3>Connect</h3><p>Make a key. List your accounts in one signed post on your blyg, and put one line with your key on each. Anyone can check every branch in their own browser. No server, no sign-in.</p></div>
-    <div><span class="n">02</span><h3>Reinstate</h3><p>Lose an account, a domain or the key itself. A new account proves itself with the same key, a new blyg keeps your branches, and a recovery key you set aside takes over.</p></div>
+    <div><span class="n">02</span><h3>Reinstate</h3><p>Move your blyg and carry your proven accounts with you. Set aside a recovery key in case you lose the main one.</p><p><a href="demo/continuity/">Rehearse a move or key loss</a></p></div>
     <div><span class="n">03</span><h3>Reconstitute</h3><p>Bring your public posts from X and Bluesky home to your blyg, with their original dates and a link to where each first appeared. Private messages and likes never leave your machine.</p></div>
   </section>
 
