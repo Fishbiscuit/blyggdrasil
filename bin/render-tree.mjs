@@ -10,10 +10,11 @@ import {
   renderDiscoveryLinks, renderPost, renderSources, safeUrl, signedByTree,
 } from "../lib/tree-page.js";
 
-const help = "node bin/render-tree.mjs <blyg URL> --out <index.html> [--mirror <public blyg folder>] [--site-root ../../]";
+const help = "node bin/render-tree.mjs <blyg URL> --out <index.html> [--check] [--mirror <public blyg folder>] [--site-root ../../]";
 const { values, positionals } = parseArgs({
   options: {
     out: { type: "string" },
+    check: { type: "boolean" },
     mirror: { type: "string" },
     "site-root": { type: "string", default: "../../" },
     help: { type: "boolean" },
@@ -59,9 +60,15 @@ if (values.help) {
     const template = await readFile(new URL("../tree/index.html", import.meta.url), "utf8");
     const html = publicPage(template, { tree, siteRoot, posts, accounts });
     const out = resolve(values.out);
-    await mkdir(dirname(out), { recursive: true });
-    await writeFile(out, html);
-    console.log(`Rendered ${posts.length} posts and ${accounts.length} accounts to ${out}`);
+    if (values.check) {
+      const saved = await readFile(out, "utf8");
+      if (saved !== html) throw new Error(`The tree snapshot at ${out} is stale. Run the command without --check to refresh it.`);
+      console.log(`Tree snapshot is current at ${out}`);
+    } else {
+      await mkdir(dirname(out), { recursive: true });
+      await writeFile(out, html);
+      console.log(`Rendered ${posts.length} posts and ${accounts.length} accounts to ${out}`);
+    }
   } catch (error) {
     console.error(`render-tree: ${error.message}`);
     process.exitCode = 1;
