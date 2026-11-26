@@ -1,0 +1,90 @@
+.audit-page {
+  max-width: 890px;
+  margin: 0 auto;
+  padding: clamp(32px, 7vw, 76px) clamp(20px, 5vw, 48px) 64px;
+}
+
+.audit-header {
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--rule);
+}
+
+.audit-header h1 {
+  margin: 10px 0 6px;
+  font: normal clamp(38px, 6vw, 62px)/1.04 var(--serif);
+  letter-spacing: -.04em;
+}
+
+.audit-header p { margin: 0; color: var(--muted); }
+
+.audit-form {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 100px auto;
+  align-items: end;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.audit-form label {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+  font-size: 14px;
+  font-weight: 650;
+}
+
+.audit-form input {
+  width: 100%;
+  min-width: 0;
+  min-height: 44px;
+  padding: 8px 10px;
+  border: 1px solid #a7ac9e;
+  border-radius: 4px;
+  background: white;
+  color: var(--ink);
+  font: inherit;
+}
+
+.audit-submit {
+  min-height: 44px;
+  padding: 7px 14px;
+  border-radius: 4px;
+  background: var(--accent);
+  color: white;
+  font-size: 14px;
+  font-weight: 650;
+}
+
+.audit-submit:hover { background: #28452c; }
+.audit-example, .audit-status, .audit-checks, .audit-error, #audit-index {
+  color: var(--muted);
+  font-size: 14px;
+}
+.audit-example { margin: 8px 0 24px; }
+
+.audit-result-header, .audit-row-heading, .audit-links {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 14px;
+}
+
+.audit-result-header { padding-bottom: 8px; border-bottom: 1px solid var(--rule); }
+.audit-filter { display: inline-flex; align-items: center; gap: 6px; min-height: 36px; font-size: 14px; }
+.audit-filter input { accent-color: var(--accent); }
+.audit-results { list-style: none; margin: 0; padding: 0; }
+.audit-row { padding: 12px 0; border-bottom: 1px solid var(--rule); }
+.audit-post { margin: 0; font: 650 15px/1.4 system-ui, sans-serif; }
+.audit-verdict { font-size: 14px; font-weight: 650; }
+.audit-row[data-verdict="verified"] .audit-verdict { color: var(--accent); }
+.audit-row[data-verdict="failed"] .audit-verdict { color: #92362e; }
+.audit-checks, .audit-error { margin: 3px 0 0; }
+.audit-links { justify-content: flex-start; margin-top: 5px; }
+.audit-links a { display: inline-flex; align-items: center; min-height: 44px; font-size: 14px; }
+#audit-index { display: inline-block; margin-top: 12px; font-size: 13px; }
+
+@media (max-width: 560px) {
+  .audit-form { grid-template-columns: minmax(0, 1fr) auto; }
+  .audit-target { grid-column: 1 / -1; }
+}

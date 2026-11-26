@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Archive proof audit · Blyggdrasil</title>
+  <meta name="description" content="Check the editions listed in a public Blygger archive.">
+  <link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/tree.css">
+  <link rel="stylesheet" href="../assets/audit.css">
+</head>
+<body>
+  <main class="audit-page">
+    <header class="audit-header">
+      <a class="brand" href="../">Blyggdrasil</a>
+      <h1>Archive proof audit</h1>
+      <p>Check exact editions listed in a public blyg’s archive.</p>
+    </header>
+
+    <form class="audit-form" id="audit-form" method="get" action="./">
+      <label class="audit-target" for="audit-blyg">
+        Blyg address
+        <input id="audit-blyg" name="blyg" inputmode="url" autocomplete="url" autocapitalize="off" spellcheck="false" required>
+      </label>
+      <label class="audit-limit" for="audit-limit">
+        Post limit
+        <input id="audit-limit" type="number" name="limit" min="1" max="50" step="1" value="20" required>
+      </label>
+      <button class="audit-submit" type="submit">Check archive</button>
+    </form>
+    <p class="audit-example"><a href="?blyg=https%3A%2F%2Ffishbiscuit.me%2Fblyggdrasil%2Fdemo%2Fedit-and-pin%2Fblyg%2F">Try the edit-and-pin demo archive</a></p>
+
+    <p id="audit-status" class="audit-status" role="status"></p>
+    <section id="audit-results" aria-labelledby="audit-results-title" hidden>
+      <div class="audit-result-header">
+        <h2 id="audit-results-title">Proof results</h2>
+        <label class="audit-filter"><input id="audit-issues" type="checkbox"> Only show issues</label>
+      </div>
+      <p id="audit-empty-filter" class="audit-status" hidden>No issues in this check.</p>
+      <ol class="audit-results" id="audit-result-list"></ol>
+      <a id="audit-index" hidden>Open the public archive index</a>
+    </section>
+    <template id="audit-row">
+      <li class="audit-row">
+        <div class="audit-row-heading">
+          <h3 class="audit-post"></h3>
+          <span class="audit-verdict"></span>
+        </div>
+        <p class="audit-checks"></p>
+        <p class="audit-error" hidden></p>
+        <div class="audit-links">
+          <a class="audit-proof-link">View proof</a>
+          <a class="audit-post-link" hidden>Read post</a>
+        </div>
+      </li>
+    </template>
+    <noscript>Enable JavaScript to audit a public archive.</noscript>
+  </main>
+  <script type="module" src="../assets/audit.js"></script>
+</body>
+</html>
