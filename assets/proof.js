@@ -12,6 +12,7 @@ const post = $("post-url");
 const version = $("post-version");
 const expectedKey = $("expected-key");
 const copyButton = $("copy-proof-link");
+const retryButton = $("retry-proof");
 const state = $("proof-status");
 const result = $("proof-result");
 const get = makeFetcher((url, options) => fetch(url, { ...options, signal: AbortSignal.timeout(12_000) }));
@@ -26,9 +27,26 @@ const summary = {
   unsigned: ["Unsigned post", "This post has no signature to check."],
   unavailable: ["Verification unavailable", "Some evidence could not be checked. Review the individual results below."],
 };
+const recovery = {
+  "invalid-input": "Check the post address, edition number and any trusted key you entered.",
+  "post-not-found": "Check the post address or copy a new link from the publisher.",
+  "pin-not-found": "Ask the publisher for a pinned copy of this edition. The latest post may contain different text.",
+  "publisher-unavailable": "Check your connection, then retry. The publisher may be temporarily unavailable.",
+  "malformed-post": "Ask the publisher for its canonical post address and version.",
+  withdrawn: "If the publisher pinned an earlier edition, use that edition’s link.",
+  unsigned: "Ask the publisher for a signed copy if you need to verify who signed it.",
+  "content-mismatch": "Use the exact item data from the publisher before quoting this edition.",
+  "signature-invalid": "Check the source post on the blyg or ask the publisher for a signed copy.",
+  "signer-unauthorized": "Check which key the publisher’s signed tree authorizes.",
+  "trusted-key-mismatch": "Confirm the publisher’s public key using a source you already trust.",
+  "signing-tree-unavailable": "The signing tree or its history could not be checked. Retry or ask the publisher for its public proof.",
+  "cryptography-unavailable": "Open the proof in a browser that supports Ed25519 verification.",
+};
+const retryable = new Set(["publisher-unavailable", "signing-tree-unavailable"]);
 
 let request = 0;
 let share = "";
+let retryCheck = null;
 
 function verificationUrl({ post: address, version: number, key }) {
   const url = new URL("./", location.href);
@@ -75,6 +93,9 @@ function showResult(report, address, key, example, edition) {
   const foundVersion = Number.isSafeInteger(report.version) && report.version > 0;
   $("proof-heading").textContent = title;
   $("proof-summary").textContent = report.error || description;
+  const guidance = $("proof-recovery");
+  guidance.textContent = Object.hasOwn(recovery, report.reason) ? recovery[report.reason] : "";
+  guidance.hidden = !guidance.textContent;
   $("proof-version").textContent = foundVersion ? `Version ${report.version}${report.pinned ? " · pinned" : ""}` : "";
   $("proof-version").hidden = !foundVersion;
 
@@ -129,10 +150,14 @@ function showResult(report, address, key, example, edition) {
   state.classList.add("visually-hidden");
 }
 
-async function check({ post: address, version: number, key, example: name, edition }, focus = false) {
+async function check(input, focus = false) {
+  const { post: address, version: number, key, example: name, edition } = input;
   const id = ++request;
+  const retryHadFocus = document.activeElement === retryButton;
   share = "";
+  retryCheck = null;
   copyButton.hidden = true;
+  retryButton.hidden = true;
   $("copy-proof-status").textContent = "";
   $("copy-link-fallback").hidden = true;
   result.hidden = true;
@@ -154,12 +179,17 @@ async function check({ post: address, version: number, key, example: name, editi
       report = await verifyPost(address, get, { version: number, expectedKey: key || undefined, edition });
     }
   } catch {
-    report = { status: "unavailable", error: "The post could not be checked in this browser." };
+    report = { status: "unavailable", reason: "publisher-unavailable", error: "The post could not be checked in this browser." };
   }
   if (id !== request) return;
   if (edition && !post.value && report.itemUrl) post.value = report.itemUrl;
   showResult(report, address, key, example, edition);
-  if (focus && form.contains(document.activeElement)) $("proof-heading").focus();
+  if (retryable.has(report.reason)) {
+    retryCheck = input;
+    retryButton.hidden = false;
+  }
+  if ((focus && form.contains(document.activeElement)) ||
+      (retryHadFocus && document.activeElement === document.body)) $("proof-heading").focus();
 }
 
 function fromLocation() {
@@ -197,6 +227,9 @@ form.addEventListener("submit", (event) => {
 
 post.addEventListener("input", () => post.setCustomValidity(""));
 window.addEventListener("popstate", fromLocation);
+retryButton.addEventListener("click", () => {
+  if (retryCheck) void check(retryCheck);
+});
 copyButton.addEventListener("click", async () => {
   if (!share) return;
   const link = share;
